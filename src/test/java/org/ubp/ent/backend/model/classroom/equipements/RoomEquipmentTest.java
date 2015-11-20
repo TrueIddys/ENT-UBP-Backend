@@ -1,13 +1,12 @@
 package org.ubp.ent.backend.model.classroom.equipements;
 
 import org.junit.Test;
-import org.ubp.ent.backend.model.classroom.RoomCapacity;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import static org.assertj.core.api.StrictAssertions.assertThat;
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 /**
  * Created by Anthony on 20/11/2015.

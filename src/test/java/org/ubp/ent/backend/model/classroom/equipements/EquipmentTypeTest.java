@@ -3,7 +3,7 @@ package org.ubp.ent.backend.model.classroom.equipements;
 import org.junit.Test;
 
 import static org.assertj.core.api.StrictAssertions.assertThat;
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 /**
  * Created by Anthony on 20/11/2015.

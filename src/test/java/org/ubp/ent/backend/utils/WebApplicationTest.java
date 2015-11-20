@@ -15,7 +15,6 @@ import org.ubp.ent.backend.EntUbpBackendApplication;
 import org.ubp.ent.backend.config.CustomSpringProfiles;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 
 /**
  * Starts the web-context, container is started, but URL aren't deployed.

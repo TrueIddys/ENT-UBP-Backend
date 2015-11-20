@@ -9,7 +9,7 @@ import org.ubp.ent.backend.EntUbpBackendApplication;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = EntUbpBackendApplication.class)
 @WebAppConfiguration
-public class WebApplicationTest {
+public abstract class WebApplicationTest {
 
 
 }

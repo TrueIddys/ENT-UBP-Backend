@@ -8,16 +8,16 @@ import static org.junit.Assert.*;
 /**
  * Created by Anthony on 20/11/2015.
  */
-public class EquipmentTypeTest {
+public class QuantityTest {
 
-    public static EquipmentType createValidEquipmentType() {
-        return new EquipmentType("Computer");
+    public static Quantity createValidQuantity() {
+        return new Quantity(10);
     }
 
     @Test
-    public void shouldNotInstantiateWithEmptyName() {
+    public void shouldNotInstantiateWithANullQuantity() {
         try {
-            new EquipmentType(null);
+            new Quantity(null);
             fail();
         } catch (IllegalArgumentException e) {
             assertThat(e.getMessage()).isNotEmpty();
@@ -25,9 +25,19 @@ public class EquipmentTypeTest {
     }
 
     @Test
-    public void shouldNotInstantiateWithNullName() {
+    public void shouldNotInstantiateWithAZeroQuantity() {
         try {
-            new EquipmentType(" ");
+            new Quantity(0);
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertThat(e.getMessage()).isNotEmpty();
+        }
+    }
+
+    @Test
+    public void shouldNotInstantiateWithANegativeQuantity() {
+        try {
+            new Quantity(-2);
             fail();
         } catch (IllegalArgumentException e) {
             assertThat(e.getMessage()).isNotEmpty();

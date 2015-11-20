@@ -1,5 +1,6 @@
 package org.ubp.ent.backend.model.classroom.equipements;
 
+import com.google.common.base.Objects;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -7,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class EquipmentType {
 
-    private String name;
+    private final String name;
 
     public EquipmentType(String name) {
         if (StringUtils.isBlank(name)) {
@@ -16,8 +17,16 @@ public class EquipmentType {
         this.name = name;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EquipmentType that = (EquipmentType) o;
+        return Objects.equal(name, that.name);
+    }
 
-    public String getName() {
-        return name;
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(name);
     }
 }

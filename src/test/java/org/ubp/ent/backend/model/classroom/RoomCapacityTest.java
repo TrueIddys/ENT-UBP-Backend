@@ -9,12 +9,16 @@ import static org.junit.Assert.fail;
 /**
  * Created by Anthony on 20/11/2015.
  */
-public class CapacityTest {
+public class RoomCapacityTest {
+
+    public static RoomCapacity createValidRoomCapacity() {
+        return new RoomCapacity(12);
+    }
 
     @Test
     public void shouldNotInstantiateWithZeroCapacity() {
         try {
-            new Capacity(0);
+            new RoomCapacity(0);
             fail();
         } catch (IllegalArgumentException e) {
             assertThat(e.getMessage()).isNotEmpty();
@@ -24,17 +28,10 @@ public class CapacityTest {
     @Test
     public void shouldNotInstantiateWithNegativeCapacity() {
         try {
-            new Capacity(-10);
+            new RoomCapacity(-10);
             fail();
         } catch (IllegalArgumentException e) {
             assertThat(e.getMessage()).isNotEmpty();
         }
     }
-
-    @Test
-    public void shouldInstantiateAndDefineAttributes() {
-        Capacity capacity = new Capacity(12);
-        assertThat(capacity.getMaxCapacity()).isEqualTo(12);
-    }
-
 }

@@ -1,6 +1,8 @@
 package org.ubp.ent.backend.model.classroom;
 
 import org.junit.Test;
+import org.ubp.ent.backend.model.classroom.equipements.RoomEquipment;
+import org.ubp.ent.backend.model.classroom.equipements.RoomEquipmentTest;
 
 import static org.assertj.core.api.StrictAssertions.assertThat;
 import static org.junit.Assert.*;
@@ -10,12 +12,16 @@ import static org.junit.Assert.*;
  */
 public class ClassroomTest {
 
-    private String createValidName() {
+    public static Classroom createValidClassroom() {
+        return new Classroom(createValidName(), createValidCapacity());
+    }
+
+    private static String createValidName() {
         return "Default name";
     }
 
-    private Capacity createValidCapacity() {
-        return new Capacity(12);
+    private static RoomCapacity createValidCapacity() {
+        return RoomCapacityTest.createValidRoomCapacity();
     }
 
     @Test
@@ -50,12 +56,25 @@ public class ClassroomTest {
     }
 
     @Test
-    public void shouldInstantiateAndDefineAttributes() {
-        String name = createValidName();
-        Capacity capacity = createValidCapacity();
-
-        Classroom classroom = new Classroom(name, capacity);
-        assertThat(classroom.getName()).isEqualTo(name);
-        assertThat(classroom.getCapacity()).isEqualTo(capacity);
+    public void shouldFailWhenAddingANullEquipment() {
+        Classroom classroom = createValidClassroom();
+        try {
+            classroom.addEquipment(null);
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertThat(e.getMessage()).isNotEmpty();
+        }
     }
+
+    @Test
+    public void shouldAddEquipmentToSet() {
+        RoomEquipment equipment = RoomEquipmentTest.createValidRoomEquipment();
+
+        Classroom classroom = createValidClassroom();
+        int equipmentSize = classroom.getEquipments().size();
+        classroom.addEquipment(equipment);
+
+        assertThat(classroom.getEquipments().size()).isEqualTo(equipmentSize + 1);
+    }
+
 }

@@ -1,4 +1,4 @@
-package org.ubp.ent.backend.model.classroom.equipements;
+package org.ubp.ent.backend.model.classroom.equipement;
 
 import com.google.common.base.Objects;
 import org.apache.commons.lang3.StringUtils;
@@ -15,6 +15,10 @@ public class EquipmentType {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a name.");
         }
         this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override

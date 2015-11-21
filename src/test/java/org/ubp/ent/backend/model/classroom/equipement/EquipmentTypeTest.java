@@ -1,4 +1,4 @@
-package org.ubp.ent.backend.model.classroom.equipements;
+package org.ubp.ent.backend.model.classroom.equipement;
 
 import org.junit.Test;
 
@@ -12,6 +12,9 @@ public class EquipmentTypeTest {
 
     public static EquipmentType createValidEquipmentType() {
         return new EquipmentType("Computer");
+    }
+    public static EquipmentType createValidEquipmentType(String name) {
+        return new EquipmentType(name);
     }
 
     @Test

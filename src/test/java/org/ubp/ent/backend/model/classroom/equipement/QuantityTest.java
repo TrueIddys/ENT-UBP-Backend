@@ -1,4 +1,4 @@
-package org.ubp.ent.backend.model.classroom.equipements;
+package org.ubp.ent.backend.model.classroom.equipement;
 
 import org.junit.Test;
 

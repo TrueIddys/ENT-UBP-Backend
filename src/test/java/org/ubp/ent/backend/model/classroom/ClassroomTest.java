@@ -5,7 +5,7 @@ import org.ubp.ent.backend.model.classroom.equipements.RoomEquipment;
 import org.ubp.ent.backend.model.classroom.equipements.RoomEquipmentTest;
 
 import static org.assertj.core.api.StrictAssertions.assertThat;
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 /**
  * Created by Anthony on 20/11/2015.

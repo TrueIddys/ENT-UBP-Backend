@@ -8,6 +8,7 @@ import org.ubp.ent.backend.model.classroom.equipement.EquipmentType;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -25,6 +26,9 @@ public class EquipmentTypeManagerJpa implements EquipmentTypeManager {
 
     @Override
     public EquipmentType create(EquipmentType equipmentType) {
+        if (Objects.isNull(equipmentType)) {
+            throw new IllegalArgumentException("Cannot persists a null " + EquipmentType.class.getName());
+        }
         EquipmentTypeDomain domain = new EquipmentTypeDomain(equipmentType);
 
         entityManager.persist(domain);
@@ -39,6 +43,5 @@ public class EquipmentTypeManagerJpa implements EquipmentTypeManager {
 
         return domains.stream().map(EquipmentTypeDomain::toModel).collect(Collectors.toList());
     }
-
 
 }

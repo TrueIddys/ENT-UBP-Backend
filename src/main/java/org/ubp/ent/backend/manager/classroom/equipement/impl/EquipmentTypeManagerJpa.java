@@ -33,7 +33,6 @@ public class EquipmentTypeManagerJpa implements EquipmentTypeManager {
         return domain.toModel();
     }
 
-    //TODO : add a cache here with eviction on delete / update / create.
     @Override
     public List<EquipmentType> findAll() {
         List<EquipmentTypeDomain> domains = entityManager.createQuery("FROM " + getEquipmentTypeClassName(), EquipmentTypeDomain.class).getResultList();

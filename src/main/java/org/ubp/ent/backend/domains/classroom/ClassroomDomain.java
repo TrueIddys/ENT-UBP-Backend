@@ -1,6 +1,5 @@
 package org.ubp.ent.backend.domains.classroom;
 
-import com.google.common.base.Objects;
 import org.ubp.ent.backend.domains.ModelTransformable;
 import org.ubp.ent.backend.domains.classroom.equipement.RoomEquipmentDomain;
 import org.ubp.ent.backend.model.classroom.Classroom;

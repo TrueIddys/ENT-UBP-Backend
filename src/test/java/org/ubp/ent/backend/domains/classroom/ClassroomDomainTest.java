@@ -3,7 +3,6 @@ package org.ubp.ent.backend.domains.classroom;
 
 import org.junit.Test;
 import org.ubp.ent.backend.domains.classroom.equipement.RoomEquipmentDomain;
-import org.ubp.ent.backend.domains.classroom.equipement.RoomEquipmentDomainTest;
 import org.ubp.ent.backend.model.classroom.Classroom;
 import org.ubp.ent.backend.model.classroom.ClassroomTest;
 import org.ubp.ent.backend.model.classroom.equipement.RoomEquipmentTest;

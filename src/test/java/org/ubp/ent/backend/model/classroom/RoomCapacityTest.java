@@ -11,7 +11,7 @@ import static org.junit.Assert.fail;
  */
 public class RoomCapacityTest {
 
-    public static RoomCapacity createValidRoomCapacity() {
+    public static RoomCapacity createOne() {
         return new RoomCapacity(12);
     }
 

@@ -1,6 +1,5 @@
 package org.ubp.ent.backend.manager.classroom.equipement;
 
-import org.springframework.stereotype.Service;
 import org.ubp.ent.backend.model.classroom.equipement.EquipmentType;
 
 import java.util.List;

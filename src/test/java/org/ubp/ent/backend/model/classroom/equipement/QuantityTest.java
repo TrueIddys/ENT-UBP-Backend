@@ -10,7 +10,7 @@ import static org.junit.Assert.fail;
  */
 public class QuantityTest {
 
-    public static Quantity createValidQuantity() {
+    public static Quantity createOne() {
         return new Quantity(10);
     }
 

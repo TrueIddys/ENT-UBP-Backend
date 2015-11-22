@@ -1,7 +1,7 @@
 package org.ubp.ent.backend.model.classroom;
 
 import org.apache.commons.lang3.StringUtils;
-import org.ubp.ent.backend.model.classroom.equipements.RoomEquipment;
+import org.ubp.ent.backend.model.classroom.equipement.RoomEquipment;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -13,9 +13,10 @@ import java.util.Set;
  */
 public class Classroom {
 
+    private Long id;
     private final String name;
     private final RoomCapacity roomCapacity;
-    private final Set<RoomEquipment> equipments;
+    private final Set<RoomEquipment> equipments = new HashSet<>();
 
     public Classroom(String name, RoomCapacity roomCapacity) {
         if (StringUtils.isBlank(name)) {
@@ -24,10 +25,24 @@ public class Classroom {
         if (Objects.isNull(roomCapacity)) {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a " + RoomCapacity.class.getName());
         }
-
         this.name = name;
         this.roomCapacity = roomCapacity;
-        equipments = new HashSet<>();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public RoomCapacity getRoomCapacity() {
+        return roomCapacity;
     }
 
     public Set<RoomEquipment> getEquipments() {

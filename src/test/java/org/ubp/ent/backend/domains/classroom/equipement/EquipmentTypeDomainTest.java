@@ -1,4 +1,4 @@
-package org.ubp.ent.backend.domains.equipements;
+package org.ubp.ent.backend.domains.classroom.equipement;
 
 import org.junit.Test;
 import org.ubp.ent.backend.model.classroom.equipement.EquipmentType;
@@ -12,6 +12,13 @@ import static org.junit.Assert.fail;
  */
 public class EquipmentTypeDomainTest {
 
+    public static EquipmentTypeDomain createOne(String equipmentName) {
+        return new EquipmentTypeDomain(EquipmentTypeTest.createOne(equipmentName));
+    }
+    public static EquipmentTypeDomain createOne() {
+        return createOne("Default equipment type name.");
+    }
+
     @Test
     public void shouldNotInstantiateWithNullEquipmentType() {
         try {
@@ -24,18 +31,21 @@ public class EquipmentTypeDomainTest {
 
     @Test
     public void shouldCreateFromModel() {
-        EquipmentType equipmentType = EquipmentTypeTest.createValidEquipmentType("equipment name");
+        EquipmentType equipmentType = EquipmentTypeTest.createOne("equipment name");
+        equipmentType.setId(12L);
         EquipmentTypeDomain domain = new EquipmentTypeDomain(equipmentType);
 
+        assertThat(domain.getId()).isEqualTo(equipmentType.getId());
         assertThat(domain.getName()).isEqualTo(equipmentType.getName());
     }
 
     @Test
     public void shouldTransformToModel() {
-        EquipmentType equipmentType = EquipmentTypeTest.createValidEquipmentType("equipment name");
+        EquipmentType equipmentType = EquipmentTypeTest.createOne("equipment name");
+        equipmentType.setId(12L);
         EquipmentTypeDomain domain = new EquipmentTypeDomain(equipmentType);
+        domain.setId(12L);
 
         assertThat(domain.toModel()).isEqualTo(equipmentType);
     }
-
 }

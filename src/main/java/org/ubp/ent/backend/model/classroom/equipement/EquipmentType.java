@@ -8,6 +8,8 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class EquipmentType {
 
+    private Long id;
+
     private final String name;
 
     public EquipmentType(String name) {
@@ -15,6 +17,14 @@ public class EquipmentType {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a name.");
         }
         this.name = name;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -26,7 +36,7 @@ public class EquipmentType {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EquipmentType that = (EquipmentType) o;
-        return Objects.equal(name, that.name);
+        return Objects.equal(id, that.id) && Objects.equal(name, that.name);
     }
 
     @Override

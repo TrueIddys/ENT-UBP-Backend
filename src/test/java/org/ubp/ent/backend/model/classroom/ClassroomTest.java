@@ -1,8 +1,8 @@
 package org.ubp.ent.backend.model.classroom;
 
 import org.junit.Test;
-import org.ubp.ent.backend.model.classroom.equipements.RoomEquipment;
-import org.ubp.ent.backend.model.classroom.equipements.RoomEquipmentTest;
+import org.ubp.ent.backend.model.classroom.equipement.RoomEquipment;
+import org.ubp.ent.backend.model.classroom.equipement.RoomEquipmentTest;
 
 import static org.assertj.core.api.StrictAssertions.assertThat;
 import static org.junit.Assert.fail;
@@ -12,8 +12,11 @@ import static org.junit.Assert.fail;
  */
 public class ClassroomTest {
 
-    public static Classroom createValidClassroom() {
-        return new Classroom(createValidName(), createValidCapacity());
+    public static Classroom createOne(String name) {
+        return new Classroom(name, createValidCapacity());
+    }
+    public static Classroom createOne() {
+        return createOne(createValidName());
     }
 
     private static String createValidName() {
@@ -21,7 +24,7 @@ public class ClassroomTest {
     }
 
     private static RoomCapacity createValidCapacity() {
-        return RoomCapacityTest.createValidRoomCapacity();
+        return RoomCapacityTest.createOne();
     }
 
     @Test
@@ -57,7 +60,7 @@ public class ClassroomTest {
 
     @Test
     public void shouldFailWhenAddingANullEquipment() {
-        Classroom classroom = createValidClassroom();
+        Classroom classroom = createOne();
         try {
             classroom.addEquipment(null);
             fail();
@@ -68,9 +71,9 @@ public class ClassroomTest {
 
     @Test
     public void shouldAddEquipmentToSet() {
-        RoomEquipment equipment = RoomEquipmentTest.createValidRoomEquipment();
+        RoomEquipment equipment = RoomEquipmentTest.createOne();
 
-        Classroom classroom = createValidClassroom();
+        Classroom classroom = createOne();
         int equipmentSize = classroom.getEquipments().size();
         classroom.addEquipment(equipment);
 

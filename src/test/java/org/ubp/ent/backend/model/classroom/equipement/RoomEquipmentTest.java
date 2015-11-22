@@ -13,17 +13,18 @@ import static org.junit.Assert.fail;
  */
 public class RoomEquipmentTest {
 
-    public static RoomEquipment createValidRoomEquipment() {
-        return new RoomEquipment(createValidEquipmentType(), createValidQuantity());
+    public static RoomEquipment createOne(String equipmentName) {
+        return new RoomEquipment(EquipmentTypeTest.createOne(equipmentName), createValidQuantity());
+    }
+
+    public static RoomEquipment createOne() {
+        return createOne("Default equipment name");
     }
 
     private static Quantity createValidQuantity() {
-        return QuantityTest.createValidQuantity();
+        return QuantityTest.createOne();
     }
 
-    private static EquipmentType createValidEquipmentType() {
-        return EquipmentTypeTest.createValidEquipmentType();
-    }
 
     @Test
     public void shouldNotInstantiateWithoutEquipmentType() {
@@ -38,7 +39,7 @@ public class RoomEquipmentTest {
     @Test
     public void shouldNotInstantiateWithoutCapacity() {
         try {
-            new RoomEquipment(createValidEquipmentType(), null);
+            new RoomEquipment(EquipmentTypeTest.createOne(), null);
             fail();
         } catch (IllegalArgumentException e) {
             assertThat(e.getMessage()).isNotEmpty();
@@ -46,9 +47,9 @@ public class RoomEquipmentTest {
     }
 
     @Test
-    public void shouldConsiderTwoRoomEquipmentAsEqualsIfTheyHaveTheSameEquipmentType() {
-        RoomEquipment equipment1 = createValidRoomEquipment();
-        RoomEquipment equipment2 = createValidRoomEquipment();
+    public void shouldConsiderTwoRoomEquipmentEqualsIfTheyHaveTheSameEquipmentType() {
+        RoomEquipment equipment1 = createOne();
+        RoomEquipment equipment2 = createOne();
 
         assertThat(equipment1).isEqualTo(equipment2);
 

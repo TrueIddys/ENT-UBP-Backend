@@ -1,14 +1,12 @@
 package org.ubp.ent.backend.manager.classroom.equipement.impl;
 
 import org.springframework.stereotype.Service;
-import org.ubp.ent.backend.domains.equipements.EquipmentTypeDomain;
+import org.ubp.ent.backend.domains.classroom.equipement.EquipmentTypeDomain;
 import org.ubp.ent.backend.manager.classroom.equipement.EquipmentTypeManager;
 import org.ubp.ent.backend.model.classroom.equipement.EquipmentType;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaQuery;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -1,5 +1,6 @@
 package org.ubp.ent.backend.manager.classroom.equipement.impl;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Test;
 import org.ubp.ent.backend.manager.classroom.equipement.EquipmentTypeManager;
 import org.ubp.ent.backend.model.classroom.equipement.EquipmentType;
@@ -7,7 +8,7 @@ import org.ubp.ent.backend.model.classroom.equipement.EquipmentTypeTest;
 import org.ubp.ent.backend.utils.WebApplicationTest;
 
 import javax.inject.Inject;
-import javax.persistence.EntityExistsException;
+import javax.persistence.PersistenceException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
@@ -18,16 +19,16 @@ import static org.junit.Assert.fail;
 public class EquipmentTypeManagerJpaTest extends WebApplicationTest {
 
     @Inject
-    EquipmentTypeManager manager;
+    private EquipmentTypeManager manager;
 
     @Test
     public void shouldCreate() {
-        EquipmentType equipmentType = EquipmentTypeTest.createValidEquipmentType("Computer");
+        EquipmentType equipmentType = EquipmentTypeTest.createOne("Computer");
         manager.create(equipmentType);
 
         assertThat(manager.findAll()).hasSize(1);
 
-        EquipmentType equipmentType2 = EquipmentTypeTest.createValidEquipmentType("Another type");
+        EquipmentType equipmentType2 = EquipmentTypeTest.createOne("Another type");
         manager.create(equipmentType2);
 
         assertThat(manager.findAll()).hasSize(2);
@@ -36,14 +37,14 @@ public class EquipmentTypeManagerJpaTest extends WebApplicationTest {
     @Test
     public void shouldFailCreateTwoTypesWithTheSameName() {
         try {
-            EquipmentType equipmentType = EquipmentTypeTest.createValidEquipmentType();
+            EquipmentType equipmentType = EquipmentTypeTest.createOne();
             manager.create(equipmentType);
 
-            EquipmentType equipmentType2 = EquipmentTypeTest.createValidEquipmentType();
+            EquipmentType equipmentType2 = EquipmentTypeTest.createOne();
             manager.create(equipmentType2);
             fail();
-        } catch (EntityExistsException e) {
-            assertThat(e.getMessage()).isNotEmpty();
+        } catch (PersistenceException e) {
+            assertThat(e.getCause()).isOfAnyClassIn(ConstraintViolationException.class);
         }
     }
 

@@ -12,7 +12,7 @@ import java.util.Objects;
  * Created by Anthony on 22/11/2015.
  */
 @Entity
-@Table(name = "ROOM_EQUIPMENT_ASSOCIATION")
+@Table(name = "room_equipment_association")
 @AssociationOverrides({
         @AssociationOverride(name = "primaryKey.classroom", joinColumns = @JoinColumn(name = "CLASSROOM_ID")),
         @AssociationOverride(name = "primaryKey.equipmentType", joinColumns = @JoinColumn(name = "EQUIPMENT_TYPE_ID"))

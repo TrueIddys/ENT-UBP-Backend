@@ -14,6 +14,7 @@ import java.util.Set;
  * Created by Anthony on 21/11/2015.
  */
 @Entity
+@Table(name = "classroom")
 public class ClassroomDomain implements ModelTransformable<Classroom, Long> {
 
     @Id

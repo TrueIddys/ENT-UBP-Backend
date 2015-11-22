@@ -3,16 +3,14 @@ package org.ubp.ent.backend.domains.classroom.equipement;
 import org.ubp.ent.backend.domains.ModelTransformable;
 import org.ubp.ent.backend.model.classroom.equipement.EquipmentType;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 /**
  * Created by Anthony on 21/11/2015.
  */
 @Entity
+@Table(name = "equipment_type")
 public class EquipmentTypeDomain implements ModelTransformable<EquipmentType, Long> {
 
     @Id

@@ -21,7 +21,7 @@ public class RoomEquipmentDomainId implements Serializable {
     @ManyToOne
     private EquipmentTypeDomain equipmentType;
 
-    
+
     public RoomEquipmentDomainId() {
     }
 

@@ -34,6 +34,7 @@ public class EquipmentTypeManager {
         EquipmentTypeDomain domain = new EquipmentTypeDomain(equipmentType);
 
         domain = repository.saveAndFlush(domain);
+        equipmentType.setId(domain.getId());
 
         return domain.toModel();
     }

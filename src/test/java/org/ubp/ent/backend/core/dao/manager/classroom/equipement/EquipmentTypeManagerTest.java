@@ -22,25 +22,34 @@ public class EquipmentTypeManagerTest extends WebApplicationTest {
 
     @Test
     public void shouldCreate() {
-        EquipmentType equipmentType = EquipmentTypeTest.createOne("Computer");
-        manager.create(equipmentType);
+        EquipmentType model = EquipmentTypeTest.createOne("Computer");
+        manager.create(model);
 
         assertThat(manager.findAll()).hasSize(1);
 
-        EquipmentType equipmentType2 = EquipmentTypeTest.createOne("Another type");
-        manager.create(equipmentType2);
+        EquipmentType model2 = EquipmentTypeTest.createOne("Another type");
+        manager.create(model2);
 
         assertThat(manager.findAll()).hasSize(2);
     }
 
     @Test
+    public void shouldSetIdOnReference() {
+        EquipmentType model = EquipmentTypeTest.createOne("Computer");
+
+        manager.create(model);
+
+        assertThat(model.getId()).isNotNull();
+    }
+
+    @Test
     public void shouldFailCreateTwoTypesWithTheSameName() {
         try {
-            EquipmentType equipmentType = EquipmentTypeTest.createOne();
-            manager.create(equipmentType);
+            EquipmentType model = EquipmentTypeTest.createOne();
+            manager.create(model);
 
-            EquipmentType equipmentType2 = EquipmentTypeTest.createOne();
-            manager.create(equipmentType2);
+            EquipmentType model2 = EquipmentTypeTest.createOne();
+            manager.create(model2);
             fail();
         } catch (DataIntegrityViolationException e) {
             assertThat(e.getCause()).isOfAnyClassIn(ConstraintViolationException.class);

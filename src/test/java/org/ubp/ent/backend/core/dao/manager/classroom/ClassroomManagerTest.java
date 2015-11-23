@@ -43,6 +43,15 @@ public class ClassroomManagerTest extends WebApplicationTest {
     }
 
     @Test
+    public void shouldSetIdOnReference() {
+        Classroom model = ClassroomTest.createOne("SL5");
+
+        classroomManager.create(model);
+
+        assertThat(model.getId()).isNotNull();
+    }
+
+    @Test
     public void shouldFailCreateTwoClassroomWithTheSameName() {
         try {
             Classroom model = ClassroomTest.createOne();
@@ -82,7 +91,72 @@ public class ClassroomManagerTest extends WebApplicationTest {
 
     @Test
     public void shouldAddEquipmentToClassroom() {
-        fail();
+        EquipmentType equipmentType = EquipmentTypeTest.createOne("Computer");
+        equipmentType = equipmentTypeManager.create(equipmentType);
+
+        Classroom model = ClassroomTest.createOne("SCI_3006");
+        model = classroomManager.create(model);
+
+        classroomManager.addEquipment(model, new RoomEquipment(equipmentType, new Quantity(12)));
+
+        assertThat(equipmentTypeManager.findAll()).hasSize(1);
+        assertThat(classroomManager.findAll().get(0).getEquipments()).hasSize(1);
+        assertThat(classroomManager.findAll().get(0).getEquipments().iterator().next().getEquipmentType().getName()).isEqualTo("Computer");
+    }
+
+    @Test
+    public void shouldNotAddEquipmentToClassroomIfClassroomDoesNotHaveAnId() {
+        EquipmentType equipmentType = EquipmentTypeTest.createOne("Computer");
+        equipmentType = equipmentTypeManager.create(equipmentType);
+
+        Classroom model = ClassroomTest.createOne("SCI_3006");
+
+        try {
+            classroomManager.addEquipment(model, new RoomEquipment(equipmentType, new Quantity(12)));
+        }catch (IllegalArgumentException e) {
+            assertThat(e.getMessage()).isNotEmpty();
+        }
+    }
+
+    @Test
+    public void shouldNotAddEquipmentToClassroomIfEquipmentTypeDoesNotHaveAnId() {
+        EquipmentType equipmentType = EquipmentTypeTest.createOne("Computer");
+
+        Classroom model = ClassroomTest.createOne("SCI_3006");
+        model = classroomManager.create(model);
+
+        try {
+            classroomManager.addEquipment(model, new RoomEquipment(equipmentType, new Quantity(12)));
+        }catch (IllegalArgumentException e) {
+            assertThat(e.getMessage()).isNotEmpty();
+        }
+    }
+
+    @Test
+    public void shouldFindOneById() {
+        Classroom model = ClassroomTest.createOne("SCI_3006");
+        model = classroomManager.create(model);
+
+        assertThat(classroomManager.findOneById(model.getId())).isEqualTo(model);
+    }
+
+    @Test
+    public void shouldFailFindOneByIdWithNull() {
+        try {
+            classroomManager.findOneById(null);
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertThat(e.getMessage()).isNotEmpty();
+        }
+    }
+    @Test
+    public void shouldFailFindByNonExistingId() {
+        try {
+            classroomManager.findOneById(205L);
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertThat(e.getMessage()).isNotEmpty();
+        }
     }
 
 

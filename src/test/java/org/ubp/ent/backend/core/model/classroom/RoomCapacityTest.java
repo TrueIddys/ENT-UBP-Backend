@@ -1,4 +1,4 @@
-package org.ubp.ent.backend.model.classroom;
+package org.ubp.ent.backend.core.model.classroom;
 
 
 import org.junit.Test;
@@ -11,7 +11,7 @@ import static org.junit.Assert.fail;
  */
 public class RoomCapacityTest {
 
-    public static RoomCapacity createValidRoomCapacity() {
+    public static RoomCapacity createOne() {
         return new RoomCapacity(12);
     }
 

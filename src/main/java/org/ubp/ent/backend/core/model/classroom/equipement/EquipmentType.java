@@ -1,4 +1,4 @@
-package org.ubp.ent.backend.model.classroom.equipements;
+package org.ubp.ent.backend.core.model.classroom.equipement;
 
 import com.google.common.base.Objects;
 import org.apache.commons.lang3.StringUtils;
@@ -8,6 +8,8 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class EquipmentType {
 
+    private Long id;
+
     private final String name;
 
     public EquipmentType(String name) {
@@ -15,6 +17,18 @@ public class EquipmentType {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a name.");
         }
         this.name = name;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override

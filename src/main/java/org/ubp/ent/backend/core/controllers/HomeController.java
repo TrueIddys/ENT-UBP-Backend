@@ -1,4 +1,4 @@
-package org.ubp.ent.backend.controllers;
+package org.ubp.ent.backend.core.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

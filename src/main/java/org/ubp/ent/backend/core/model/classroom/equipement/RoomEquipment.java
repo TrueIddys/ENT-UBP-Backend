@@ -1,4 +1,4 @@
-package org.ubp.ent.backend.model.classroom.equipements;
+package org.ubp.ent.backend.core.model.classroom.equipement;
 
 import java.util.Objects;
 
@@ -21,6 +21,14 @@ public class RoomEquipment {
         this.quantity = quantity;
     }
 
+    public EquipmentType getEquipmentType() {
+        return equipmentType;
+    }
+
+    public int getQuantity() {
+        return quantity.getQuantity();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -33,4 +41,6 @@ public class RoomEquipment {
     public int hashCode() {
         return com.google.common.base.Objects.hashCode(equipmentType);
     }
+
+    
 }

@@ -1,4 +1,4 @@
-package org.ubp.ent.backend.model.classroom.equipements;
+package org.ubp.ent.backend.core.model.classroom.equipement;
 
 import java.util.Objects;
 
@@ -19,4 +19,7 @@ public class Quantity {
         this.quantity = quantity;
     }
 
+    public Integer getQuantity() {
+        return quantity;
+    }
 }

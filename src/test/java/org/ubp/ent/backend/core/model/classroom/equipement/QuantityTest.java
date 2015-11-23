@@ -1,4 +1,4 @@
-package org.ubp.ent.backend.model.classroom.equipements;
+package org.ubp.ent.backend.core.model.classroom.equipement;
 
 import org.junit.Test;
 
@@ -10,7 +10,7 @@ import static org.junit.Assert.fail;
  */
 public class QuantityTest {
 
-    public static Quantity createValidQuantity() {
+    public static Quantity createOne() {
         return new Quantity(10);
     }
 

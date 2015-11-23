@@ -24,6 +24,9 @@ public class RoomEquipmentDomain implements ModelTransformable<RoomEquipment, Ro
 
     private int quantity;
 
+    public RoomEquipmentDomain() {
+    }
+
     public RoomEquipmentDomain(RoomEquipment roomEquipment, ClassroomDomain classroomDomain) {
         if (Objects.isNull(roomEquipment)) {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a " + RoomEquipment.class.getName());

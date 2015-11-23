@@ -16,10 +16,10 @@ public class RoomEquipmentDomainId implements Serializable {
 
     private static final long serialVersionUID = 6588595785824831533L;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private ClassroomDomain classroom;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private EquipmentTypeDomain equipmentType;
 
     

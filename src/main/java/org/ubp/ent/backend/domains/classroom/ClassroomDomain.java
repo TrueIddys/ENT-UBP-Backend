@@ -1,5 +1,6 @@
 package org.ubp.ent.backend.domains.classroom;
 
+import com.google.common.base.Objects;
 import org.ubp.ent.backend.domains.ModelTransformable;
 import org.ubp.ent.backend.domains.classroom.equipement.RoomEquipmentDomain;
 import org.ubp.ent.backend.model.classroom.Classroom;
@@ -21,12 +22,16 @@ public class ClassroomDomain implements ModelTransformable<Classroom, Long> {
     @Column(name = "CLASSROOM_ID")
     private Long id;
 
+    @Column(unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "primaryKey.classroom", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "primaryKey.classroom", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Set<RoomEquipmentDomain> equipments = new HashSet<>();
 
     private int capacity;
+
+    public ClassroomDomain() {
+    }
 
     public ClassroomDomain(Classroom classroom) {
         if (classroom == null) {
@@ -67,4 +72,16 @@ public class ClassroomDomain implements ModelTransformable<Classroom, Long> {
         return classroom;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ClassroomDomain that = (ClassroomDomain) o;
+        return Objects.equal(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(name);
+    }
 }

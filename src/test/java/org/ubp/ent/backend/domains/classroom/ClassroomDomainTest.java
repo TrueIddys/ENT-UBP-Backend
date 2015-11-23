@@ -89,4 +89,12 @@ public class ClassroomDomainTest {
         assertThat(domainToModel.getEquipments()).hasSameSizeAs(domain.getEquipments());
     }
 
+    @Test
+    public void shouldBeEqualByName() {
+        ClassroomDomain domain = ClassroomDomainTest.createOne("SL5");
+        ClassroomDomain domain2 = ClassroomDomainTest.createOne("SL5");
+
+        assertThat(domain2).isEqualTo(domain);
+    }
+
 }

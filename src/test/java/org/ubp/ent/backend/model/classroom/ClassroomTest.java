@@ -80,4 +80,12 @@ public class ClassroomTest {
         assertThat(classroom.getEquipments().size()).isEqualTo(equipmentSize + 1);
     }
 
+    @Test
+    public void shouldBeEqualByName() {
+        Classroom classroom = ClassroomTest.createOne("SL5");
+        Classroom classroom2 = ClassroomTest.createOne("SL5");
+
+        assertThat(classroom2).isEqualTo(classroom);
+    }
+
 }

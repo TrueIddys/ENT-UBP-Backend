@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.ubp.ent.backend.domains.classroom.equipement.EquipmentTypeDomain;
 import org.ubp.ent.backend.manager.classroom.equipement.EquipmentTypeManager;
 import org.ubp.ent.backend.model.classroom.equipement.EquipmentType;
+import org.ubp.ent.backend.repository.classroom.equipment.EquipmentTypeRepository;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -16,6 +17,9 @@ import java.util.stream.Collectors;
  */
 @Service
 public class EquipmentTypeManagerJpa implements EquipmentTypeManager {
+
+    @Inject
+    EquipmentTypeRepository repository;
 
     @Inject
     private EntityManager entityManager;
@@ -31,15 +35,14 @@ public class EquipmentTypeManagerJpa implements EquipmentTypeManager {
         }
         EquipmentTypeDomain domain = new EquipmentTypeDomain(equipmentType);
 
-        entityManager.persist(domain);
-        entityManager.flush();
+        domain = repository.saveAndFlush(domain);
 
         return domain.toModel();
     }
 
     @Override
     public List<EquipmentType> findAll() {
-        List<EquipmentTypeDomain> domains = entityManager.createQuery("FROM " + getEquipmentTypeClassName(), EquipmentTypeDomain.class).getResultList();
+        List<EquipmentTypeDomain> domains = repository.findAll();
 
         return domains.stream().map(EquipmentTypeDomain::toModel).collect(Collectors.toList());
     }

@@ -2,6 +2,7 @@ package org.ubp.ent.backend.manager.classroom.equipement.impl;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Test;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.ubp.ent.backend.manager.classroom.equipement.EquipmentTypeManager;
 import org.ubp.ent.backend.model.classroom.equipement.EquipmentType;
 import org.ubp.ent.backend.model.classroom.equipement.EquipmentTypeTest;
@@ -9,6 +10,8 @@ import org.ubp.ent.backend.utils.WebApplicationTest;
 
 import javax.inject.Inject;
 import javax.persistence.PersistenceException;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
@@ -43,7 +46,7 @@ public class EquipmentTypeManagerJpaTest extends WebApplicationTest {
             EquipmentType equipmentType2 = EquipmentTypeTest.createOne();
             manager.create(equipmentType2);
             fail();
-        } catch (PersistenceException e) {
+        } catch (DataIntegrityViolationException e) {
             assertThat(e.getCause()).isOfAnyClassIn(ConstraintViolationException.class);
         }
     }

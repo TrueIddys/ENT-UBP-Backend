@@ -36,7 +36,7 @@ public class EquipmentType {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EquipmentType that = (EquipmentType) o;
-        return Objects.equal(id, that.id) && Objects.equal(name, that.name);
+        return Objects.equal(name, that.name);
     }
 
     @Override

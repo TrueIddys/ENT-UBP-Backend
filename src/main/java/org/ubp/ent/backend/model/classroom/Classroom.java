@@ -56,4 +56,16 @@ public class Classroom {
         this.equipments.add(equipment);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Classroom classroom = (Classroom) o;
+        return com.google.common.base.Objects.equal(name, classroom.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return com.google.common.base.Objects.hashCode(name);
+    }
 }

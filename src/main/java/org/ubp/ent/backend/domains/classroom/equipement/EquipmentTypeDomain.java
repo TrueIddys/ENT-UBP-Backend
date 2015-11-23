@@ -21,6 +21,9 @@ public class EquipmentTypeDomain implements ModelTransformable<EquipmentType, Lo
     @Column(unique = true)
     private String name;
 
+    public EquipmentTypeDomain() {
+    }
+
     public EquipmentTypeDomain(EquipmentType equipmentType) {
         if (Objects.isNull(equipmentType)) {
             throw new IllegalArgumentException("Cannot create a " + getClass().getName() + " with a null " + EquipmentType.class.getName());
@@ -53,11 +56,11 @@ public class EquipmentTypeDomain implements ModelTransformable<EquipmentType, Lo
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EquipmentTypeDomain that = (EquipmentTypeDomain) o;
-        return com.google.common.base.Objects.equal(id, that.id);
+        return com.google.common.base.Objects.equal(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return com.google.common.base.Objects.hashCode(id);
+        return com.google.common.base.Objects.hashCode(name);
     }
 }

@@ -1,9 +1,8 @@
-package org.ubp.ent.backend.manager.classroom.impl;
+package org.ubp.ent.backend.manager.classroom;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Test;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.ubp.ent.backend.manager.classroom.ClassroomManager;
 import org.ubp.ent.backend.manager.classroom.equipement.EquipmentTypeManager;
 import org.ubp.ent.backend.model.classroom.Classroom;
 import org.ubp.ent.backend.model.classroom.ClassroomTest;
@@ -22,7 +21,7 @@ import static org.junit.Assert.fail;
 /**
  * Created by Anthony on 23/11/2015.
  */
-public class ClassroomManagerJPATest extends WebApplicationTest {
+public class ClassroomManagerTest extends WebApplicationTest {
 
     @Inject
     private ClassroomManager classroomManager;
@@ -80,5 +79,11 @@ public class ClassroomManagerJPATest extends WebApplicationTest {
 
         assertThat(modelDB.getEquipments()).hasSize(0);
     }
+
+    @Test
+    public void shouldAddEquipmentToClassroom() {
+        fail();
+    }
+
 
 }

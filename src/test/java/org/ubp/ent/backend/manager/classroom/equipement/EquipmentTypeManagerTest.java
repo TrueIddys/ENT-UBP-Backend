@@ -1,9 +1,8 @@
-package org.ubp.ent.backend.manager.classroom.equipement.impl;
+package org.ubp.ent.backend.manager.classroom.equipement;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Test;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.ubp.ent.backend.manager.classroom.equipement.EquipmentTypeManager;
 import org.ubp.ent.backend.model.classroom.equipement.EquipmentType;
 import org.ubp.ent.backend.model.classroom.equipement.EquipmentTypeTest;
 import org.ubp.ent.backend.utils.WebApplicationTest;
@@ -16,7 +15,7 @@ import static org.junit.Assert.fail;
 /**
  * Created by Anthony on 21/11/2015.
  */
-public class EquipmentTypeManagerJpaTest extends WebApplicationTest {
+public class EquipmentTypeManagerTest extends WebApplicationTest {
 
     @Inject
     private EquipmentTypeManager manager;

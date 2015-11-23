@@ -4,8 +4,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
@@ -23,29 +25,7 @@ import javax.inject.Inject;
 @SpringApplicationConfiguration(classes = {EntUbpBackendApplication.class})
 @WebAppConfiguration
 @ActiveProfiles(profiles = {CustomSpringProfiles.TEST_PROFILE})
+@DirtiesContext(classMode= DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public abstract class WebApplicationTest {
-
-    @Inject
-    private PlatformTransactionManager transactionManager;
-
-    private TransactionStatus currentTransactionStatus;
-
-    /**
-     * Isolate the test modification in a transaction.
-     * The transaction will be rolled back after the test.
-     */
-    @Before
-    public final void _setUp() {
-        TransactionDefinition def = new DefaultTransactionDefinition();
-        currentTransactionStatus = transactionManager.getTransaction(def);
-    }
-
-    /**
-     * Rollback the transaction to cancel test modifications.
-     */
-    @After
-    public final void _tearDown() {
-        transactionManager.rollback(currentTransactionStatus);
-    }
 
 }

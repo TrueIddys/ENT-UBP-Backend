@@ -3,7 +3,6 @@ package org.ubp.ent.backend.domains.classroom.equipement;
 import com.google.common.base.Objects;
 import org.ubp.ent.backend.domains.classroom.ClassroomDomain;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;

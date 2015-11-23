@@ -9,9 +9,6 @@ import org.ubp.ent.backend.model.classroom.equipement.EquipmentTypeTest;
 import org.ubp.ent.backend.utils.WebApplicationTest;
 
 import javax.inject.Inject;
-import javax.persistence.PersistenceException;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;

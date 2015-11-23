@@ -1,6 +1,5 @@
 package org.ubp.ent.backend.manager.classroom.impl;
 
-import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.stereotype.Service;
 import org.ubp.ent.backend.domains.classroom.ClassroomDomain;
 import org.ubp.ent.backend.manager.classroom.ClassroomManager;

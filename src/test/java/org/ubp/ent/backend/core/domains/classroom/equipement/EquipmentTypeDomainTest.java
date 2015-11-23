@@ -1,0 +1,51 @@
+package org.ubp.ent.backend.core.domains.classroom.equipement;
+
+import org.junit.Test;
+import org.ubp.ent.backend.core.model.classroom.equipement.EquipmentType;
+import org.ubp.ent.backend.core.model.classroom.equipement.EquipmentTypeTest;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+
+/**
+ * Created by Anthony on 21/11/2015.
+ */
+public class EquipmentTypeDomainTest {
+
+    public static EquipmentTypeDomain createOne(String equipmentName) {
+        return new EquipmentTypeDomain(EquipmentTypeTest.createOne(equipmentName));
+    }
+    public static EquipmentTypeDomain createOne() {
+        return createOne("Default equipment type name.");
+    }
+
+    @Test
+    public void shouldNotInstantiateWithNullEquipmentType() {
+        try {
+            new EquipmentTypeDomain(null);
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertThat(e.getMessage()).isNotEmpty();
+        }
+    }
+
+    @Test
+    public void shouldCreateFromModel() {
+        EquipmentType equipmentType = EquipmentTypeTest.createOne("equipment name");
+        equipmentType.setId(12L);
+        EquipmentTypeDomain domain = new EquipmentTypeDomain(equipmentType);
+
+        assertThat(domain.getId()).isEqualTo(equipmentType.getId());
+        assertThat(domain.getName()).isEqualTo(equipmentType.getName());
+    }
+
+    @Test
+    public void shouldTransformToModel() {
+        EquipmentType equipmentType = EquipmentTypeTest.createOne("equipment name");
+        equipmentType.setId(12L);
+        EquipmentTypeDomain domain = new EquipmentTypeDomain(equipmentType);
+        domain.setId(12L);
+
+        assertThat(domain.toModel()).isEqualTo(equipmentType);
+    }
+}

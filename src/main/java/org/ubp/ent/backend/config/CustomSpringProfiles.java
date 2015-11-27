@@ -5,4 +5,5 @@ package org.ubp.ent.backend.config;
  */
 public class CustomSpringProfiles {
     public static final String TEST_PROFILE = "test";
+    public static final String LOCAL_PROFILE = "local-embedded";
 }

@@ -1,5 +1,7 @@
 package org.ubp.ent.backend.core.model.classroom;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.StringUtils;
 import org.ubp.ent.backend.core.model.classroom.equipement.RoomEquipment;
 
@@ -18,7 +20,8 @@ public class Classroom {
     private final RoomCapacity roomCapacity;
     private final Set<RoomEquipment> equipments = new HashSet<>();
 
-    public Classroom(String name, RoomCapacity roomCapacity) {
+    @JsonCreator
+    public Classroom(@JsonProperty("name")final  String name, @JsonProperty("roomCapacity") final RoomCapacity roomCapacity) {
         if (StringUtils.isBlank(name)) {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a name.");
         }

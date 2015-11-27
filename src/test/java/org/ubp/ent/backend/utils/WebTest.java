@@ -13,5 +13,5 @@ import org.ubp.ent.backend.config.CustomSpringProfiles;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {EntUbpBackendApplication.class})
 @ActiveProfiles(profiles = {CustomSpringProfiles.TEST_PROFILE})
-class WebTest {
+abstract class WebTest {
 }

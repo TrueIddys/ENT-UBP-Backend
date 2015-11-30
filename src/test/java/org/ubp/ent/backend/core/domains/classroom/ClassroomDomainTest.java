@@ -23,9 +23,11 @@ public class ClassroomDomainTest {
         }
         return new ClassroomDomain(classroom);
     }
+
     public static ClassroomDomain createOne(int equipmentCount) {
         return createOne("Default classroom name", equipmentCount);
     }
+
     public static ClassroomDomain createOne(String name) {
         return createOne(name, 0);
     }

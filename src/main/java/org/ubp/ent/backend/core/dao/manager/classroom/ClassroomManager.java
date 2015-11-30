@@ -1,16 +1,19 @@
 package org.ubp.ent.backend.core.dao.manager.classroom;
 
 import org.springframework.stereotype.Service;
+import org.ubp.ent.backend.core.dao.manager.classroom.equipement.EquipmentTypeManager;
 import org.ubp.ent.backend.core.dao.repository.classroom.ClassroomRepository;
+import org.ubp.ent.backend.core.dao.repository.classroom.equipment.RoomEquipmentRepository;
 import org.ubp.ent.backend.core.domains.classroom.ClassroomDomain;
 import org.ubp.ent.backend.core.domains.classroom.equipement.RoomEquipmentDomain;
+import org.ubp.ent.backend.core.exceptions.ClassroomNotFoundException;
 import org.ubp.ent.backend.core.model.classroom.Classroom;
 import org.ubp.ent.backend.core.model.classroom.equipement.EquipmentType;
+import org.ubp.ent.backend.core.model.classroom.equipement.Quantity;
 import org.ubp.ent.backend.core.model.classroom.equipement.RoomEquipment;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,53 +27,69 @@ public class ClassroomManager {
     private EntityManager entityManager;
 
     @Inject
-    private ClassroomRepository repository;
+    private ClassroomRepository classroomRepository;
+
+    @Inject
+    private RoomEquipmentRepository roomEquipmentRepository;
+
+    @Inject
+    private EquipmentTypeManager equipmentTypeManager;
 
     public Classroom create(Classroom classroom) {
         if (classroom == null) {
             throw new IllegalArgumentException("Cannot persist a null " + Classroom.class.getName());
         }
+        if (classroom.getId() != null) {
+            throw new IllegalArgumentException("Cannot persist a " + Classroom.class.getName() + " which already has an ID.");
+        }
 
         ClassroomDomain domain = new ClassroomDomain(classroom);
-        domain = repository.saveAndFlush(domain);
+        domain = classroomRepository.saveAndFlush(domain);
         classroom.setId(domain.getId());
 
         return domain.toModel();
     }
 
-
     public Classroom findOneById(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("Cannot find a " + Classroom.class.getName() + " with a null id.");
         }
-        ClassroomDomain domain = repository.findOne(id);
+        ClassroomDomain domain = classroomRepository.findOne(id);
 
         if (domain == null) {
-            throw  new IllegalArgumentException("No " + Classroom.class.getName() + " found for id :" + id);
+            throw new ClassroomNotFoundException("No " + Classroom.class.getName() + " found for id :" + id);
         }
 
         return domain.toModel();
     }
 
     public List<Classroom> findAll() {
-        List<ClassroomDomain> domains = repository.findAll();
+        List<ClassroomDomain> domains = classroomRepository.findAll();
 
         return domains.stream().map(ClassroomDomain::toModel).collect(Collectors.toList());
     }
 
-    @Transactional
-    public RoomEquipment addEquipment(Classroom classroom, RoomEquipment roomEquipment) {
-        if (classroom.getId() == null) {
+    public RoomEquipment addEquipment(Long classroomId, Long equipmentTypeId, Quantity quantity) {
+        if (classroomId == null) {
             throw new IllegalArgumentException("Cannot add an equipment to a " + Classroom.class.getName() + " which has a null id.");
         }
-        if (roomEquipment.getEquipmentType() == null || roomEquipment.getEquipmentType().getId() == null) {
-            throw new IllegalArgumentException("Cannot add an equipment with an " + EquipmentType.class.getName() + " null or without id.");
+        if (equipmentTypeId == null) {
+            throw new IllegalArgumentException("Cannot add an equipment to a " + Classroom.class.getName() + " if " + EquipmentType.class.getName() + " ID is null.");
         }
-        ClassroomDomain classroomDomain = new ClassroomDomain(classroom);
-        RoomEquipmentDomain roomEquipmentDomain = new RoomEquipmentDomain(roomEquipment, classroomDomain);
+        if (quantity == null) {
+            throw new IllegalArgumentException("Cannot add a equipment to a " + Classroom.class.getName() + " with a null quantity.");
+        }
 
-        entityManager.persist(roomEquipmentDomain);
-        entityManager.flush();
+        Classroom classroom = findOneById(classroomId);
+        EquipmentType equipmentType = equipmentTypeManager.findOneById(equipmentTypeId);
+        RoomEquipment roomEquipment = new RoomEquipment(equipmentType, quantity);
+
+        RoomEquipmentDomain roomEquipmentDomain = new RoomEquipmentDomain(roomEquipment, new ClassroomDomain(classroom));
+        if (roomEquipmentRepository.exists(roomEquipmentDomain.getId())) {
+            throw new IllegalArgumentException("Cannot add a second " + RoomEquipment.class.getName() + " to the classroom, there can't be two RoomEquipment with the same EquipmentType for a Classroom.");
+        }
+
+        roomEquipmentDomain = roomEquipmentRepository.saveAndFlush(roomEquipmentDomain);
 
         return roomEquipmentDomain.toModel();
     }

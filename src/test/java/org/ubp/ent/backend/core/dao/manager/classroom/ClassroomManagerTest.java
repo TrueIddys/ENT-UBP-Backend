@@ -4,6 +4,8 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Test;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.ubp.ent.backend.core.dao.manager.classroom.equipement.EquipmentTypeManager;
+import org.ubp.ent.backend.core.exceptions.ClassroomNotFoundException;
+import org.ubp.ent.backend.core.exceptions.EquipmentTypeNotFoundException;
 import org.ubp.ent.backend.core.model.classroom.Classroom;
 import org.ubp.ent.backend.core.model.classroom.ClassroomTest;
 import org.ubp.ent.backend.core.model.classroom.equipement.EquipmentType;
@@ -28,6 +30,35 @@ public class ClassroomManagerTest extends WebApplicationTest {
 
     @Inject
     private EquipmentTypeManager equipmentTypeManager;
+
+
+    @Test
+    public void shouldFindOneById() {
+        Classroom model = ClassroomTest.createOne("SCI_3006");
+        model = classroomManager.create(model);
+
+        assertThat(classroomManager.findOneById(model.getId())).isEqualTo(model);
+    }
+
+    @Test
+    public void shouldFailFindOneByIdWithNull() {
+        try {
+            classroomManager.findOneById(null);
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertThat(e.getMessage()).isNotEmpty();
+        }
+    }
+
+    @Test
+    public void shouldFailFindByNonExistingId() {
+        try {
+            classroomManager.findOneById(205L);
+            fail();
+        } catch (ClassroomNotFoundException e) {
+            assertThat(e.getMessage()).isNotEmpty();
+        }
+    }
 
     @Test
     public void shouldCreate() {
@@ -97,7 +128,7 @@ public class ClassroomManagerTest extends WebApplicationTest {
         Classroom model = ClassroomTest.createOne("SCI_3006");
         model = classroomManager.create(model);
 
-        classroomManager.addEquipment(model, new RoomEquipment(equipmentType, new Quantity(12)));
+        classroomManager.addEquipment(model.getId(), equipmentType.getId(), new Quantity(12));
 
         assertThat(equipmentTypeManager.findAll()).hasSize(1);
         assertThat(classroomManager.findAll().get(0).getEquipments()).hasSize(1);
@@ -105,54 +136,70 @@ public class ClassroomManagerTest extends WebApplicationTest {
     }
 
     @Test
-    public void shouldNotAddEquipmentToClassroomIfClassroomDoesNotHaveAnId() {
+    public void shouldNotAddEquipmentToClassroomWithNullClassroomId() {
         EquipmentType equipmentType = EquipmentTypeTest.createOne("Computer");
         equipmentType = equipmentTypeManager.create(equipmentType);
 
-        Classroom model = ClassroomTest.createOne("SCI_3006");
-
         try {
-            classroomManager.addEquipment(model, new RoomEquipment(equipmentType, new Quantity(12)));
-        }catch (IllegalArgumentException e) {
-            assertThat(e.getMessage()).isNotEmpty();
-        }
-    }
-
-    @Test
-    public void shouldNotAddEquipmentToClassroomIfEquipmentTypeDoesNotHaveAnId() {
-        EquipmentType equipmentType = EquipmentTypeTest.createOne("Computer");
-
-        Classroom model = ClassroomTest.createOne("SCI_3006");
-        model = classroomManager.create(model);
-
-        try {
-            classroomManager.addEquipment(model, new RoomEquipment(equipmentType, new Quantity(12)));
-        }catch (IllegalArgumentException e) {
-            assertThat(e.getMessage()).isNotEmpty();
-        }
-    }
-
-    @Test
-    public void shouldFindOneById() {
-        Classroom model = ClassroomTest.createOne("SCI_3006");
-        model = classroomManager.create(model);
-
-        assertThat(classroomManager.findOneById(model.getId())).isEqualTo(model);
-    }
-
-    @Test
-    public void shouldFailFindOneByIdWithNull() {
-        try {
-            classroomManager.findOneById(null);
+            classroomManager.addEquipment(null, equipmentType.getId(), new Quantity(12));
             fail();
         } catch (IllegalArgumentException e) {
             assertThat(e.getMessage()).isNotEmpty();
         }
     }
+
     @Test
-    public void shouldFailFindByNonExistingId() {
+    public void shouldNotAddEquipmentToClassroomIfClassroomDoesNotExists() {
+        EquipmentType equipmentType = EquipmentTypeTest.createOne("Computer");
+        equipmentType = equipmentTypeManager.create(equipmentType);
+
         try {
-            classroomManager.findOneById(205L);
+            classroomManager.addEquipment(25664L, equipmentType.getId(), new Quantity(12));
+            fail();
+        } catch (ClassroomNotFoundException e) {
+            assertThat(e.getMessage()).isNotEmpty();
+        }
+    }
+
+    @Test
+    public void shouldNotAddEquipmentToClassroomIfRoomEquipmentIsNull() {
+        Classroom model = ClassroomTest.createOne("SCI_3006");
+        model = classroomManager.create(model);
+
+        try {
+            classroomManager.addEquipment(model.getId(), null, new Quantity(12));
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertThat(e.getMessage()).isNotEmpty();
+        }
+    }
+
+    @Test
+    public void shouldNotAddEquipmentToClassroomIfEquipmentTypeDoesNotExists() {
+        Classroom model = ClassroomTest.createOne("SCI_3006");
+        model = classroomManager.create(model);
+
+        EquipmentType equipmentType = EquipmentTypeTest.createOne("Computer");
+        equipmentType.setId(1235L);
+
+        try {
+            classroomManager.addEquipment(model.getId(), equipmentType.getId(), new Quantity(12));
+            fail();
+        } catch (EquipmentTypeNotFoundException e) {
+            assertThat(e.getMessage()).isNotEmpty();
+        }
+    }
+
+    @Test
+    public void shouldNotAddEquipmentIfQuantityIsNull() {
+        EquipmentType equipmentType = EquipmentTypeTest.createOne("Computer");
+        equipmentType = equipmentTypeManager.create(equipmentType);
+
+        Classroom model = ClassroomTest.createOne("SCI_3006");
+        model = classroomManager.create(model);
+
+        try {
+            classroomManager.addEquipment(model.getId(), equipmentType.getId(), null);
             fail();
         } catch (IllegalArgumentException e) {
             assertThat(e.getMessage()).isNotEmpty();

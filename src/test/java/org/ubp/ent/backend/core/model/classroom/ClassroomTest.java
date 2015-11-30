@@ -15,6 +15,7 @@ public class ClassroomTest {
     public static Classroom createOne(String name) {
         return new Classroom(name, createValidCapacity());
     }
+
     public static Classroom createOne() {
         return createOne(createValidName());
     }

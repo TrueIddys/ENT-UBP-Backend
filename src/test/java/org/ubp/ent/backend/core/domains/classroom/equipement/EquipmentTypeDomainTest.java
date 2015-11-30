@@ -15,6 +15,7 @@ public class EquipmentTypeDomainTest {
     public static EquipmentTypeDomain createOne(String equipmentName) {
         return new EquipmentTypeDomain(EquipmentTypeTest.createOne(equipmentName));
     }
+
     public static EquipmentTypeDomain createOne() {
         return createOne("Default equipment type name.");
     }

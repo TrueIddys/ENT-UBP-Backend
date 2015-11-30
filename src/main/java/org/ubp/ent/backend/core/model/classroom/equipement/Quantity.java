@@ -1,5 +1,8 @@
 package org.ubp.ent.backend.core.model.classroom.equipement;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Objects;
 
 /**
@@ -7,19 +10,20 @@ import java.util.Objects;
  */
 public class Quantity {
 
-    private final Integer quantity;
+    private final Integer maxQuantity;
 
-    public Quantity(Integer quantity) {
-        if (Objects.isNull(quantity)) {
-            throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a null quantity.");
+    @JsonCreator
+    public Quantity(@JsonProperty("maxQuantity") Integer maxQuantity) {
+        if (Objects.isNull(maxQuantity)) {
+            throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a null maxQuantity.");
         }
-        if (quantity < 1) {
-            throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a quantity lesser than 1.");
+        if (maxQuantity < 1) {
+            throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a maxQuantity lesser than 1.");
         }
-        this.quantity = quantity;
+        this.maxQuantity = maxQuantity;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public Integer getMaxQuantity() {
+        return maxQuantity;
     }
 }

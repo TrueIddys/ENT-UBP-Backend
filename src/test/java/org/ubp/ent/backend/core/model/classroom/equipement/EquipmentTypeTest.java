@@ -13,6 +13,7 @@ public class EquipmentTypeTest {
     public static EquipmentType createOne() {
         return createOne("Computer");
     }
+
     public static EquipmentType createOne(String name) {
         return new EquipmentType(name);
     }

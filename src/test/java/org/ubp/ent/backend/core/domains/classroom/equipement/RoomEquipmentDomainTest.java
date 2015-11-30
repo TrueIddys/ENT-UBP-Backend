@@ -28,7 +28,7 @@ public class RoomEquipmentDomainTest {
         try {
             RoomEquipmentDomain domain = new RoomEquipmentDomain(null, ClassroomDomainTest.createOne());
             fail();
-        }catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             assertThat(e.getMessage()).isNotEmpty();
         }
     }
@@ -38,7 +38,7 @@ public class RoomEquipmentDomainTest {
         try {
             RoomEquipmentDomain domain = new RoomEquipmentDomain(RoomEquipmentTest.createOne(), null);
             fail();
-        }catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             assertThat(e.getMessage()).isNotEmpty();
         }
     }
@@ -52,7 +52,7 @@ public class RoomEquipmentDomainTest {
 
         assertThat(domain.getClassroom()).isEqualTo(classroomDomain);
         assertThat(domain.getEquipmentType().getName()).isEqualTo(model.getEquipmentType().getName());
-        assertThat(domain.getQuantity()).isEqualTo(model.getQuantity());
+        assertThat(domain.getQuantity()).isEqualTo(model.getQuantity().getMaxQuantity());
     }
 
     @Test
@@ -63,7 +63,7 @@ public class RoomEquipmentDomainTest {
 
         RoomEquipment domainToModel = domain.toModel();
         assertThat(domainToModel.getEquipmentType().getName()).isEqualTo(model.getEquipmentType().getName());
-        assertThat(domainToModel.getQuantity()).isEqualTo(model.getQuantity());
+        assertThat(domainToModel.getQuantity().getMaxQuantity()).isEqualTo(model.getQuantity().getMaxQuantity());
     }
 
 }

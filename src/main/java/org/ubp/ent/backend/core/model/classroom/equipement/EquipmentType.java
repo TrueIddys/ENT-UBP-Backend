@@ -1,5 +1,7 @@
 package org.ubp.ent.backend.core.model.classroom.equipement;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Objects;
 import org.apache.commons.lang3.StringUtils;
 
@@ -8,11 +10,11 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class EquipmentType {
 
+    private final String name;
     private Long id;
 
-    private final String name;
-
-    public EquipmentType(String name) {
+    @JsonCreator
+    public EquipmentType(@JsonProperty("name") String name) {
         if (StringUtils.isBlank(name)) {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a name.");
         }

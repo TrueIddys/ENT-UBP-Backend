@@ -37,7 +37,7 @@ public class RoomEquipmentDomain implements ModelTransformable<RoomEquipment, Ro
 
         EquipmentTypeDomain equipmentTypeDomain = new EquipmentTypeDomain(roomEquipment.getEquipmentType());
         this.primaryKey = new RoomEquipmentDomainId(classroomDomain, equipmentTypeDomain);
-        this.quantity = roomEquipment.getQuantity();
+        this.quantity = roomEquipment.getQuantity().getMaxQuantity();
     }
 
 

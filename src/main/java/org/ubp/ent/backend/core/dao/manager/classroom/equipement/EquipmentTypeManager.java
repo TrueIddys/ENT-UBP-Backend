@@ -3,6 +3,7 @@ package org.ubp.ent.backend.core.dao.manager.classroom.equipement;
 import org.springframework.stereotype.Service;
 import org.ubp.ent.backend.core.dao.repository.classroom.equipment.EquipmentTypeRepository;
 import org.ubp.ent.backend.core.domains.classroom.equipement.EquipmentTypeDomain;
+import org.ubp.ent.backend.core.exceptions.EquipmentTypeNotFoundException;
 import org.ubp.ent.backend.core.model.classroom.equipement.EquipmentType;
 
 import javax.inject.Inject;
@@ -45,4 +46,16 @@ public class EquipmentTypeManager {
         return domains.stream().map(EquipmentTypeDomain::toModel).collect(Collectors.toList());
     }
 
+    public EquipmentType findOneById(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Cannot find a " + EquipmentType.class.getName() + " with a null id.");
+        }
+        EquipmentTypeDomain domain = repository.findOne(id);
+
+        if (domain == null) {
+            throw new EquipmentTypeNotFoundException("No " + EquipmentType.class.getName() + " found for id :" + id);
+        }
+
+        return domain.toModel();
+    }
 }

@@ -3,6 +3,7 @@ package org.ubp.ent.backend.core.dao.manager.classroom.equipement;
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Test;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.ubp.ent.backend.core.exceptions.EquipmentTypeNotFoundException;
 import org.ubp.ent.backend.core.model.classroom.equipement.EquipmentType;
 import org.ubp.ent.backend.core.model.classroom.equipement.EquipmentTypeTest;
 import org.ubp.ent.backend.utils.WebApplicationTest;
@@ -19,6 +20,35 @@ public class EquipmentTypeManagerTest extends WebApplicationTest {
 
     @Inject
     private EquipmentTypeManager manager;
+
+
+    @Test
+    public void shouldFindOneById() {
+        EquipmentType model = EquipmentTypeTest.createOne("Computer");
+        model = manager.create(model);
+
+        assertThat(manager.findOneById(model.getId())).isEqualTo(model);
+    }
+
+    @Test
+    public void shouldFailFindOneByIdWithNull() {
+        try {
+            manager.findOneById(null);
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertThat(e.getMessage()).isNotEmpty();
+        }
+    }
+
+    @Test
+    public void shouldFailFindByNonExistingId() {
+        try {
+            manager.findOneById(205L);
+            fail();
+        } catch (EquipmentTypeNotFoundException e) {
+            assertThat(e.getMessage()).isNotEmpty();
+        }
+    }
 
     @Test
     public void shouldCreate() {

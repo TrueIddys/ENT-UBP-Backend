@@ -7,7 +7,6 @@ import org.ubp.ent.backend.core.model.classroom.equipement.RoomEquipment;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -25,7 +24,7 @@ public class Classroom {
         if (StringUtils.isBlank(name)) {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a name.");
         }
-        if (Objects.isNull(roomCapacity)) {
+        if (roomCapacity == null) {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a " + RoomCapacity.class.getName());
         }
         this.name = name;
@@ -53,7 +52,7 @@ public class Classroom {
     }
 
     public void addEquipment(RoomEquipment equipment) {
-        if (Objects.isNull(equipment)) {
+        if (equipment == null) {
             throw new IllegalArgumentException("Cannot add a null " + RoomEquipment.class.getName() + " to a " + getClass().getName());
         }
         this.equipments.add(equipment);

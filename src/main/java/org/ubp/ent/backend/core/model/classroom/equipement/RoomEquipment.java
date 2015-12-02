@@ -3,8 +3,6 @@ package org.ubp.ent.backend.core.model.classroom.equipement;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.Objects;
-
 /**
  * Created by Anthony on 20/11/2015.
  */
@@ -15,10 +13,10 @@ public class RoomEquipment {
 
     @JsonCreator
     public RoomEquipment(@JsonProperty("equipmentType") EquipmentType equipmentType, @JsonProperty("quantity") Quantity quantity) {
-        if (Objects.isNull(equipmentType)) {
+        if (equipmentType == null) {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without an " + EquipmentType.class.getName());
         }
-        if (Objects.isNull(quantity)) {
+        if (quantity == null) {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a " + Quantity.class.getName());
         }
         this.equipmentType = equipmentType;

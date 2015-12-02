@@ -6,7 +6,6 @@ import org.ubp.ent.backend.core.model.classroom.equipement.Quantity;
 import org.ubp.ent.backend.core.model.classroom.equipement.RoomEquipment;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 /**
  * Created by Anthony on 22/11/2015.
@@ -28,10 +27,10 @@ public class RoomEquipmentDomain implements ModelTransformable<RoomEquipment, Ro
     }
 
     public RoomEquipmentDomain(RoomEquipment roomEquipment, ClassroomDomain classroomDomain) {
-        if (Objects.isNull(roomEquipment)) {
+        if (roomEquipment == null) {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a " + RoomEquipment.class.getName());
         }
-        if (Objects.isNull(classroomDomain)) {
+        if (classroomDomain == null) {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a " + ClassroomDomain.class.getName());
         }
 

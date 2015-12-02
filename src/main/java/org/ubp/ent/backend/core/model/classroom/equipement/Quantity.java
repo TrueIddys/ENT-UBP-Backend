@@ -3,8 +3,6 @@ package org.ubp.ent.backend.core.model.classroom.equipement;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.Objects;
-
 /**
  * Created by Anthony on 20/11/2015.
  */
@@ -14,7 +12,7 @@ public class Quantity {
 
     @JsonCreator
     public Quantity(@JsonProperty("maxQuantity") Integer maxQuantity) {
-        if (Objects.isNull(maxQuantity)) {
+        if (maxQuantity == null) {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a null maxQuantity.");
         }
         if (maxQuantity < 1) {

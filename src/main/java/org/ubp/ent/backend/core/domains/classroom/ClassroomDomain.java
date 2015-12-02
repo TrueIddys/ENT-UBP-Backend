@@ -18,7 +18,7 @@ import java.util.Set;
 public class ClassroomDomain implements ModelTransformable<Classroom, Long> {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CLASSROOM_ID")
     private Long id;
 

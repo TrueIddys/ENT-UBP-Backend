@@ -4,7 +4,6 @@ import org.ubp.ent.backend.core.domains.ModelTransformable;
 import org.ubp.ent.backend.core.model.classroom.equipement.EquipmentType;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 /**
  * Created by Anthony on 21/11/2015.
@@ -25,7 +24,7 @@ public class EquipmentTypeDomain implements ModelTransformable<EquipmentType, Lo
     }
 
     public EquipmentTypeDomain(EquipmentType equipmentType) {
-        if (Objects.isNull(equipmentType)) {
+        if (equipmentType == null) {
             throw new IllegalArgumentException("Cannot create a " + getClass().getName() + " with a null " + EquipmentType.class.getName());
         }
         id = equipmentType.getId();

@@ -29,6 +29,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class ClassroomControllerTest extends WebIntegrationTest {
 
+    private final String CLASSROOM_BASE_URL = "/classroom";
+
     @Inject
     private EquipmentTypeRepository equipmentTypeRepository;
 
@@ -44,7 +46,7 @@ public class ClassroomControllerTest extends WebIntegrationTest {
         for (int i = 0; i < count; ++i) {
             Classroom classroom = ClassroomTest.createOne("name " + i);
             String classroomJson = mapper.writeValueAsString(classroom);
-            perform(post("/classroom").content(classroomJson).contentType(MediaType.APPLICATION_JSON_UTF8))
+            perform(post(CLASSROOM_BASE_URL).content(classroomJson).contentType(MediaType.APPLICATION_JSON_UTF8))
                     .andExpect(status().isCreated())
                     .andDo(result -> {
                         String json = result.getResponse().getContentAsString();
@@ -61,7 +63,7 @@ public class ClassroomControllerTest extends WebIntegrationTest {
         List<Classroom> classrooms = createClassroom(5);
 
         for (Classroom classroom : classrooms) {
-            perform(get("/classroom/" + classroom.getId()))
+            perform(get(CLASSROOM_BASE_URL + "/" + classroom.getId()))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.id", is(classroom.getId().intValue())));
         }
@@ -69,7 +71,7 @@ public class ClassroomControllerTest extends WebIntegrationTest {
 
     @Test
     public void shouldThrow404NotFoundForNonExistingClassroom() throws Exception {
-        perform(get("/classroom/9945"))
+        perform(get(CLASSROOM_BASE_URL + "/9945"))
                 .andExpect(status().isNotFound());
     }
 
@@ -78,38 +80,14 @@ public class ClassroomControllerTest extends WebIntegrationTest {
     public void shouldFindAll() throws Exception {
         createClassroom(2);
 
-        perform(get("/classroom"))
+        perform(get(CLASSROOM_BASE_URL))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)));
     }
 
     @Test
-    public void shouldRejectCreateIfIdIsDefined() throws Exception {
-        Classroom classroom = ClassroomTest.createOne("3005");
-        Long definedId = 6945L;
-        classroom.setId(definedId);
-        String classroomJson = mapper.writeValueAsString(classroom);
-
-        perform(post("/classroom").content(classroomJson).contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(status().isBadRequest());
-    }
-
-
-    @Test
-    public void shouldNotCreateTwoClassroomWithSameId() throws Exception {
-        Classroom classroom = createClassroom();
-
-        Classroom classroom2 = ClassroomTest.createOne("a classroom name");
-        classroom2.setId(classroom.getId());
-        String classroomJson = mapper.writeValueAsString(classroom2);
-
-        perform(post("/classroom").content(classroomJson).contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
     public void shouldNotCreateWithNull() throws Exception {
-        perform(post("/classroom").contentType(MediaType.APPLICATION_JSON_UTF8))
+        perform(post(CLASSROOM_BASE_URL).contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isBadRequest());
     }
 
@@ -118,7 +96,7 @@ public class ClassroomControllerTest extends WebIntegrationTest {
         Classroom classroom = ClassroomTest.createOne("3005");
         String classroomJson = mapper.writeValueAsString(classroom);
 
-        perform(post("/classroom").content(classroomJson).contentType(MediaType.APPLICATION_JSON_UTF8))
+        perform(post(CLASSROOM_BASE_URL).content(classroomJson).contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", notNullValue()));
     }
@@ -131,7 +109,7 @@ public class ClassroomControllerTest extends WebIntegrationTest {
         equipmentType = equipmentTypeRepository.saveAndFlush(new EquipmentTypeDomain(equipmentType)).toModel();
 
         int quantity = 12;
-        perform(post("/classroom/" + classroom.getId() + "/equipment-type/" + equipmentType.getId()).param("quantity", String.valueOf(quantity)))
+        perform(post(CLASSROOM_BASE_URL + "/" + classroom.getId() + "/equipment-type/" + equipmentType.getId()).param("quantity", String.valueOf(quantity)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.equipmentType.id", is(equipmentType.getId().intValue())))
                 .andExpect(jsonPath("$.quantity.maxQuantity", is(quantity)));
@@ -148,10 +126,10 @@ public class ClassroomControllerTest extends WebIntegrationTest {
         RoomEquipment roomEquipment = new RoomEquipment(equipmentType, new Quantity(12));
         String roomEquipmentAsJson = mapper.writeValueAsString(roomEquipment);
 
-        perform(post("/classroom/" + classroom.getId() + "/equipment-type/" + equipmentType.getId()).param("quantity", "12"))
+        perform(post(CLASSROOM_BASE_URL + "/" + classroom.getId() + "/equipment-type/" + equipmentType.getId()).param("quantity", "12"))
                 .andExpect(status().isCreated());
 
-        perform(post("/classroom/" + classroom.getId() + "/equipment-type/" + equipmentType.getId()).param("quantity", "12"))
+        perform(post(CLASSROOM_BASE_URL + "/" + classroom.getId() + "/equipment-type/" + equipmentType.getId()).param("quantity", "12"))
                 .andExpect(status().isBadRequest());
     }
 
@@ -163,7 +141,7 @@ public class ClassroomControllerTest extends WebIntegrationTest {
         EquipmentType equipmentType = EquipmentTypeTest.createOne("Computer");
         equipmentType = equipmentTypeRepository.saveAndFlush(new EquipmentTypeDomain(equipmentType)).toModel();
 
-        perform(post("/classroom/" + classroom.getId() + "/equipment-type/" + equipmentType.getId()).param("quantity", "12"))
+        perform(post(CLASSROOM_BASE_URL + "/" + classroom.getId() + "/equipment-type/" + equipmentType.getId()).param("quantity", "12"))
                 .andExpect(status().isNotFound());
     }
 
@@ -174,7 +152,7 @@ public class ClassroomControllerTest extends WebIntegrationTest {
         EquipmentType equipmentType = EquipmentTypeTest.createOne("Computer");
         equipmentType.setId(256L);
 
-        perform(post("/classroom/" + classroom.getId() + "/equipment-type/" + equipmentType.getId()).param("quantity", "12"))
+        perform(post(CLASSROOM_BASE_URL + "/" + classroom.getId() + "/equipment-type/" + equipmentType.getId()).param("quantity", "12"))
                 .andDo(print())
                 .andExpect(status().isNotFound());
     }

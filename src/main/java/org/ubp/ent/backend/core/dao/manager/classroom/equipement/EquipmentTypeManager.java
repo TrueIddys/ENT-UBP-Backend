@@ -9,7 +9,6 @@ import org.ubp.ent.backend.core.model.classroom.equipement.EquipmentType;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -24,13 +23,12 @@ public class EquipmentTypeManager {
     @Inject
     private EntityManager entityManager;
 
-    private String getEquipmentTypeClassName() {
-        return EquipmentTypeDomain.class.getName();
-    }
-
     public EquipmentType create(EquipmentType equipmentType) {
-        if (Objects.isNull(equipmentType)) {
+        if (equipmentType == null) {
             throw new IllegalArgumentException("Cannot persists a null " + EquipmentType.class.getName());
+        }
+        if (equipmentType.getId() != null) {
+            throw new IllegalArgumentException("Cannot persist a " + EquipmentType.class.getName() + " which already has an ID.");
         }
         EquipmentTypeDomain domain = new EquipmentTypeDomain(equipmentType);
 

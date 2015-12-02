@@ -4,8 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
-import org.ubp.ent.backend.core.dao.repository.classroom.equipment.EquipmentTypeRepository;
-import org.ubp.ent.backend.core.domains.classroom.equipement.EquipmentTypeDomain;
+import org.ubp.ent.backend.core.dao.manager.classroom.equipement.EquipmentTypeManager;
 import org.ubp.ent.backend.core.model.classroom.Classroom;
 import org.ubp.ent.backend.core.model.classroom.ClassroomTest;
 import org.ubp.ent.backend.core.model.classroom.equipement.EquipmentType;
@@ -32,7 +31,7 @@ public class ClassroomControllerTest extends WebIntegrationTest {
     private final String CLASSROOM_BASE_URL = "/classroom";
 
     @Inject
-    private EquipmentTypeRepository equipmentTypeRepository;
+    private EquipmentTypeManager equipmentTypeManager;
 
     @Inject
     private ObjectMapper mapper;
@@ -106,7 +105,7 @@ public class ClassroomControllerTest extends WebIntegrationTest {
         Classroom classroom = createClassroom();
 
         EquipmentType equipmentType = EquipmentTypeTest.createOne("Computer");
-        equipmentType = equipmentTypeRepository.saveAndFlush(new EquipmentTypeDomain(equipmentType)).toModel();
+        equipmentType = equipmentTypeManager.create(equipmentType);
 
         int quantity = 12;
         perform(post(CLASSROOM_BASE_URL + "/" + classroom.getId() + "/equipment-type/" + equipmentType.getId()).param("quantity", String.valueOf(quantity)))
@@ -121,7 +120,7 @@ public class ClassroomControllerTest extends WebIntegrationTest {
         Classroom classroom = createClassroom();
 
         EquipmentType equipmentType = EquipmentTypeTest.createOne("Computer");
-        equipmentType = equipmentTypeRepository.saveAndFlush(new EquipmentTypeDomain(equipmentType)).toModel();
+        equipmentType = equipmentTypeManager.create(equipmentType);
 
         RoomEquipment roomEquipment = new RoomEquipment(equipmentType, new Quantity(12));
         String roomEquipmentAsJson = mapper.writeValueAsString(roomEquipment);
@@ -139,7 +138,7 @@ public class ClassroomControllerTest extends WebIntegrationTest {
         classroom.setId(26L);
 
         EquipmentType equipmentType = EquipmentTypeTest.createOne("Computer");
-        equipmentType = equipmentTypeRepository.saveAndFlush(new EquipmentTypeDomain(equipmentType)).toModel();
+        equipmentType = equipmentTypeManager.create(equipmentType);
 
         perform(post(CLASSROOM_BASE_URL + "/" + classroom.getId() + "/equipment-type/" + equipmentType.getId()).param("quantity", "12"))
                 .andExpect(status().isNotFound());

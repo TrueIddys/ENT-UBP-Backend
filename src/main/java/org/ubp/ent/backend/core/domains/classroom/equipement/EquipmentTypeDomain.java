@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class EquipmentTypeDomain implements ModelTransformable<EquipmentType, Long> {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "EQUIPMENT_TYPE_ID")
     private Long id;
 

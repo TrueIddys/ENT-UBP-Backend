@@ -7,7 +7,6 @@ import org.ubp.ent.backend.core.exceptions.EquipmentTypeNotFoundException;
 import org.ubp.ent.backend.core.model.classroom.equipement.EquipmentType;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,10 +17,7 @@ import java.util.stream.Collectors;
 public class EquipmentTypeManager {
 
     @Inject
-    EquipmentTypeRepository repository;
-
-    @Inject
-    private EntityManager entityManager;
+    private EquipmentTypeRepository equipmentTypeRepository;
 
     public EquipmentType create(EquipmentType equipmentType) {
         if (equipmentType == null) {
@@ -32,14 +28,14 @@ public class EquipmentTypeManager {
         }
         EquipmentTypeDomain domain = new EquipmentTypeDomain(equipmentType);
 
-        domain = repository.saveAndFlush(domain);
+        domain = equipmentTypeRepository.saveAndFlush(domain);
         equipmentType.setId(domain.getId());
 
         return domain.toModel();
     }
 
     public List<EquipmentType> findAll() {
-        List<EquipmentTypeDomain> domains = repository.findAll();
+        List<EquipmentTypeDomain> domains = equipmentTypeRepository.findAll();
 
         return domains.stream().map(EquipmentTypeDomain::toModel).collect(Collectors.toList());
     }
@@ -48,7 +44,7 @@ public class EquipmentTypeManager {
         if (id == null) {
             throw new IllegalArgumentException("Cannot find a " + EquipmentType.class.getName() + " with a null id.");
         }
-        EquipmentTypeDomain domain = repository.findOne(id);
+        EquipmentTypeDomain domain = equipmentTypeRepository.findOne(id);
 
         if (domain == null) {
             throw new EquipmentTypeNotFoundException("No " + EquipmentType.class.getName() + " found for id :" + id);

@@ -96,4 +96,16 @@ public class EquipmentTypeManagerTest extends WebApplicationTest {
         }
     }
 
+    @Test
+    public void shouldFailCreateIfIdIsDefined() {
+        EquipmentType model = EquipmentTypeTest.createOne();
+        model.setId(25L);
+        try {
+            manager.create(model);
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertThat(e.getMessage()).isNotEmpty();
+        }
+    }
+
 }

@@ -107,6 +107,18 @@ public class ClassroomManagerTest extends WebApplicationTest {
     }
 
     @Test
+    public void shouldFailCreateIfIdIsDefined() {
+        Classroom model = ClassroomTest.createOne();
+        model.setId(25L);
+        try {
+            classroomManager.create(model);
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertThat(e.getMessage()).isNotEmpty();
+        }
+    }
+
+    @Test
     public void shouldNotCreateEquipmentByClassroomOnCascade() {
         EquipmentType equipmentType = EquipmentTypeTest.createOne("Computer");
         equipmentType = equipmentTypeManager.create(equipmentType);

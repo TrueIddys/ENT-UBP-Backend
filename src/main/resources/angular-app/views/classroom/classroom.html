@@ -1,0 +1,14 @@
+<div class="container-fluid">
+    <ul class="list-unstyled">
+        <row>
+            <li class="panel panel-body"
+                ng-repeat="classroom in classrooms | orderBy:'name'">
+                <div class="col-xs-10">{{classroom.name}}</div>
+                <div class="col-xs-2 text-right">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    {{classroom.roomCapacity.maxCapacity}}
+                </div>
+            </li>
+        </row>
+    </ul>
+</div>

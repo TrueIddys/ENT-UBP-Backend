@@ -1,0 +1,51 @@
+<div class="col-xs-12">
+    <div class="row">
+        <!-- Search filter -->
+        <div class="row form-group">
+            <div class="col-xs-12 col-sm-6 col-sm-push-6">
+                <button ng-click="showModalCreate()" type="button" class="btn btn-success pull-right">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Create project
+                </button>
+            </div>
+
+            <label class="sr-only" for="projectSearch">Filter projects</label>
+            <div class="col-xs-12 col-sm-6 col-sm-pull-6">
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </div>
+                    <input ng-model="projectSearch" type="text" class="form-control" id="projectSearch"
+                           placeholder="Filter...">
+                </div>
+            </div>
+
+
+        </div>
+
+        <!-- Projects list -->
+        <ul class="list-project list-unstyled">
+            <li class="panel panel-default list-element"
+                ng-repeat="project in projects | filter:{name: projectSearch}:false |  orderBy:'name'| limitTo:10 as filteredProjects">
+                <div class="panel-body">
+                    <div class="col-md-12 text-center">
+                        <a ng-href="/#/project/{{project.id}}"><h4>{{ project.name}}</h4></a>
+                        <h4>
+                            <small>{{project.description}}</small>
+                        </h4>
+                    </div>
+                    <!--
+                    <div class="col-md-2 project-badges">
+                        <ul class="list-unstyled text-right">
+                            <li>features</li>
+                            <li>stories</li>
+                            <li>tasks</li>
+                        </ul>
+                    </div>
+                    -->
+                </div>
+            </li>
+            <li class="text-center" ng-show="filteredProjects.length == 0">Aucun projet à afficher</li>
+        </ul>
+    </div>
+</div>

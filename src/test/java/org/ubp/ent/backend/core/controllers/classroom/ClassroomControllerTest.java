@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 public class ClassroomControllerTest extends WebIntegrationTest {
 
-    private final String CLASSROOM_BASE_URL = "/classroom";
+    private final String CLASSROOM_BASE_URL = ClassroomController.BASE_URL;
 
     @Inject
     private EquipmentTypeManager equipmentTypeManager;

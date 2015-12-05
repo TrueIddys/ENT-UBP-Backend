@@ -15,8 +15,10 @@ import java.util.List;
  * Created by Anthony on 27/11/2015.
  */
 @RestController
-@RequestMapping("/classroom")
+@RequestMapping(ClassroomController.BASE_URL)
 public class ClassroomController {
+
+    public static final String BASE_URL = "/api/classroom";
 
     @Inject
     private ClassroomManager classroomManager;

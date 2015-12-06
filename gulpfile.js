@@ -5,6 +5,7 @@ var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 var ngAnnotate = require('gulp-ng-annotate');
+var del = require('del');
 
 /**
  * The angular application / css / view must be written in '/src/main/resources/angular-app/'
@@ -21,7 +22,7 @@ var distPath = './src/main/webapp/';
 
 
 gulp.task('js', function() {
-    gulp.src(jsPaths)
+    return gulp.src(jsPaths)
         .pipe(plumber())
         .pipe(ngAnnotate())
         .pipe(sourcemaps.init())
@@ -33,21 +34,29 @@ gulp.task('js', function() {
 });
 
 gulp.task('views', function() {
-    gulp.src(viewsPaths)
+    return gulp.src(viewsPaths)
         .pipe(plumber())
         .pipe(gulp.dest(distPath));
 });
 
 gulp.task('styles', function() {
-    gulp.src(stylesPaths)
+    return gulp.src(stylesPaths)
         .pipe(plumber())
         .pipe(gulp.dest(distPath + 'styles'));
 });
 
 gulp.task('libs', function() {
-    gulp.src(libPaths)
+    return gulp.src(libPaths)
         .pipe(plumber())
         .pipe(gulp.dest(distPath + 'libs/'));
+});
+
+gulp.task('clean', function() {
+    return del(distPath + '**/*');
+});
+
+gulp.task('build', ['clean'], function() {
+    return gulp.start('js').start('views').start('styles').start('libs');
 });
 
 

@@ -13,8 +13,10 @@ import java.util.List;
  * Created by Anthony on 02/12/2015.
  */
 @RestController
-@RequestMapping("/equipment-type")
+@RequestMapping(EquipmentTypeController.BASE_URL)
 public class EquipmentTypeController {
+
+    public static final String BASE_URL = "/api/equipment-type";
 
     @Inject
     private EquipmentTypeManager equipmentTypeManager;

@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 public class EquipmentTypeControllerTest extends WebIntegrationTest {
 
-    private final String EQUIP_TYPE_BASE_URL = "/equipment-type";
+    private final String EQUIP_TYPE_BASE_URL = EquipmentTypeController.BASE_URL;
 
     @Inject
     private ObjectMapper mapper;

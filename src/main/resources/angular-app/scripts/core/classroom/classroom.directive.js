@@ -4,7 +4,7 @@ angular.module('entUbp.classroom')
         return {
           restrict: 'AE',
           replace: 'true',
-          templateUrl: '/views/scripts/project/classroom-list.html',
+          templateUrl: '/views/scripts/core/classroom/classroom-list.html',
           controller: function($scope) {
 
           }

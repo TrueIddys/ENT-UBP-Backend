@@ -4,7 +4,6 @@
 */
 .navbar-default {
     background-color: #f4f4f4;
-    margin-top: 50px;
     border-width: 0;
     z-index: 5;
 }
@@ -59,7 +58,8 @@
     color: #666666;
     text-shadow: 0 0 1px #bbbbbb;
 }
-.btn>.glyphicon {
+
+.btn > .glyphicon {
     color: #ffffff;
 }
 
@@ -133,6 +133,7 @@ textarea {
 .list-group-item:first-child, .list-group-item:last-child {
     border-radius: 0;
 }
+
 /*
 h3, h4, h5 {
     border: 0 solid #efefef;
@@ -154,10 +155,13 @@ h3, h4, h5 {
     border-radius: 0;
     margin-top: -1px;
 }
+
 /*
 * end
 * Google theme for Bootstrap
 */
+
+
 
 /**
 * Personal
@@ -178,54 +182,25 @@ a:hover, a:focus {
     position: relative;
 }
 
-.list-project > li {
-    margin-bottom: 5px;
+.main-content {
+    margin-top: 40px;
 }
 
-.list-project > .list-element {
-    background-color: #fff;
+/* Loggin form */
+.form-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.form-signin .form-control {
     position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 9px;
+    font-size: 16px;
+    margin-bottom: 3px;
 }
 
-.list-project > .list-element h4 {
-    color: #428bca;
-    margin-top: 0;
-    margin-bottom: 5px;
-}
-
-.list-project > .list-element .project-badges {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.list-project > .list-element blockquote {
-    border-left: 5px solid #eee;
-    color: #8E8E8E;
-    font-size: inherit;
-    margin: 0 0 8px;
-    padding: 5px 20px;
-}
-
-.list-element.ng-enter, .list-element.ng-leave {
-    -webkit-transition: 100ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -moz-transition: 100ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -ms-transition: 100ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -o-transition: 100ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    transition: 100ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    position: relative;
-    display: block;
-}
-
-.list-element.ng-enter.ng-enter-active, .list-element.ng-leave {
-    opacity: 1;
-    top: 0;
-    height: 80px;
-}
-
-.list-element.ng-leave.ng-leave-active, .list-element.ng-enter {
-    opacity: 0;
-    top: -80px;
-    height: 0px;
-}

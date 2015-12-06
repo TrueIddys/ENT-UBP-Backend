@@ -3,7 +3,7 @@ angular.module('entUbp.classroom')
         function($scope, classroomService) {
             $scope.classrooms = [];
 
-            //classroomService.create({'name': 'SL78565', 'roomCapacity': { 'maxCapacity': 20}, 'equipments': []});
+            classroomService.create({'name': 'SL78565', 'roomCapacity': { 'maxCapacity': 20}, 'equipments': []});
 
             classroomService.findAll().then(
                 function(response) {

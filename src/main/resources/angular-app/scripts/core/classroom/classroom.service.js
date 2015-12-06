@@ -4,7 +4,7 @@ angular.module('entUbp.classroom')
             findOne: function(id) {
                 return $http.get('/api/classroom/'+ id);
             },
-            findAll: function() {
+            findAll: function() {;
                 return $http.get('/api/classroom');
             },
             create: function(classroom) {

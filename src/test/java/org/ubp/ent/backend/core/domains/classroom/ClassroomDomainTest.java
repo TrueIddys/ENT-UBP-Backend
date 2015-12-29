@@ -1,11 +1,15 @@
 package org.ubp.ent.backend.core.domains.classroom;
 
 
+import com.google.common.collect.Sets;
 import org.junit.Test;
 import org.ubp.ent.backend.core.domains.classroom.equipement.RoomEquipmentDomain;
 import org.ubp.ent.backend.core.model.classroom.Classroom;
 import org.ubp.ent.backend.core.model.classroom.ClassroomTest;
 import org.ubp.ent.backend.core.model.classroom.equipement.RoomEquipmentTest;
+import org.ubp.ent.backend.core.model.type.ClassroomType;
+
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
@@ -26,6 +30,10 @@ public class ClassroomDomainTest {
 
     public static ClassroomDomain createOne(int equipmentCount) {
         return createOne("Default classroom name", equipmentCount);
+    }
+
+    private static Set<ClassroomType> createValidClassroomTypeSet() {
+        return Sets.newHashSet(ClassroomType.CM, ClassroomType.TD);
     }
 
     public static ClassroomDomain createOne(String name) {
@@ -57,6 +65,7 @@ public class ClassroomDomainTest {
         assertThat(domain.getRoomCapacity()).isEqualTo(model.getRoomCapacity().getMaxCapacity());
         // Model to domain should not transform equipments
         assertThat(domain.getEquipments()).hasSize(0);
+        assertThat(domain.getTypes()).isEqualTo(model.getTypes());
     }
 
     @Test
@@ -70,6 +79,7 @@ public class ClassroomDomainTest {
         assertThat(domainToModel.getId()).isEqualTo(model.getId());
         assertThat(domainToModel.getName()).isEqualTo(model.getName());
         assertThat(domainToModel.getRoomCapacity()).isEqualTo(model.getRoomCapacity());
+        assertThat(domainToModel.getTypes()).isEqualTo(model.getTypes());
     }
 
     @Test

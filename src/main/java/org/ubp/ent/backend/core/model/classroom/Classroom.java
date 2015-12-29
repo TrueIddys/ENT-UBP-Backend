@@ -14,10 +14,10 @@ import java.util.Set;
  */
 public class Classroom {
 
+    private Long id;
     private final String name;
     private final RoomCapacity roomCapacity;
     private final Set<RoomEquipment> equipments = new HashSet<>();
-    private Long id;
 
     @JsonCreator
     public Classroom(@JsonProperty("name") final String name, @JsonProperty("roomCapacity") final RoomCapacity roomCapacity) {

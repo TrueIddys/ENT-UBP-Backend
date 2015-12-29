@@ -1,10 +1,14 @@
 package org.ubp.ent.backend.core.model.classroom;
 
+import com.google.common.collect.Sets;
 import org.junit.Test;
 import org.ubp.ent.backend.core.model.classroom.equipement.RoomEquipment;
 import org.ubp.ent.backend.core.model.classroom.equipement.RoomEquipmentTest;
+import org.ubp.ent.backend.core.model.type.ClassroomType;
 
-import static org.assertj.core.api.StrictAssertions.assertThat;
+import java.util.Set;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 
 /**
@@ -13,7 +17,11 @@ import static org.junit.Assert.fail;
 public class ClassroomTest {
 
     public static Classroom createOne(String name) {
-        return new Classroom(name, createValidCapacity());
+        return new Classroom(name, createValidCapacity(), createValidClassroomTypeSet());
+    }
+
+    private static Set<ClassroomType> createValidClassroomTypeSet() {
+        return Sets.newHashSet(ClassroomType.CM, ClassroomType.TD);
     }
 
     public static Classroom createOne() {
@@ -29,9 +37,19 @@ public class ClassroomTest {
     }
 
     @Test
+    public void shouldInstantiate() {
+        Classroom classroom = createOne();
+
+        assertThat(classroom.getName()).isEqualTo(createValidName());
+        assertThat(classroom.getRoomCapacity()).isEqualTo(createValidCapacity());
+        assertThat(classroom.getEquipments()).isEmpty();
+        assertThat(classroom.getTypes()).isNotEmpty();
+    }
+
+    @Test
     public void shouldNotInstantiateWithEmptyName() {
         try {
-            new Classroom(null, createValidCapacity());
+            new Classroom(null, createValidCapacity(), createValidClassroomTypeSet());
             fail();
         } catch (IllegalArgumentException e) {
             assertThat(e.getMessage()).isNotEmpty();
@@ -41,7 +59,7 @@ public class ClassroomTest {
     @Test
     public void shouldNotInstantiateWithNullName() {
         try {
-            new Classroom(" ", createValidCapacity());
+            new Classroom(" ", createValidCapacity(), createValidClassroomTypeSet());
             fail();
         } catch (IllegalArgumentException e) {
             assertThat(e.getMessage()).isNotEmpty();
@@ -52,7 +70,7 @@ public class ClassroomTest {
     @Test
     public void shouldNotInstantiateWithNullCapacity() {
         try {
-            new Classroom(createValidName(), null);
+            new Classroom(createValidName(), null, createValidClassroomTypeSet());
             fail();
         } catch (IllegalArgumentException e) {
             assertThat(e.getMessage()).isNotEmpty();
@@ -64,6 +82,26 @@ public class ClassroomTest {
         Classroom classroom = createOne();
         try {
             classroom.addEquipment(null);
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertThat(e.getMessage()).isNotEmpty();
+        }
+    }
+
+    @Test
+    public void shouldNotInstantiateWithNullClassroomTypes() {
+        try {
+            new Classroom(createValidName(), createValidCapacity(), null);
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertThat(e.getMessage()).isNotEmpty();
+        }
+    }
+
+    @Test
+    public void shouldNotInstantiateWithEmptyClassroomTypes() {
+        try {
+            new Classroom(createValidName(), createValidCapacity(), Sets.newHashSet());
             fail();
         } catch (IllegalArgumentException e) {
             assertThat(e.getMessage()).isNotEmpty();

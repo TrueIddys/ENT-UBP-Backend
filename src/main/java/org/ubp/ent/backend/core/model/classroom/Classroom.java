@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.StringUtils;
 import org.ubp.ent.backend.core.model.classroom.equipement.RoomEquipment;
+import org.ubp.ent.backend.core.model.type.ClassroomType;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,17 +20,23 @@ public class Classroom {
     private final String name;
     private final RoomCapacity roomCapacity;
     private final Set<RoomEquipment> equipments = new HashSet<>();
+    private final Set<ClassroomType> types;
 
     @JsonCreator
-    public Classroom(@JsonProperty("name") final String name, @JsonProperty("roomCapacity") final RoomCapacity roomCapacity) {
+    public Classroom(@JsonProperty("name") final String name, @JsonProperty("roomCapacity") final RoomCapacity roomCapacity, @JsonProperty("types") final Set<ClassroomType> types) {
         if (StringUtils.isBlank(name)) {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a name.");
         }
         if (roomCapacity == null) {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a " + RoomCapacity.class.getName());
         }
+        if (types == null || types.size() == 0) {
+            throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " with a null or empty list of " + ClassroomType.class.getName());
+        }
+
         this.name = name;
         this.roomCapacity = roomCapacity;
+        this.types = types;
     }
 
     public Long getId() {
@@ -51,6 +59,10 @@ public class Classroom {
         return Collections.unmodifiableSet(equipments);
     }
 
+    public Set<ClassroomType> getTypes() {
+        return types;
+    }
+
     public void addEquipment(RoomEquipment equipment) {
         if (equipment == null) {
             throw new IllegalArgumentException("Cannot add a null " + RoomEquipment.class.getName() + " to a " + getClass().getName());
@@ -70,4 +82,5 @@ public class Classroom {
     public int hashCode() {
         return com.google.common.base.Objects.hashCode(name);
     }
+
 }

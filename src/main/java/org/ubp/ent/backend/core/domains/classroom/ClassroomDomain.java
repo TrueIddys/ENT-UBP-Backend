@@ -1,10 +1,12 @@
 package org.ubp.ent.backend.core.domains.classroom;
 
 import com.google.common.base.Objects;
+import com.google.common.collect.Sets;
 import org.ubp.ent.backend.core.domains.ModelTransformable;
 import org.ubp.ent.backend.core.domains.classroom.equipement.RoomEquipmentDomain;
 import org.ubp.ent.backend.core.model.classroom.Classroom;
 import org.ubp.ent.backend.core.model.classroom.RoomCapacity;
+import org.ubp.ent.backend.core.model.type.ClassroomType;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -30,6 +32,12 @@ public class ClassroomDomain implements ModelTransformable<Classroom, Long> {
 
     private int capacity;
 
+    @ElementCollection(targetClass=ClassroomType.class, fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name="classroom_types")
+    private Set<ClassroomType> types;
+
+
     public ClassroomDomain() {
     }
 
@@ -41,6 +49,7 @@ public class ClassroomDomain implements ModelTransformable<Classroom, Long> {
         name = classroom.getName();
         capacity = classroom.getRoomCapacity().getMaxCapacity();
         classroom.getEquipments().forEach(e -> equipments.add(new RoomEquipmentDomain(e, this)));
+        types = Sets.newHashSet(classroom.getTypes());
     }
 
     public Long getId() {
@@ -63,9 +72,13 @@ public class ClassroomDomain implements ModelTransformable<Classroom, Long> {
         return capacity;
     }
 
+    public Set<ClassroomType> getTypes() {
+        return types;
+    }
+
     @Override
     public Classroom toModel() {
-        Classroom classroom = new Classroom(name, new RoomCapacity(capacity));
+        Classroom classroom = new Classroom(name, new RoomCapacity(capacity), types);
         classroom.setId(id);
         equipments.forEach(e -> classroom.addEquipment(e.toModel()));
 

@@ -3,6 +3,7 @@ package org.ubp.ent.backend.core.dao.manager.classroom;
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Test;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.test.annotation.DirtiesContext;
 import org.ubp.ent.backend.core.dao.manager.classroom.equipement.EquipmentTypeManager;
 import org.ubp.ent.backend.core.exceptions.ClassroomNotFoundException;
 import org.ubp.ent.backend.core.exceptions.EquipmentTypeNotFoundException;

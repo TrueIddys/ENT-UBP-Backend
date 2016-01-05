@@ -27,7 +27,7 @@ public class ClassroomDomain implements ModelTransformable<Classroom, Long> {
     @Column(unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "primaryKey.classroom", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "primaryKey.classroom", cascade = CascadeType.REMOVE)
     private Set<RoomEquipmentDomain> equipments = new HashSet<>();
 
     private int capacity;
@@ -48,7 +48,6 @@ public class ClassroomDomain implements ModelTransformable<Classroom, Long> {
         id = classroom.getId();
         name = classroom.getName();
         capacity = classroom.getRoomCapacity().getMaxCapacity();
-        classroom.getEquipments().forEach(e -> equipments.add(new RoomEquipmentDomain(e, this)));
         types = Sets.newHashSet(classroom.getTypes());
     }
 
@@ -80,7 +79,6 @@ public class ClassroomDomain implements ModelTransformable<Classroom, Long> {
     public Classroom toModel() {
         Classroom classroom = new Classroom(name, new RoomCapacity(capacity), types);
         classroom.setId(id);
-        equipments.forEach(e -> classroom.addEquipment(e.toModel()));
 
         return classroom;
     }

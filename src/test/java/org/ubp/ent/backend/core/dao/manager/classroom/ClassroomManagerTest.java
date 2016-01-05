@@ -3,7 +3,6 @@ package org.ubp.ent.backend.core.dao.manager.classroom;
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Test;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.test.annotation.DirtiesContext;
 import org.ubp.ent.backend.core.dao.manager.classroom.equipement.EquipmentTypeManager;
 import org.ubp.ent.backend.core.exceptions.ClassroomNotFoundException;
 import org.ubp.ent.backend.core.exceptions.EquipmentTypeNotFoundException;
@@ -16,6 +15,7 @@ import org.ubp.ent.backend.core.model.classroom.equipement.RoomEquipment;
 import org.ubp.ent.backend.utils.WebApplicationTest;
 
 import javax.inject.Inject;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
@@ -52,13 +52,62 @@ public class ClassroomManagerTest extends WebApplicationTest {
     }
 
     @Test
-    public void shouldFailFindByNonExistingId() {
+    public void shouldFailFindOneByIdWithNonExistingId() {
         try {
             classroomManager.findOneById(205L);
             fail();
         } catch (ClassroomNotFoundException e) {
             assertThat(e.getMessage()).isNotEmpty();
         }
+    }
+
+    @Test
+    public void shouldFindOneByIdJoiningEquipments() {
+        Classroom model = ClassroomTest.createOne("SCI_3006");
+        model = classroomManager.create(model);
+
+        EquipmentType equipmentType = EquipmentTypeTest.createOne("Computer");
+        equipmentType = equipmentTypeManager.create(equipmentType);
+        RoomEquipment roomEquipment = classroomManager.addEquipment(model.getId(), equipmentType.getId(), new Quantity(12));
+
+        Classroom fetched = classroomManager.findOneByIdJoiningEquipments(model.getId());
+        assertThat(fetched).isEqualTo(model);
+        assertThat(fetched.getEquipments()).containsExactly(roomEquipment);
+    }
+
+    @Test
+    public void shouldFailFindOneByIdJoiningEquipmentsWithNull() {
+        try {
+            classroomManager.findOneByIdJoiningEquipments(null);
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertThat(e.getMessage()).isNotEmpty();
+        }
+    }
+
+    @Test
+    public void shouldFailFindOneByIdJoiningEquipmentsWithNonExistingId() {
+        try {
+            classroomManager.findOneByIdJoiningEquipments(205L);
+            fail();
+        } catch (ClassroomNotFoundException e) {
+            assertThat(e.getMessage()).isNotEmpty();
+        }
+    }
+
+
+    @Test
+    public void shouldFindAllJoiningEquipments() {
+        Classroom model = ClassroomTest.createOne("SCI_3006");
+        model = classroomManager.create(model);
+
+        EquipmentType equipmentType = EquipmentTypeTest.createOne("Computer");
+        equipmentType = equipmentTypeManager.create(equipmentType);
+        RoomEquipment roomEquipment = classroomManager.addEquipment(model.getId(), equipmentType.getId(), new Quantity(12));
+
+        List<Classroom> fetched = classroomManager.findAllJoiningEquipments();
+        assertThat(fetched.get(0)).isEqualTo(model);
+        assertThat(fetched.get(0).getEquipments()).containsExactly(roomEquipment);
     }
 
     @Test
@@ -75,7 +124,7 @@ public class ClassroomManagerTest extends WebApplicationTest {
     }
 
     @Test
-    public void shouldSetIdOnReference() {
+    public void shouldSetIdOnReferenceWhenCreating() {
         Classroom model = ClassroomTest.createOne("SL5");
 
         classroomManager.create(model);
@@ -120,7 +169,7 @@ public class ClassroomManagerTest extends WebApplicationTest {
     }
 
     @Test
-    public void shouldNotCreateEquipmentByClassroomOnCascade() {
+    public void shouldNotCreateEquipmentInClassroomOnCascade() {
         EquipmentType equipmentType = EquipmentTypeTest.createOne("Computer");
         equipmentType = equipmentTypeManager.create(equipmentType);
 
@@ -143,9 +192,9 @@ public class ClassroomManagerTest extends WebApplicationTest {
 
         classroomManager.addEquipment(model.getId(), equipmentType.getId(), new Quantity(12));
 
-        assertThat(equipmentTypeManager.findAll()).hasSize(1);
-        assertThat(classroomManager.findAll().get(0).getEquipments()).hasSize(1);
-        assertThat(classroomManager.findAll().get(0).getEquipments().iterator().next().getEquipmentType().getName()).isEqualTo("Computer");
+        Classroom fetched = classroomManager.findOneByIdJoiningEquipments(model.getId());
+        assertThat(fetched.getEquipments()).hasSize(1);
+        assertThat(fetched.getEquipments().iterator().next().getEquipmentType()).isEqualTo(equipmentType);
     }
 
     @Test

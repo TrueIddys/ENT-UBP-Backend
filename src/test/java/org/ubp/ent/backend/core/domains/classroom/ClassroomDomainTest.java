@@ -64,7 +64,7 @@ public class ClassroomDomainTest {
         assertThat(domain.getName()).isEqualTo(model.getName());
         assertThat(domain.getRoomCapacity()).isEqualTo(model.getRoomCapacity().getMaxCapacity());
         // Model to domain should not transform equipments
-        assertThat(domain.getEquipments()).hasSize(0);
+        assertThat(domain.getEquipments()).isEmpty();
         assertThat(domain.getTypes()).isEqualTo(model.getTypes());
     }
 
@@ -83,22 +83,22 @@ public class ClassroomDomainTest {
     }
 
     @Test
-    public void shouldPopulateListOfEquipmentWhenCreatingDomainFromModel() {
+    public void shouldNotPopulateListOfEquipmentWhenCreatingDomainFromModel() {
         Classroom model = ClassroomTest.createOne();
         model.addEquipment(RoomEquipmentTest.createOne());
         ClassroomDomain domain = new ClassroomDomain(model);
 
-        assertThat(domain.getEquipments()).hasSameSizeAs(domain.getEquipments());
+        assertThat(domain.getEquipments()).isEmpty();
     }
 
     @Test
-    public void shouldPopulateListOfEquipmentWhenTransformingDomainFromModel() {
+    public void shouldNotPopulateListOfEquipmentWhenTransformingDomainFromModel() {
         Classroom model = ClassroomTest.createOne();
         ClassroomDomain domain = new ClassroomDomain(model);
         domain.getEquipments().add(new RoomEquipmentDomain(RoomEquipmentTest.createOne(), domain));
 
         Classroom domainToModel = domain.toModel();
-        assertThat(domainToModel.getEquipments()).hasSameSizeAs(domain.getEquipments());
+        assertThat(domainToModel.getEquipments()).isEmpty();
     }
 
     @Test

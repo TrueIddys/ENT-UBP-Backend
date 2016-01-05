@@ -69,6 +69,36 @@ public class ClassroomManager {
         return domains.stream().map(ClassroomDomain::toModel).collect(Collectors.toList());
     }
 
+    public Classroom findOneByIdJoiningEquipments(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Cannot find a " + Classroom.class.getName() + " with a null id.");
+        }
+        ClassroomDomain domain = classroomRepository.findOneByIdJoiningEquipments(id);
+
+        if (domain == null) {
+            throw new ClassroomNotFoundException("No " + Classroom.class.getName() + " found for id :" + id);
+        }
+
+        Classroom model = domain.toModel();
+        domain.getEquipments().forEach(e -> model.addEquipment(e.toModel()));
+
+        return model;
+    }
+
+
+    public List<Classroom> findAllJoiningEquipments() {
+        List<ClassroomDomain> domains = classroomRepository.findJoiningEquipments();
+
+        return domains.parallelStream().map(domain -> {
+            Classroom model = domain.toModel();
+            domain.getEquipments().forEach(e -> {
+                model.addEquipment(e.toModel());
+            });
+
+            return model;
+        }).collect(Collectors.toList());
+    }
+
     public RoomEquipment addEquipment(Long classroomId, Long equipmentTypeId, Quantity quantity) {
         if (classroomId == null) {
             throw new IllegalArgumentException("Cannot add an equipment to a " + Classroom.class.getName() + " which has a null id.");

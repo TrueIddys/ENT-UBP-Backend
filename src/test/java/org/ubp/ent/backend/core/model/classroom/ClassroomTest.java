@@ -67,12 +67,12 @@ public class ClassroomTest {
         classroom.addEquipment(null);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNullClassroomTypes() {
         new Classroom(createValidName(), createValidCapacity(), null);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithEmptyClassroomTypes() {
         new Classroom(createValidName(), createValidCapacity(), Sets.newHashSet());
     }

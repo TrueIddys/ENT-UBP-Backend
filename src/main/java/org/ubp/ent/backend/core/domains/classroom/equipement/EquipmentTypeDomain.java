@@ -20,6 +20,7 @@ public class EquipmentTypeDomain implements ModelTransformable<EquipmentType, Lo
     @Column(unique = true)
     private String name;
 
+    @SuppressWarnings("unused")
     public EquipmentTypeDomain() {
     }
 

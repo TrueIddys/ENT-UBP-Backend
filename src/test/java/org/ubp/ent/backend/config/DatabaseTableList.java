@@ -16,14 +16,14 @@ import java.util.Set;
  * Created by Anthony on 06/01/2016.
  */
 @Component
-public class TableList {
+public class DatabaseTableList {
 
     @Inject
     private EntityManagerFactory emf;
 
     private Set<String> names = new HashSet<>();
 
-    public TableList() {
+    public DatabaseTableList() {
     }
 
     @PostConstruct

@@ -24,9 +24,6 @@ import java.util.stream.Collectors;
 public class ClassroomManager {
 
     @Inject
-    private EntityManager entityManager;
-
-    @Inject
     private ClassroomRepository classroomRepository;
 
     @Inject
@@ -57,7 +54,7 @@ public class ClassroomManager {
         ClassroomDomain domain = classroomRepository.findOne(id);
 
         if (domain == null) {
-            throw new ClassroomNotFoundException("No " + Classroom.class.getName() + " found for id :" + id);
+            return throwClassroomNotFoundWithId(id);
         }
 
         return domain.toModel();
@@ -76,7 +73,7 @@ public class ClassroomManager {
         ClassroomDomain domain = classroomRepository.findOneByIdJoiningEquipments(id);
 
         if (domain == null) {
-            throw new ClassroomNotFoundException("No " + Classroom.class.getName() + " found for id :" + id);
+            throwClassroomNotFoundWithId(id);
         }
 
         Classroom model = domain.toModel();
@@ -122,5 +119,11 @@ public class ClassroomManager {
         roomEquipmentDomain = roomEquipmentRepository.saveAndFlush(roomEquipmentDomain);
 
         return roomEquipmentDomain.toModel();
+    }
+
+
+
+    private Classroom throwClassroomNotFoundWithId(Long id) {
+        throw new ClassroomNotFoundException("No " + Classroom.class.getName() + " found for id :" + id);
     }
 }

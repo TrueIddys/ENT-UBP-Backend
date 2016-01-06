@@ -1,4 +1,4 @@
-package org.ubp.ent.backend.config.condition;
+package org.ubp.ent.backend.config.conditional.condition;
 
 import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
 import org.springframework.boot.autoconfigure.condition.SpringBootCondition;

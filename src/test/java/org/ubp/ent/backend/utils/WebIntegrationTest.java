@@ -1,7 +1,6 @@
 package org.ubp.ent.backend.utils;
 
 import org.junit.Before;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
@@ -16,7 +15,7 @@ import javax.inject.Inject;
  * Created by Anthony on 27/11/2015.
  */
 @org.springframework.boot.test.WebIntegrationTest
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public abstract class WebIntegrationTest extends WebTest {
 
     @Inject

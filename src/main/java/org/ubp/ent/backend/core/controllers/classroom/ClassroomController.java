@@ -40,10 +40,6 @@ public class ClassroomController {
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public Classroom create(@RequestBody Classroom classroom) {
-        if (classroom == null) {
-            throw new IllegalArgumentException("Cannot create a null " + Classroom.class.getName(), new NullPointerException());
-        }
-
         return classroomManager.create(classroom);
     }
 

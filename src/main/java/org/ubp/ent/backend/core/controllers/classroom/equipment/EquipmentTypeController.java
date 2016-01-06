@@ -35,10 +35,6 @@ public class EquipmentTypeController {
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public EquipmentType create(@RequestBody EquipmentType equipmentType) {
-        if (equipmentType == null) {
-            throw new IllegalArgumentException("Cannot create a null " + EquipmentType.class.getName(), new NullPointerException());
-        }
-
         return equipmentTypeManager.create(equipmentType);
     }
 

@@ -123,6 +123,7 @@ public class ClassroomManager {
 
 
 
+
     private Classroom throwClassroomNotFoundWithId(Long id) {
         throw new ClassroomNotFoundException("No " + Classroom.class.getName() + " found for id :" + id);
     }

@@ -5,7 +5,6 @@ import org.ubp.ent.backend.core.domains.classroom.ClassroomDomain;
 import org.ubp.ent.backend.core.domains.classroom.ClassroomDomainTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
 
 /**
  * Created by Anthony on 22/11/2015.
@@ -20,24 +19,14 @@ public class RoomEquipmentDomainIdTest {
         assertThat(id.getEquipmentType().getName()).isEqualTo("Pc de bureau");
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithANullClassroom() {
-        try {
-            new RoomEquipmentDomainId(null, EquipmentTypeDomainTest.createOne());
-            fail();
-        } catch (IllegalArgumentException e) {
-            assertThat(e.getMessage()).isNotEmpty();
-        }
+        new RoomEquipmentDomainId(null, EquipmentTypeDomainTest.createOne());
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithANullEquipmentType() {
-        try {
-            new RoomEquipmentDomainId(ClassroomDomainTest.createOne(), null);
-            fail();
-        } catch (IllegalArgumentException e) {
-            assertThat(e.getMessage()).isNotEmpty();
-        }
+        new RoomEquipmentDomainId(ClassroomDomainTest.createOne(), null);
     }
 
     @Test

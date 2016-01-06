@@ -7,7 +7,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.ubp.ent.backend.EntUbpBackendApplication;
 import org.ubp.ent.backend.config.CustomSpringProfiles;
-import org.ubp.ent.backend.config.TableList;
+import org.ubp.ent.backend.config.DatabaseTableList;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -26,7 +26,7 @@ abstract class WebTest {
     private EntityManager em;
 
     @Inject
-    private TableList tableList;
+    private DatabaseTableList tableList;
 
     @Before
     @Transactional

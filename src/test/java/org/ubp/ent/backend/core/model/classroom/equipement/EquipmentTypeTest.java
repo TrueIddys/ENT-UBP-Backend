@@ -2,9 +2,6 @@ package org.ubp.ent.backend.core.model.classroom.equipement;
 
 import org.junit.Test;
 
-import static org.assertj.core.api.StrictAssertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Created by Anthony on 20/11/2015.
  */
@@ -18,24 +15,14 @@ public class EquipmentTypeTest {
         return new EquipmentType(name);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithEmptyName() {
-        try {
-            new EquipmentType(null);
-            fail();
-        } catch (IllegalArgumentException e) {
-            assertThat(e.getMessage()).isNotEmpty();
-        }
+        new EquipmentType(null);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNullName() {
-        try {
-            new EquipmentType(" ");
-            fail();
-        } catch (IllegalArgumentException e) {
-            assertThat(e.getMessage()).isNotEmpty();
-        }
+        new EquipmentType(" ");
     }
 
 }

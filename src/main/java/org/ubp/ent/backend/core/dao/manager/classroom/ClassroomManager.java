@@ -113,6 +113,7 @@ public class ClassroomManager {
 
         RoomEquipmentDomain roomEquipmentDomain = new RoomEquipmentDomain(roomEquipment, new ClassroomDomain(classroom));
         if (roomEquipmentRepository.exists(roomEquipmentDomain.getId())) {
+            // Because it makes no sense for a classroom to having same equipment twice the same, increment quantity instead.
             throw new IllegalArgumentException("Cannot add a second " + RoomEquipment.class.getName() + " to the classroom, there can't be two RoomEquipment with the same EquipmentType for a Classroom.");
         }
 
@@ -120,7 +121,6 @@ public class ClassroomManager {
 
         return roomEquipmentDomain.toModel();
     }
-
 
 
     private Classroom throwClassroomNotFoundWithId(Long id) {

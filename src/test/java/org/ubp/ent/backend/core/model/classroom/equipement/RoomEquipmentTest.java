@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.assertj.core.api.StrictAssertions.assertThat;
-import static org.junit.Assert.fail;
 
 /**
  * Created by Anthony on 20/11/2015.
@@ -26,24 +25,14 @@ public class RoomEquipmentTest {
     }
 
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithoutEquipmentType() {
-        try {
-            new RoomEquipment(null, createValidQuantity());
-            fail();
-        } catch (IllegalArgumentException e) {
-            assertThat(e.getMessage()).isNotEmpty();
-        }
+        new RoomEquipment(null, createValidQuantity());
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithoutCapacity() {
-        try {
-            new RoomEquipment(EquipmentTypeTest.createOne(), null);
-            fail();
-        } catch (IllegalArgumentException e) {
-            assertThat(e.getMessage()).isNotEmpty();
-        }
+        new RoomEquipment(EquipmentTypeTest.createOne(), null);
     }
 
     @Test

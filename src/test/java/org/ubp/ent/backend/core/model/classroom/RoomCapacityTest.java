@@ -3,9 +3,6 @@ package org.ubp.ent.backend.core.model.classroom;
 
 import org.junit.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
-
 /**
  * Created by Anthony on 20/11/2015.
  */
@@ -15,23 +12,13 @@ public class RoomCapacityTest {
         return new RoomCapacity(12);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithZeroCapacity() {
-        try {
-            new RoomCapacity(0);
-            fail();
-        } catch (IllegalArgumentException e) {
-            assertThat(e.getMessage()).isNotEmpty();
-        }
+        new RoomCapacity(0);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNegativeCapacity() {
-        try {
-            new RoomCapacity(-10);
-            fail();
-        } catch (IllegalArgumentException e) {
-            assertThat(e.getMessage()).isNotEmpty();
-        }
+        new RoomCapacity(-10);
     }
 }

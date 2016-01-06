@@ -7,7 +7,6 @@ import org.ubp.ent.backend.core.model.classroom.equipement.RoomEquipment;
 import org.ubp.ent.backend.core.model.classroom.equipement.RoomEquipmentTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
 
 /**
  * Created by Anthony on 22/11/2015.
@@ -23,24 +22,14 @@ public class RoomEquipmentDomainTest {
         return createOne("default equipment name", classroomDomain);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithoutRoomEquipment() {
-        try {
-            RoomEquipmentDomain domain = new RoomEquipmentDomain(null, ClassroomDomainTest.createOne());
-            fail();
-        } catch (IllegalArgumentException e) {
-            assertThat(e.getMessage()).isNotEmpty();
-        }
+        new RoomEquipmentDomain(null, ClassroomDomainTest.createOne());
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithoutClassroomDomain() {
-        try {
-            RoomEquipmentDomain domain = new RoomEquipmentDomain(RoomEquipmentTest.createOne(), null);
-            fail();
-        } catch (IllegalArgumentException e) {
-            assertThat(e.getMessage()).isNotEmpty();
-        }
+        new RoomEquipmentDomain(RoomEquipmentTest.createOne(), null);
     }
 
     @Test

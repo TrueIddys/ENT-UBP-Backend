@@ -5,7 +5,6 @@ import org.ubp.ent.backend.core.model.classroom.equipement.EquipmentType;
 import org.ubp.ent.backend.core.model.classroom.equipement.EquipmentTypeTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
 
 /**
  * Created by Anthony on 21/11/2015.
@@ -20,14 +19,9 @@ public class EquipmentTypeDomainTest {
         return createOne("Default equipment type name.");
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNullEquipmentType() {
-        try {
-            new EquipmentTypeDomain(null);
-            fail();
-        } catch (IllegalArgumentException e) {
-            assertThat(e.getMessage()).isNotEmpty();
-        }
+        new EquipmentTypeDomain(null);
     }
 
     @Test

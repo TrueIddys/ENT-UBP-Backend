@@ -12,7 +12,6 @@ import org.ubp.ent.backend.core.model.type.ClassroomType;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
 
 /**
  * Created by Anthony on 22/11/2015.
@@ -44,14 +43,9 @@ public class ClassroomDomainTest {
         return createOne(0);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNullClassroom() {
-        try {
-            new ClassroomDomain(null);
-            fail();
-        } catch (IllegalArgumentException e) {
-            assertThat(e.getMessage()).isNotEmpty();
-        }
+        new ClassroomDomain(null);
     }
 
     @Test

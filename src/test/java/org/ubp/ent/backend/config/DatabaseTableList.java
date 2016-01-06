@@ -3,7 +3,9 @@ package org.ubp.ent.backend.config;
 import org.hibernate.SessionFactory;
 import org.hibernate.metadata.ClassMetadata;
 import org.hibernate.persister.entity.AbstractEntityPersister;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
+import org.ubp.ent.backend.config.conditional.condition.TestProfileCondition;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -16,14 +18,15 @@ import java.util.Set;
  * Created by Anthony on 06/01/2016.
  */
 @Component
-public class TableList {
+@Conditional(value = {TestProfileCondition.class})
+public class DatabaseTableList {
 
     @Inject
     private EntityManagerFactory emf;
 
     private Set<String> names = new HashSet<>();
 
-    public TableList() {
+    public DatabaseTableList() {
     }
 
     @PostConstruct

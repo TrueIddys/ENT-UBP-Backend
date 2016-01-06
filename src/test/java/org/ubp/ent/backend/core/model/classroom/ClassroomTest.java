@@ -9,7 +9,6 @@ import org.ubp.ent.backend.core.model.type.ClassroomType;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
 
 /**
  * Created by Anthony on 20/11/2015.
@@ -46,66 +45,36 @@ public class ClassroomTest {
         assertThat(classroom.getTypes()).isNotEmpty();
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithEmptyName() {
-        try {
-            new Classroom(null, createValidCapacity(), createValidClassroomTypeSet());
-            fail();
-        } catch (IllegalArgumentException e) {
-            assertThat(e.getMessage()).isNotEmpty();
-        }
+        new Classroom(null, createValidCapacity(), createValidClassroomTypeSet());
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNullName() {
-        try {
-            new Classroom(" ", createValidCapacity(), createValidClassroomTypeSet());
-            fail();
-        } catch (IllegalArgumentException e) {
-            assertThat(e.getMessage()).isNotEmpty();
-        }
+        new Classroom(" ", createValidCapacity(), createValidClassroomTypeSet());
     }
 
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNullCapacity() {
-        try {
-            new Classroom(createValidName(), null, createValidClassroomTypeSet());
-            fail();
-        } catch (IllegalArgumentException e) {
-            assertThat(e.getMessage()).isNotEmpty();
-        }
+        new Classroom(createValidName(), null, createValidClassroomTypeSet());
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void shouldFailWhenAddingANullEquipment() {
         Classroom classroom = createOne();
-        try {
-            classroom.addEquipment(null);
-            fail();
-        } catch (IllegalArgumentException e) {
-            assertThat(e.getMessage()).isNotEmpty();
-        }
+        classroom.addEquipment(null);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNullClassroomTypes() {
-        try {
-            new Classroom(createValidName(), createValidCapacity(), null);
-            fail();
-        } catch (IllegalArgumentException e) {
-            assertThat(e.getMessage()).isNotEmpty();
-        }
+        new Classroom(createValidName(), createValidCapacity(), null);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithEmptyClassroomTypes() {
-        try {
-            new Classroom(createValidName(), createValidCapacity(), Sets.newHashSet());
-            fail();
-        } catch (IllegalArgumentException e) {
-            assertThat(e.getMessage()).isNotEmpty();
-        }
+        new Classroom(createValidName(), createValidCapacity(), Sets.newHashSet());
     }
 
     @Test

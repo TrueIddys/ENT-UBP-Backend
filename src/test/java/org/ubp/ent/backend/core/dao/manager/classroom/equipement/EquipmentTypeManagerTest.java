@@ -1,6 +1,5 @@
 package org.ubp.ent.backend.core.dao.manager.classroom.equipement;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Test;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.ubp.ent.backend.core.exceptions.EquipmentTypeNotFoundException;
@@ -30,24 +29,14 @@ public class EquipmentTypeManagerTest extends WebApplicationTest {
         assertThat(manager.findOneById(model.getId())).isEqualTo(model);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void shouldFailFindOneByIdWithNull() {
-        try {
-            manager.findOneById(null);
-            fail();
-        } catch (IllegalArgumentException e) {
-            assertThat(e.getMessage()).isNotEmpty();
-        }
+        manager.findOneById(null);
     }
 
-    @Test
+    @Test(expected = EquipmentTypeNotFoundException.class)
     public void shouldFailFindByNonExistingId() {
-        try {
-            manager.findOneById(205L);
-            fail();
-        } catch (EquipmentTypeNotFoundException e) {
-            assertThat(e.getMessage()).isNotEmpty();
-        }
+        manager.findOneById(205L);
     }
 
     @Test
@@ -72,40 +61,26 @@ public class EquipmentTypeManagerTest extends WebApplicationTest {
         assertThat(model.getId()).isNotNull();
     }
 
-    @Test
+    @Test(expected = DataIntegrityViolationException.class)
     public void shouldFailCreateTwoTypesWithTheSameName() {
-        try {
-            EquipmentType model = EquipmentTypeTest.createOne();
-            manager.create(model);
+        EquipmentType model = EquipmentTypeTest.createOne();
+        manager.create(model);
 
-            EquipmentType model2 = EquipmentTypeTest.createOne();
-            manager.create(model2);
-            fail();
-        } catch (DataIntegrityViolationException e) {
-            assertThat(e.getCause()).isOfAnyClassIn(ConstraintViolationException.class);
-        }
+        EquipmentType model2 = EquipmentTypeTest.createOne();
+        manager.create(model2);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void shouldFailCreateWithNull() {
-        try {
-            manager.create(null);
-            fail();
-        } catch (IllegalArgumentException e) {
-            assertThat(e.getMessage()).isNotEmpty();
-        }
+        manager.create(null);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void shouldFailCreateIfIdIsDefined() {
         EquipmentType model = EquipmentTypeTest.createOne();
         model.setId(25L);
-        try {
-            manager.create(model);
-            fail();
-        } catch (IllegalArgumentException e) {
-            assertThat(e.getMessage()).isNotEmpty();
-        }
+
+        manager.create(model);
     }
 
 }

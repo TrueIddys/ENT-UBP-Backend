@@ -23,6 +23,7 @@ public class RoomEquipmentDomain implements ModelTransformable<RoomEquipment, Ro
 
     private int quantity;
 
+    @SuppressWarnings("unused")
     public RoomEquipmentDomain() {
     }
 

@@ -37,7 +37,7 @@ public class ClassroomDomain implements ModelTransformable<Classroom, Long> {
     @CollectionTable(name="classroom_types")
     private Set<ClassroomType> types;
 
-
+    @SuppressWarnings("unused")
     public ClassroomDomain() {
     }
 

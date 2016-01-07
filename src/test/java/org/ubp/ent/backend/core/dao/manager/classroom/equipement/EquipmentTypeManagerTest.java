@@ -2,7 +2,8 @@ package org.ubp.ent.backend.core.dao.manager.classroom.equipement;
 
 import org.junit.Test;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.ubp.ent.backend.core.exceptions.EquipmentTypeNotFoundException;
+import org.ubp.ent.backend.core.exceptions.database.AlreadyDefinedInOnNonPersistedClass;
+import org.ubp.ent.backend.core.exceptions.database.notfound.impl.EquipmentTypeResourceNotFoundException;
 import org.ubp.ent.backend.core.model.classroom.equipement.EquipmentType;
 import org.ubp.ent.backend.core.model.classroom.equipement.EquipmentTypeTest;
 import org.ubp.ent.backend.utils.WebApplicationTest;
@@ -34,7 +35,7 @@ public class EquipmentTypeManagerTest extends WebApplicationTest {
         manager.findOneById(null);
     }
 
-    @Test(expected = EquipmentTypeNotFoundException.class)
+    @Test(expected = EquipmentTypeResourceNotFoundException.class)
     public void shouldFailFindByNonExistingId() {
         manager.findOneById(205L);
     }
@@ -75,7 +76,7 @@ public class EquipmentTypeManagerTest extends WebApplicationTest {
         manager.create(null);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = AlreadyDefinedInOnNonPersistedClass.class)
     public void shouldFailCreateIfIdIsDefined() {
         EquipmentType model = EquipmentTypeTest.createOne();
         model.setId(25L);

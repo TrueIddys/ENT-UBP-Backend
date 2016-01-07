@@ -3,8 +3,9 @@ package org.ubp.ent.backend.core.dao.manager.classroom;
 import org.junit.Test;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.ubp.ent.backend.core.dao.manager.classroom.equipement.EquipmentTypeManager;
-import org.ubp.ent.backend.core.exceptions.ClassroomNotFoundException;
-import org.ubp.ent.backend.core.exceptions.EquipmentTypeNotFoundException;
+import org.ubp.ent.backend.core.exceptions.database.AlreadyDefinedInOnNonPersistedClass;
+import org.ubp.ent.backend.core.exceptions.database.notfound.impl.ClassroomResourceNotFoundException;
+import org.ubp.ent.backend.core.exceptions.database.notfound.impl.EquipmentTypeResourceNotFoundException;
 import org.ubp.ent.backend.core.model.classroom.Classroom;
 import org.ubp.ent.backend.core.model.classroom.ClassroomTest;
 import org.ubp.ent.backend.core.model.classroom.equipement.EquipmentType;
@@ -44,7 +45,7 @@ public class ClassroomManagerTest extends WebApplicationTest {
         classroomManager.findOneById(null);
     }
 
-    @Test(expected = ClassroomNotFoundException.class)
+    @Test(expected = ClassroomResourceNotFoundException.class)
     public void shouldFailFindOneByIdWithNonExistingId() {
         classroomManager.findOneById(205L);
     }
@@ -68,7 +69,7 @@ public class ClassroomManagerTest extends WebApplicationTest {
         classroomManager.findOneByIdJoiningEquipments(null);
     }
 
-    @Test(expected = ClassroomNotFoundException.class)
+    @Test(expected = ClassroomResourceNotFoundException.class)
     public void shouldFailFindOneByIdJoiningEquipmentsWithNonExistingId() {
         classroomManager.findOneByIdJoiningEquipments(205L);
     }
@@ -124,10 +125,11 @@ public class ClassroomManagerTest extends WebApplicationTest {
         classroomManager.create(null);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = AlreadyDefinedInOnNonPersistedClass.class)
     public void shouldFailCreateIfIdIsDefined() {
         Classroom model = ClassroomTest.createOne();
         model.setId(25L);
+
         classroomManager.create(model);
     }
 
@@ -168,7 +170,7 @@ public class ClassroomManagerTest extends WebApplicationTest {
         classroomManager.addEquipment(null, equipmentType.getId(), new Quantity(12));
     }
 
-    @Test(expected = ClassroomNotFoundException.class)
+    @Test(expected = ClassroomResourceNotFoundException.class)
     public void shouldNotAddEquipmentToClassroomIfClassroomDoesNotExists() {
         EquipmentType equipmentType = EquipmentTypeTest.createOne("Computer");
         equipmentType = equipmentTypeManager.create(equipmentType);
@@ -184,7 +186,7 @@ public class ClassroomManagerTest extends WebApplicationTest {
         classroomManager.addEquipment(model.getId(), null, new Quantity(12));
     }
 
-    @Test(expected = EquipmentTypeNotFoundException.class)
+    @Test(expected = EquipmentTypeResourceNotFoundException.class)
     public void shouldNotAddEquipmentToClassroomIfEquipmentTypeDoesNotExists() {
         Classroom model = ClassroomTest.createOne("SCI_3006");
         model = classroomManager.create(model);

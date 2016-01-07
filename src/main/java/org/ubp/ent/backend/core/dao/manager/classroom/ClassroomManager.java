@@ -6,14 +6,15 @@ import org.ubp.ent.backend.core.dao.repository.classroom.ClassroomRepository;
 import org.ubp.ent.backend.core.dao.repository.classroom.equipment.RoomEquipmentRepository;
 import org.ubp.ent.backend.core.domains.classroom.ClassroomDomain;
 import org.ubp.ent.backend.core.domains.classroom.equipement.RoomEquipmentDomain;
-import org.ubp.ent.backend.core.exceptions.ClassroomNotFoundException;
+import org.ubp.ent.backend.core.exceptions.database.AlreadyDefinedInOnNonPersistedClass;
+import org.ubp.ent.backend.core.exceptions.database.ModelConstraintViolationException;
+import org.ubp.ent.backend.core.exceptions.database.notfound.impl.ClassroomResourceNotFoundException;
 import org.ubp.ent.backend.core.model.classroom.Classroom;
 import org.ubp.ent.backend.core.model.classroom.equipement.EquipmentType;
 import org.ubp.ent.backend.core.model.classroom.equipement.Quantity;
 import org.ubp.ent.backend.core.model.classroom.equipement.RoomEquipment;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,7 +38,7 @@ public class ClassroomManager {
             throw new IllegalArgumentException("Cannot persist a null " + Classroom.class.getName());
         }
         if (classroom.getId() != null) {
-            throw new IllegalArgumentException("Cannot persist a " + Classroom.class.getName() + " which already has an ID.");
+            throw new AlreadyDefinedInOnNonPersistedClass("Cannot persist a " + Classroom.class.getName() + " which already has an ID.");
         }
 
         ClassroomDomain domain = new ClassroomDomain(classroom);
@@ -114,7 +115,7 @@ public class ClassroomManager {
         RoomEquipmentDomain roomEquipmentDomain = new RoomEquipmentDomain(roomEquipment, new ClassroomDomain(classroom));
         if (roomEquipmentRepository.exists(roomEquipmentDomain.getId())) {
             // Because it makes no sense for a classroom to having same equipment twice the same, increment quantity instead.
-            throw new IllegalArgumentException("Cannot add a second " + RoomEquipment.class.getName() + " to the classroom, there can't be two RoomEquipment with the same EquipmentType for a Classroom.");
+            throw new ModelConstraintViolationException("Cannot add a second " + RoomEquipment.class.getName() + " to the classroom, there can't be two RoomEquipment with the same EquipmentType for a Classroom.");
         }
 
         roomEquipmentDomain = roomEquipmentRepository.saveAndFlush(roomEquipmentDomain);
@@ -124,6 +125,6 @@ public class ClassroomManager {
 
 
     private Classroom throwClassroomNotFoundWithId(Long id) {
-        throw new ClassroomNotFoundException("No " + Classroom.class.getName() + " found for id :" + id);
+        throw new ClassroomResourceNotFoundException("No " + Classroom.class.getName() + " found for id :" + id);
     }
 }

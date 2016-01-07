@@ -19,7 +19,15 @@ import javax.servlet.http.HttpServletRequest;
 @SuppressWarnings("unused")
 public class ErrorHandler {
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());;
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Throwable.class)
+    public void exception(HttpServletRequest req, Throwable e) {
+        if (log.isInfoEnabled()) {
+            log.error("An unhandled Throwable was catch by the ControllerAdvice : '" + getClass().getName() + "', this needs a fix.", e);
+        }
+    }
 
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalArgumentException.class)

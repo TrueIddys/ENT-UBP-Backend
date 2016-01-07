@@ -55,7 +55,7 @@ public class ClassroomManager {
         ClassroomDomain domain = classroomRepository.findOne(id);
 
         if (domain == null) {
-            return throwClassroomNotFoundWithId(id);
+            throw new ClassroomResourceNotFoundException("No " + Classroom.class.getName() + " found for id :" + id);
         }
 
         return domain.toModel();
@@ -74,7 +74,7 @@ public class ClassroomManager {
         ClassroomDomain domain = classroomRepository.findOneByIdJoiningEquipments(id);
 
         if (domain == null) {
-            throwClassroomNotFoundWithId(id);
+            throw new ClassroomResourceNotFoundException("No " + Classroom.class.getName() + " found for id :" + id);
         }
 
         Classroom model = domain.toModel();
@@ -123,8 +123,4 @@ public class ClassroomManager {
         return roomEquipmentDomain.toModel();
     }
 
-
-    private Classroom throwClassroomNotFoundWithId(Long id) {
-        throw new ClassroomResourceNotFoundException("No " + Classroom.class.getName() + " found for id :" + id);
-    }
 }

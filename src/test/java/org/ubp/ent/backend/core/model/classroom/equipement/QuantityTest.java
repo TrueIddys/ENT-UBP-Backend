@@ -1,6 +1,7 @@
 package org.ubp.ent.backend.core.model.classroom.equipement;
 
 import org.junit.Test;
+import org.ubp.ent.backend.core.exceptions.database.ModelConstraintViolationException;
 
 /**
  * Created by Anthony on 20/11/2015.
@@ -16,12 +17,12 @@ public class QuantityTest {
         new Quantity(null);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = ModelConstraintViolationException.class)
     public void shouldNotInstantiateWithAZeroQuantity() {
         new Quantity(0);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = ModelConstraintViolationException.class)
     public void shouldNotInstantiateWithANegativeQuantity() {
         new Quantity(-2);
     }

@@ -12,6 +12,7 @@ import org.ubp.ent.backend.config.conditional.condition.LocalProfileCondition;
  * Created by Anthony on 06/01/2016.
  */
 @Configuration
+@SuppressWarnings("unused")
 public class LocalEmbeddedDatabase {
 
     /**

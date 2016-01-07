@@ -7,7 +7,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.ubp.ent.backend.EntUbpBackendApplication;
 import org.ubp.ent.backend.config.CustomSpringProfiles;
-import org.ubp.ent.backend.config.DatabaseTableList;
+import org.ubp.ent.backend.config.conditional.DatabaseTableList;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;

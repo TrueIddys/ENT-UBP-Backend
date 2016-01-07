@@ -3,6 +3,7 @@ package org.ubp.ent.backend.core.controllers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -19,13 +20,29 @@ import javax.servlet.http.HttpServletRequest;
 @SuppressWarnings("unused")
 public class ErrorHandler {
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());;
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Throwable.class)
+    public void exception(HttpServletRequest req, Throwable e) {
+        if (log.isInfoEnabled()) {
+            log.error("An unhandled Throwable was catch by the ControllerAdvice : '" + getClass().getName() + "', this needs a fix.", e);
+        }
+    }
+
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public void httpMessageNotReadableException(HttpServletRequest req, HttpMessageNotReadableException e) {
+        if (log.isInfoEnabled()) {
+            log.error("An http request has failed.", e);
+        }
+    }
 
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalArgumentException.class)
     public void illegalArgument(HttpServletRequest req, IllegalArgumentException e) {
         if (log.isInfoEnabled()) {
-            log.info("An IllegalArgument has been catch by the ControllerAdvice 'ErrorHandler.class'.", e);
+            log.info("An IllegalArgument has been catch by the ControllerAdvice : '" + getClass().getName(), e);
         }
     }
 

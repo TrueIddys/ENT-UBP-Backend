@@ -1,4 +1,4 @@
-package org.ubp.ent.backend.config;
+package org.ubp.ent.backend.config.conditional;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
@@ -12,6 +12,7 @@ import org.ubp.ent.backend.config.conditional.condition.TestProfileCondition;
  * Created by Anthony on 20/11/2015.
  */
 @Configuration
+@SuppressWarnings("unused")
 public class EmbeddedDatasourceConfig {
 
     @Bean

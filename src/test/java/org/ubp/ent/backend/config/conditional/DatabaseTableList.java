@@ -1,4 +1,4 @@
-package org.ubp.ent.backend.config;
+package org.ubp.ent.backend.config.conditional;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.metadata.ClassMetadata;

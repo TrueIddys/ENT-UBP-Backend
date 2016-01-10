@@ -39,6 +39,7 @@ public class ClassroomTest {
     public void shouldInstantiate() {
         Classroom classroom = createOne();
 
+        assertThat(classroom.getId()).isNull();
         assertThat(classroom.getName()).isEqualTo(createValidName());
         assertThat(classroom.getRoomCapacity()).isEqualTo(createValidCapacity());
         assertThat(classroom.getEquipments()).isEmpty();

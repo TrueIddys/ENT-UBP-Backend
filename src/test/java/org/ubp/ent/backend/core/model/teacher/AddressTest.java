@@ -13,13 +13,10 @@ public class AddressTest {
     private static final String VALID_STREET_NUMBER = "6 Bis";
     private static final String VALID_STREET = "Rue Jacques Essebag";
 
-<<<<<<< Updated upstream
-=======
     public static Address createOne() {
         return new Address(VALID_ZIP, VALID_CITY, VALID_STREET_NUMBER, VALID_STREET);
     }
 
->>>>>>> Stashed changes
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithEmptyZip() {
         new Address(" ", VALID_CITY, VALID_STREET_NUMBER, VALID_STREET);

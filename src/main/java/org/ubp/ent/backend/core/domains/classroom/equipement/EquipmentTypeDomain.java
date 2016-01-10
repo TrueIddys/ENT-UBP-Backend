@@ -21,7 +21,7 @@ public class EquipmentTypeDomain implements ModelTransformable<EquipmentType, Lo
     private String name;
 
     @SuppressWarnings("unused")
-    public EquipmentTypeDomain() {
+    protected EquipmentTypeDomain() {
     }
 
     public EquipmentTypeDomain(EquipmentType equipmentType) {

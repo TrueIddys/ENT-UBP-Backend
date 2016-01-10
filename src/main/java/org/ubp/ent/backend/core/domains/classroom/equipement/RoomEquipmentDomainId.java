@@ -22,7 +22,7 @@ public class RoomEquipmentDomainId implements Serializable {
     private EquipmentTypeDomain equipmentType;
 
 
-    public RoomEquipmentDomainId() {
+    protected RoomEquipmentDomainId() {
     }
 
     public RoomEquipmentDomainId(ClassroomDomain classroom, EquipmentTypeDomain equipmentType) {

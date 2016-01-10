@@ -24,7 +24,7 @@ public class RoomEquipmentDomain implements ModelTransformable<RoomEquipment, Ro
     private int quantity;
 
     @SuppressWarnings("unused")
-    public RoomEquipmentDomain() {
+    protected RoomEquipmentDomain() {
     }
 
     public RoomEquipmentDomain(RoomEquipment roomEquipment, ClassroomDomain classroomDomain) {

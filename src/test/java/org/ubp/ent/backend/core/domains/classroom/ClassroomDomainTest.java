@@ -69,13 +69,13 @@ public class ClassroomDomainTest {
         Classroom model = ClassroomTest.createOne();
         model.setId(12L);
         ClassroomDomain domain = new ClassroomDomain(model);
-        domain.setId(12L);
 
-        Classroom domainToModel = domain.toModel();
-        assertThat(domainToModel.getId()).isEqualTo(model.getId());
-        assertThat(domainToModel.getName()).isEqualTo(model.getName());
-        assertThat(domainToModel.getRoomCapacity()).isEqualTo(model.getRoomCapacity());
-        assertThat(domainToModel.getTypes()).isEqualTo(model.getTypes());
+        Classroom newModel = domain.toModel();
+        assertThat(newModel.getId()).isEqualTo(model.getId());
+        assertThat(newModel.getName()).isEqualTo(model.getName());
+        assertThat(newModel.getRoomCapacity()).isEqualTo(model.getRoomCapacity());
+        assertThat(newModel.getTypes()).isEqualTo(model.getTypes());
+        assertThat(newModel.getEquipments()).isEmpty();
     }
 
     @Test
@@ -101,6 +101,14 @@ public class ClassroomDomainTest {
     public void shouldBeEqualByName() {
         ClassroomDomain domain = ClassroomDomainTest.createOne("SL5");
         ClassroomDomain domain2 = ClassroomDomainTest.createOne("SL5");
+
+        assertThat(domain2).isEqualTo(domain);
+    }
+
+    @Test
+    public void shouldNotBeEqualWithDifferentName() {
+        ClassroomDomain domain = ClassroomDomainTest.createOne("SL5");
+        ClassroomDomain domain2 = ClassroomDomainTest.createOne("SL6");
 
         assertThat(domain2).isEqualTo(domain);
     }

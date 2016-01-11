@@ -1,5 +1,6 @@
 package org.ubp.ent.backend.core.model.teacher;
 
+import com.google.common.base.Objects;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 
@@ -11,29 +12,37 @@ import java.util.regex.Pattern;
  */
 public class Address {
 
-    private String zip;
-    private String city;
     private String streetNumber;
     private String street;
+    private String zip;
+    private String city;
 
-    public Address(String zip, String city, String streetNumber, String street) {
-        if (StringUtils.isBlank(zip)) {
-            throw new IllegalArgumentException("Cannot create a " + getClass().getName() + " without a zip : '" + zip + "' given");
-        }
-        if (StringUtils.isBlank(city)) {
-            throw new IllegalArgumentException("Cannot create a " + getClass().getName() + " without a city : '" + city + "' given");
-        }
+    public Address(String streetNumber, String street, String zip, String city) {
         if (StringUtils.isBlank(streetNumber)) {
             throw new IllegalArgumentException("Cannot create a " + getClass().getName() + " without a streetNumber : '" + streetNumber + "' given");
         }
         if (StringUtils.isBlank(street)) {
             throw new IllegalArgumentException("Cannot create a " + getClass().getName() + " without a street : '" + street + "' given");
         }
+        if (StringUtils.isBlank(zip)) {
+            throw new IllegalArgumentException("Cannot create a " + getClass().getName() + " without a zip : '" + zip + "' given");
+        }
+        if (StringUtils.isBlank(city)) {
+            throw new IllegalArgumentException("Cannot create a " + getClass().getName() + " without a city : '" + city + "' given");
+        }
 
-        this.zip = formatZipCode(zip);
-        this.city = formatCity(city);
         this.streetNumber = formatStreetNumber(streetNumber);
         this.street = formatStreet(street);
+        this.zip = formatZipCode(zip);
+        this.city = formatCity(city);
+    }
+
+    public String getStreetNumber() {
+        return streetNumber;
+    }
+
+    public String getStreet() {
+        return street;
     }
 
     public String getZip() {
@@ -44,13 +53,6 @@ public class Address {
         return city;
     }
 
-    public String getStreetNumber() {
-        return streetNumber;
-    }
-
-    public String getStreet() {
-        return street;
-    }
 
     private String formatZipCode(String zip) {
         zip = zip.trim();
@@ -95,4 +97,19 @@ public class Address {
         return WordUtils.capitalize(street, ' ', '_', '-');
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return Objects.equal(streetNumber, address.streetNumber) &&
+                Objects.equal(street, address.street) &&
+                Objects.equal(zip, address.zip) &&
+                Objects.equal(city, address.city);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(streetNumber, street, zip, city);
+    }
 }

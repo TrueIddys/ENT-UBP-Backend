@@ -14,110 +14,114 @@ public class AddressTest {
     private static final String VALID_STREET = "Rue Jacques Essebag";
 
     public static Address createOne() {
-        return new Address(VALID_ZIP, VALID_CITY, VALID_STREET_NUMBER, VALID_STREET);
+        return createOne(VALID_STREET_NUMBER, VALID_STREET, VALID_ZIP, VALID_CITY);
+    }
+
+    public static Address createOne(String streetNumber, String street, String zip, String city) {
+        return new Address(streetNumber, street, zip, city);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithEmptyZip() {
-        new Address(" ", VALID_CITY, VALID_STREET_NUMBER, VALID_STREET);
+        createOne(VALID_STREET_NUMBER, VALID_STREET, " ", VALID_CITY);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNullZip() {
-        new Address(null, VALID_CITY, VALID_STREET_NUMBER, VALID_STREET);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldNotInstantiateWithNonNumberZip() {
-        new Address("abcde", VALID_CITY, VALID_STREET_NUMBER, VALID_STREET);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldNotInstantiateWithNonFiveDigitNumberZip() {
-        new Address("512", VALID_CITY, VALID_STREET_NUMBER, VALID_STREET);
+        createOne(VALID_STREET_NUMBER, VALID_STREET, null, VALID_CITY);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithEmptyCity() {
-        new Address(VALID_ZIP, " ", VALID_STREET_NUMBER, VALID_STREET);
+        createOne(VALID_STREET_NUMBER, VALID_STREET, VALID_ZIP, " ");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNullCity() {
-        new Address(VALID_ZIP, null, VALID_STREET_NUMBER, VALID_STREET);
+        createOne(VALID_STREET_NUMBER, VALID_STREET, VALID_ZIP, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithEmptyStreetNumber() {
-        new Address(VALID_ZIP, VALID_CITY, " ", VALID_STREET);
+        createOne(" ", VALID_STREET, VALID_ZIP, VALID_CITY);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNullStreetNumber() {
-        new Address(VALID_ZIP, VALID_CITY, null, VALID_STREET);
-    }
-
-    @Test
-    public void shouldAcceptSimpleDigitAndDigitPlusComplementaryStringAsStreetNumber() {
-        Address address = new Address(VALID_ZIP, VALID_CITY, "6", VALID_STREET);
-        assertThat(address.getStreetNumber()).isEqualTo("6");
-
-        address = new Address(VALID_ZIP, VALID_CITY, "63", VALID_STREET);
-        assertThat(address.getStreetNumber()).isEqualTo("63");
-
-        address = new Address(VALID_ZIP, VALID_CITY, "6 Bis", VALID_STREET);
-        assertThat(address.getStreetNumber()).isEqualTo("6 Bis");
-
-        address = new Address(VALID_ZIP, VALID_CITY, "63 Bis", VALID_STREET);
-        assertThat(address.getStreetNumber()).isEqualTo("63 Bis");
-
-        address = new Address(VALID_ZIP, VALID_CITY, "6bis", VALID_STREET);
-        assertThat(address.getStreetNumber()).isEqualTo("6 Bis");
-
-        address = new Address(VALID_ZIP, VALID_CITY, "6bis.", VALID_STREET);
-        assertThat(address.getStreetNumber()).isEqualTo("6 Bis.");
+        createOne(null, VALID_STREET, VALID_ZIP, VALID_CITY);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithEmptyStreet() {
-        new Address(VALID_ZIP, VALID_CITY, VALID_STREET_NUMBER, " ");
+        createOne(VALID_STREET_NUMBER, " ", VALID_ZIP, VALID_CITY);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNullStreet() {
-        new Address(VALID_ZIP, VALID_CITY, VALID_STREET_NUMBER, null);
+        createOne(VALID_STREET_NUMBER, null, VALID_ZIP, VALID_CITY);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldNotInstantiateWithNonNumberZip() {
+        createOne(VALID_STREET_NUMBER, VALID_STREET, "abcde", VALID_CITY);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldNotInstantiateWithNonFiveDigitNumberZip() {
+        createOne(VALID_STREET_NUMBER, VALID_STREET, "512", VALID_CITY);
+    }
+
+    @Test
+    public void shouldAcceptSimpleDigitAndDigitPlusComplementaryStringAsStreetNumber() {
+        Address address = createOne("6", VALID_STREET, VALID_ZIP, VALID_CITY);;
+        assertThat(address.getStreetNumber()).isEqualTo("6");
+
+        address = createOne("63", VALID_STREET, VALID_ZIP, VALID_CITY);
+        assertThat(address.getStreetNumber()).isEqualTo("63");
+
+        address = createOne("6 bis", VALID_STREET, VALID_ZIP, VALID_CITY);
+        assertThat(address.getStreetNumber()).isEqualTo("6 Bis");
+
+        address = createOne("63 bis", VALID_STREET, VALID_ZIP, VALID_CITY);
+        assertThat(address.getStreetNumber()).isEqualTo("63 Bis");
+
+        address = createOne("6bis", VALID_STREET, VALID_ZIP, VALID_CITY);
+        assertThat(address.getStreetNumber()).isEqualTo("6 Bis");
+
+        address = createOne("6bis.", VALID_STREET, VALID_ZIP, VALID_CITY);
+        assertThat(address.getStreetNumber()).isEqualTo("6 Bis.");
     }
 
     @Test
     public void shouldCapitalizeStreet() {
-        Address address = new Address(VALID_ZIP, VALID_CITY, VALID_STREET_NUMBER, "clermont ferrand");
+        Address address = createOne(VALID_STREET_NUMBER, "clermont ferrand", VALID_ZIP, VALID_CITY);
         assertThat(address.getStreet()).isEqualTo("Clermont Ferrand");
 
-        address = new Address(VALID_ZIP, VALID_CITY, VALID_STREET_NUMBER, "clermont-ferrand");
+        address = createOne(VALID_STREET_NUMBER, "clermont-ferrand", VALID_ZIP, VALID_CITY);
         assertThat(address.getStreet()).isEqualTo("Clermont-Ferrand");
     }
 
     @Test
     public void shouldInstantiate() {
-        Address address = new Address(VALID_ZIP, VALID_CITY, VALID_STREET_NUMBER, VALID_STREET);
-        assertThat(address.getZip()).isEqualTo(VALID_ZIP);
-        assertThat(address.getCity()).isEqualTo(VALID_CITY);
+        Address address = createOne();
         assertThat(address.getStreetNumber()).isEqualTo(VALID_STREET_NUMBER);
         assertThat(address.getStreet()).isEqualTo(VALID_STREET);
+        assertThat(address.getZip()).isEqualTo(VALID_ZIP);
+        assertThat(address.getCity()).isEqualTo(VALID_CITY);
     }
 
     @Test
     public void shouldCapitalizeAndTrim() {
-        String zip = " " + VALID_ZIP.toLowerCase() + " ";
-        String city = " " + VALID_CITY.toLowerCase() + " ";
         String streetNumber = " " + VALID_STREET_NUMBER.toLowerCase().replaceAll("\\s","") + " ";
         String street = " " + VALID_STREET.toLowerCase() + " ";
+        String zip = " " + VALID_ZIP.toLowerCase() + " ";
+        String city = " " + VALID_CITY.toLowerCase() + " ";
 
-        Address address = new Address(zip, city, streetNumber, street);
-        assertThat(address.getZip()).isEqualTo(VALID_ZIP);
-        assertThat(address.getCity()).isEqualTo(VALID_CITY);
+        Address address = createOne(streetNumber, street, zip, city);
         assertThat(address.getStreetNumber()).isEqualTo(VALID_STREET_NUMBER);
         assertThat(address.getStreet()).isEqualTo(VALID_STREET);
+        assertThat(address.getZip()).isEqualTo(VALID_ZIP);
+        assertThat(address.getCity()).isEqualTo(VALID_CITY);
     }
 
 }

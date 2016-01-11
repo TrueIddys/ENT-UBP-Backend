@@ -12,6 +12,7 @@ import javax.persistence.*;
  * Created by Anthony on 11/01/2016.
  */
 @Entity
+@Table(name = "teacher")
 public class TeacherDomain implements ModelTransformable<Teacher> {
 
     @Id

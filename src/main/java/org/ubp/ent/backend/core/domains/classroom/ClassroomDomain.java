@@ -75,6 +75,13 @@ public class ClassroomDomain implements ModelTransformable<Classroom, Long> {
         return types;
     }
 
+    public void addEquipment(RoomEquipmentDomain equipment) {
+        if (equipment == null) {
+            throw new IllegalArgumentException("Cannot add a null " + RoomEquipmentDomain.class.getName() + " to a " + getClass().getName());
+        }
+        this.equipments.add(equipment);
+    }
+
     @Override
     public Classroom toModel() {
         Classroom classroom = new Classroom(name, new RoomCapacity(capacity), types);

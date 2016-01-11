@@ -17,7 +17,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "classroom")
-public class ClassroomDomain implements ModelTransformable<Classroom, Long> {
+public class ClassroomDomain implements ModelTransformable<Classroom> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

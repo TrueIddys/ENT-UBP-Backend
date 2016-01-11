@@ -110,7 +110,7 @@ public class ClassroomDomainTest {
         ClassroomDomain domain = ClassroomDomainTest.createOne("SL5");
         ClassroomDomain domain2 = ClassroomDomainTest.createOne("SL6");
 
-        assertThat(domain2).isEqualTo(domain);
+        assertThat(domain2).isNotEqualTo(domain);
     }
 
 }

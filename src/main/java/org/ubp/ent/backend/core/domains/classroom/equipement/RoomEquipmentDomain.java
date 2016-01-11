@@ -16,7 +16,7 @@ import javax.persistence.*;
         @AssociationOverride(name = "primaryKey.classroom", joinColumns = @JoinColumn(name = "CLASSROOM_ID")),
         @AssociationOverride(name = "primaryKey.equipmentType", joinColumns = @JoinColumn(name = "EQUIPMENT_TYPE_ID"))
 })
-public class RoomEquipmentDomain implements ModelTransformable<RoomEquipment, RoomEquipmentDomainId> {
+public class RoomEquipmentDomain implements ModelTransformable<RoomEquipment> {
 
     @EmbeddedId
     private RoomEquipmentDomainId primaryKey = new RoomEquipmentDomainId();
@@ -41,7 +41,6 @@ public class RoomEquipmentDomain implements ModelTransformable<RoomEquipment, Ro
     }
 
 
-    @Override
     public RoomEquipmentDomainId getId() {
         return primaryKey;
     }

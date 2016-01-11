@@ -10,7 +10,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "equipment_type")
-public class EquipmentTypeDomain implements ModelTransformable<EquipmentType, Long> {
+public class EquipmentTypeDomain implements ModelTransformable<EquipmentType> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

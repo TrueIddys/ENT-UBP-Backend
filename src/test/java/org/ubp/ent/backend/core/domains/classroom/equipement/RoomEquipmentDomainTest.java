@@ -15,7 +15,7 @@ public class RoomEquipmentDomainTest {
 
 
     public static RoomEquipmentDomain createOne(String name, ClassroomDomain classroomDomain) {
-        return new RoomEquipmentDomain(RoomEquipmentTest.createOne(), classroomDomain);
+        return new RoomEquipmentDomain(RoomEquipmentTest.createOne(name), classroomDomain);
     }
 
     public static RoomEquipmentDomain createOne(ClassroomDomain classroomDomain) {

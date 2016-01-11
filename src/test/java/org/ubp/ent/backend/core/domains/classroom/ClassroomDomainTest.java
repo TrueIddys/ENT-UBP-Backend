@@ -4,6 +4,7 @@ package org.ubp.ent.backend.core.domains.classroom;
 import com.google.common.collect.Sets;
 import org.junit.Test;
 import org.ubp.ent.backend.core.domains.classroom.equipement.RoomEquipmentDomain;
+import org.ubp.ent.backend.core.domains.classroom.equipement.RoomEquipmentDomainTest;
 import org.ubp.ent.backend.core.model.classroom.Classroom;
 import org.ubp.ent.backend.core.model.classroom.ClassroomTest;
 import org.ubp.ent.backend.core.model.classroom.equipement.RoomEquipmentTest;
@@ -20,11 +21,12 @@ public class ClassroomDomainTest {
 
     public static ClassroomDomain createOne(String name, int equipmentCount) {
         Classroom classroom = ClassroomTest.createOne(name);
+        ClassroomDomain domain = new ClassroomDomain(classroom);
 
         for (int i = 0; i < equipmentCount; i++) {
-            classroom.addEquipment(RoomEquipmentTest.createOne("equipment " + i));
+            domain.addEquipment(RoomEquipmentDomainTest.createOne("equipment " + i, domain));
         }
-        return new ClassroomDomain(classroom);
+        return domain;
     }
 
     public static ClassroomDomain createOne(int equipmentCount) {

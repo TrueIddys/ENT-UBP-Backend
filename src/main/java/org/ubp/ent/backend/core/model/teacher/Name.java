@@ -1,5 +1,6 @@
 package org.ubp.ent.backend.core.model.teacher;
 
+import com.google.common.base.Objects;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 
@@ -42,4 +43,17 @@ public class Name {
         return lastName.toUpperCase();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Name name = (Name) o;
+        return Objects.equal(firstName, name.firstName) &&
+                Objects.equal(lastName, name.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(firstName, lastName);
+    }
 }

@@ -26,18 +26,4 @@ public class Phone extends ContactDetailsWrapper<PhoneType> {
         return phoneDetails;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Phone that = (Phone) o;
-        return super.equals(o) &&
-                Objects.equal(phoneDetails, that.phoneDetails);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(super.hashCode(), phoneDetails);
-    }
-
 }

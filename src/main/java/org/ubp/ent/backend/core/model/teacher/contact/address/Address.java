@@ -26,18 +26,4 @@ public class Address extends ContactDetailsWrapper<AddressType> {
         return addressDetails;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Address that = (Address) o;
-        return super.equals(o) &&
-                Objects.equal(addressDetails, that.addressDetails);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(super.hashCode(), addressDetails);
-    }
-
 }

@@ -38,29 +38,4 @@ public class PhoneTest {
         assertThat(model.getPhoneDetails()).isEqualTo(data);
     }
 
-    @Test
-    public void shouldBeEqualWithTypeAndData() {
-        PhoneType type = PhoneTypeTest.createOne();
-        PhoneDetails data = PhoneDetailsTest.createOne();
-        Phone model1 = new Phone(type, data);
-        Phone model2 = new Phone(type, data);
-        assertThat(model1).isEqualTo(model2);
-    }
-
-    @Test
-    public void shouldNotBeEqualWithDifferentType() {
-        PhoneDetails data = PhoneDetailsTest.createOne();
-        Phone model1 = new Phone(PhoneTypeTest.createOne("Personal"), data);
-        Phone model2 = new Phone(PhoneTypeTest.createOne("Work"), data);
-        assertThat(model1).isNotEqualTo(model2);
-    }
-
-    @Test
-    public void shouldNotBeEqualWithDifferentData() {
-        PhoneType type = PhoneTypeTest.createOne();
-        Phone model1 = new Phone(type, PhoneDetailsTest.createOne());
-        Phone model2 = new Phone(type, PhoneDetailsTest.createOne());
-        assertThat(model1).isNotEqualTo(model2);
-    }
-    
 }

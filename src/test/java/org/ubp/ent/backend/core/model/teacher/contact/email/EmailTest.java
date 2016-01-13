@@ -18,7 +18,11 @@ public class EmailTest {
     private static final String VALID_EMAIL = "aaa-rrr@ent-ubp.fr";
 
     public static Email createOne() {
-        return new Email(VALID_EMAIL);
+        return createOne(VALID_EMAIL);
+    }
+
+    public static Email createOne(String email) {
+        return new Email(email);
     }
 
     @Test(expected = IllegalArgumentException.class)

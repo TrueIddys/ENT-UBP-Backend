@@ -1,7 +1,8 @@
-package org.ubp.ent.backend.core.model.teacher.contact;
+package org.ubp.ent.backend.core.model.teacher.contact.phone;
 
 import org.junit.Test;
 import org.ubp.ent.backend.core.exceptions.model.BadFormattedPhoneNumber;
+import org.ubp.ent.backend.core.model.teacher.contact.phone.Phone;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

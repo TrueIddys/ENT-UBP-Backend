@@ -1,4 +1,4 @@
-package org.ubp.ent.backend.core.model.teacher.contact;
+package org.ubp.ent.backend.core.model.teacher.contact.email;
 
 import com.google.common.base.Objects;
 import org.apache.commons.lang3.StringUtils;

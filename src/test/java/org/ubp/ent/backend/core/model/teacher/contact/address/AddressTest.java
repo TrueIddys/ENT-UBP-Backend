@@ -1,6 +1,7 @@
-package org.ubp.ent.backend.core.model.teacher.contact;
+package org.ubp.ent.backend.core.model.teacher.contact.address;
 
 import org.junit.Test;
+import org.ubp.ent.backend.core.model.teacher.contact.address.Address;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

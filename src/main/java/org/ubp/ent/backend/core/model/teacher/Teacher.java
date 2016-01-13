@@ -1,6 +1,6 @@
 package org.ubp.ent.backend.core.model.teacher;
 
-import org.ubp.ent.backend.core.model.teacher.contact.Address;
+import org.ubp.ent.backend.core.model.teacher.contact.address.Address;
 
 /**
  * Created by Anthony on 11/01/2016.

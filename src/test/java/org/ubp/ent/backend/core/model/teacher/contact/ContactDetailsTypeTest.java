@@ -1,21 +1,14 @@
-package org.ubp.ent.backend.core.model.teacher.contact.phone;
+package org.ubp.ent.backend.core.model.teacher.contact;
 
 import org.junit.Test;
+import org.ubp.ent.backend.core.model.teacher.contact.phone.PhoneType;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Created by Anthony on 13/01/2016.
  */
-public class PhoneTypeTest {
-
-    public static PhoneType createOne() {
-        return new PhoneType("Mobile");
-    }
-
-    public static PhoneType createOne(String name) {
-        return new PhoneType(name);
-    }
+public class ContactDetailsTypeTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNullName() {
@@ -29,26 +22,25 @@ public class PhoneTypeTest {
 
     @Test
     public void shouldInstantiate() {
-        PhoneType type = createOne("Mobile");
+        ContactDetailsType type = new ContactDetailsType("Mobile");
         assertThat(type.getId()).isNull();
         assertThat(type.getName()).isEqualTo("Mobile");
     }
 
     @Test
     public void shouldBeEqualByName() {
-        PhoneType model1 = createOne("Home");
-        PhoneType model2 = createOne("Home");
+        ContactDetailsType model1 = new ContactDetailsType("Home");
+        ContactDetailsType model2 = new ContactDetailsType("Home");
 
         assertThat(model1).isEqualTo(model2);
     }
 
     @Test
     public void shouldNotBeEqualWithDifferentNames() {
-        PhoneType model1 = createOne("Home");
-        PhoneType model2 = createOne("Mobile");
+        ContactDetailsType model1 = new ContactDetailsType("Home");
+        ContactDetailsType model2 = new ContactDetailsType("Mobile");
 
         assertThat(model1).isNotEqualTo(model2);
     }
-
 
 }

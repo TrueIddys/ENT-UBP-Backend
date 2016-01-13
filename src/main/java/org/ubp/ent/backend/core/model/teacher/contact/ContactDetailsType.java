@@ -34,13 +34,12 @@ public class ContactDetailsType {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ContactDetailsType phoneType = (ContactDetailsType) o;
-        return Objects.equal(name, phoneType.name);
+        ContactDetailsType that = (ContactDetailsType) o;
+        return Objects.equal(name, that.name);
     }
 
     @Override
     public int hashCode() {
         return Objects.hashCode(name);
     }
-
 }

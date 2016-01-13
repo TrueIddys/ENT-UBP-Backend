@@ -1,6 +1,5 @@
 package org.ubp.ent.backend.core.model.teacher.contact;
 
-import com.google.common.collect.Sets;
 import org.junit.Test;
 import org.ubp.ent.backend.core.model.teacher.contact.address.Address;
 import org.ubp.ent.backend.core.model.teacher.contact.address.AddressTest;
@@ -8,7 +7,6 @@ import org.ubp.ent.backend.core.model.teacher.contact.email.Email;
 import org.ubp.ent.backend.core.model.teacher.contact.email.EmailTest;
 import org.ubp.ent.backend.core.model.teacher.contact.phone.Phone;
 import org.ubp.ent.backend.core.model.teacher.contact.phone.PhoneTest;
-import org.ubp.ent.backend.core.model.teacher.contact.phone.PhoneType;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -51,7 +49,7 @@ public class ContactTest {
     }
 
     @Test
-    public void shouldNotTwoAddressWithSameType() {
+    public void shouldNotAddTwoAddressWithSameType() {
         Contact contact = createOneEmpty();
 
         Address address1 = AddressTest.createOne("Home");
@@ -91,7 +89,7 @@ public class ContactTest {
     }
 
     @Test
-    public void shouldNotTwoPhoneWithSameType() {
+    public void shouldNotAddTwoPhoneWithSameType() {
         Contact contact = createOneEmpty();
 
         Phone phone1 = PhoneTest.createOne("Home");
@@ -131,7 +129,7 @@ public class ContactTest {
     }
 
     @Test
-    public void shouldNotTwoEmailWithSameType() {
+    public void shouldNotAddTwoEmailWithSameType() {
         Contact contact = createOneEmpty();
 
         Email email1 = EmailTest.createOne("University");

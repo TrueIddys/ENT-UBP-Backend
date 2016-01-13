@@ -1,6 +1,5 @@
 package org.ubp.ent.backend.core.model.teacher.contact.address;
 
-import com.google.common.base.Objects;
 import org.ubp.ent.backend.core.model.teacher.contact.ContactDetailsWrapper;
 
 /**

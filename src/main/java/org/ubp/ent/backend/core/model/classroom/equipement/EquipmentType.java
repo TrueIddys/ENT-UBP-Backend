@@ -10,8 +10,8 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class EquipmentType {
 
-    private final String name;
     private Long id;
+    private final String name;
 
     @JsonCreator
     public EquipmentType(@JsonProperty("name") String name) {

@@ -1,11 +1,6 @@
 package org.ubp.ent.backend.core.model.teacher;
 
-import org.ubp.ent.backend.core.model.teacher.contact.address.Address;
-import org.ubp.ent.backend.core.model.teacher.contact.address.AddressDetails;
-
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import org.ubp.ent.backend.core.model.teacher.contact.Contact;
 
 /**
  * Created by Anthony on 11/01/2016.
@@ -14,14 +9,17 @@ public class Teacher {
 
     private Long id;
     private Name name;
-    private Set<Address> addresses;
+    private Contact contact;
 
-    public Teacher(Name name) {
+    public Teacher(Name name, Contact contact) {
         if (name == null) {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " with a null " + Name.class.getName());
         }
+        if (contact == null) {
+            throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " with a null " + Contact.class.getName());
+        }
         this.name = name;
-        addresses = new HashSet<>();
+        this.contact = contact;
     }
 
     public Long getId() {
@@ -36,11 +34,8 @@ public class Teacher {
         return name;
     }
 
-    public Collection<Address> getAddresses() {
-        return addresses;
+    public Contact getContact() {
+        return contact;
     }
 
-    public void addAddress(Address address) {
-        addresses.add(address);
-    }
 }

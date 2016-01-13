@@ -1,7 +1,5 @@
 package org.ubp.ent.backend.core.model.teacher.contact.phone;
 
-import com.google.common.base.Objects;
-import org.apache.commons.lang3.StringUtils;
 import org.ubp.ent.backend.core.model.teacher.contact.ContactDetailsType;
 
 /**

@@ -2,6 +2,7 @@ package org.ubp.ent.backend.core.model.classroom;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.base.Objects;
 import org.apache.commons.lang3.StringUtils;
 import org.ubp.ent.backend.core.model.classroom.equipement.RoomEquipment;
 import org.ubp.ent.backend.core.model.type.ClassroomType;
@@ -15,11 +16,11 @@ import java.util.Set;
  */
 public class Classroom {
 
-    private Long id;
     private final String name;
     private final RoomCapacity roomCapacity;
     private final Set<RoomEquipment> equipments = new HashSet<>();
     private final Set<ClassroomType> types;
+    private Long id;
 
     @JsonCreator
     public Classroom(@JsonProperty("name") final String name, @JsonProperty("roomCapacity") final RoomCapacity roomCapacity, @JsonProperty("types") final Set<ClassroomType> types) {
@@ -74,12 +75,11 @@ public class Classroom {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Classroom classroom = (Classroom) o;
-        return com.google.common.base.Objects.equal(name, classroom.name);
+        return Objects.equal(name, classroom.name);
     }
 
     @Override
     public int hashCode() {
-        return com.google.common.base.Objects.hashCode(name);
+        return Objects.hashCode(name);
     }
-
 }

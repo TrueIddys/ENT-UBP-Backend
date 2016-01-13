@@ -34,7 +34,7 @@ public class ClassroomManagerTest extends WebApplicationTest {
 
     @Test
     public void shouldFindOneById() {
-        Classroom model = ClassroomTest.createOne("SCI_3006");
+        Classroom model = ClassroomTest.createOneEmpty("SCI_3006");
         model = classroomManager.create(model);
 
         assertThat(classroomManager.findOneById(model.getId())).isEqualTo(model);
@@ -52,7 +52,7 @@ public class ClassroomManagerTest extends WebApplicationTest {
 
     @Test
     public void shouldFindOneByIdJoiningEquipments() {
-        Classroom model = ClassroomTest.createOne("SCI_3006");
+        Classroom model = ClassroomTest.createOneEmpty("SCI_3006");
         model = classroomManager.create(model);
 
         EquipmentType equipmentType = EquipmentTypeTest.createOne("Computer");
@@ -77,7 +77,7 @@ public class ClassroomManagerTest extends WebApplicationTest {
 
     @Test
     public void shouldFindAllJoiningEquipments() {
-        Classroom model = ClassroomTest.createOne("SCI_3006");
+        Classroom model = ClassroomTest.createOneEmpty("SCI_3006");
         model = classroomManager.create(model);
 
         EquipmentType equipmentType = EquipmentTypeTest.createOne("Computer");
@@ -91,12 +91,12 @@ public class ClassroomManagerTest extends WebApplicationTest {
 
     @Test
     public void shouldCreate() {
-        Classroom model = ClassroomTest.createOne("SL4");
+        Classroom model = ClassroomTest.createOneEmpty("SL4");
         classroomManager.create(model);
 
         assertThat(classroomManager.findAll()).hasSize(1);
 
-        Classroom model2 = ClassroomTest.createOne("SL5");
+        Classroom model2 = ClassroomTest.createOneEmpty("SL5");
         classroomManager.create(model2);
 
         assertThat(classroomManager.findAll()).hasSize(2);
@@ -104,7 +104,7 @@ public class ClassroomManagerTest extends WebApplicationTest {
 
     @Test
     public void shouldSetIdOnReferenceWhenCreating() {
-        Classroom model = ClassroomTest.createOne("SL5");
+        Classroom model = ClassroomTest.createOneEmpty("SL5");
 
         classroomManager.create(model);
 
@@ -114,10 +114,10 @@ public class ClassroomManagerTest extends WebApplicationTest {
     @Test(expected = DataIntegrityViolationException.class)
     public void shouldFailCreateTwoClassroomWithTheSameName() {
         String name = "Non-Unique-Name";
-        Classroom model = ClassroomTest.createOne(name);
+        Classroom model = ClassroomTest.createOneEmpty(name);
         classroomManager.create(model);
 
-        Classroom model2 = ClassroomTest.createOne(name);
+        Classroom model2 = ClassroomTest.createOneEmpty(name);
         classroomManager.create(model2);
     }
 
@@ -128,7 +128,7 @@ public class ClassroomManagerTest extends WebApplicationTest {
 
     @Test(expected = AlreadyDefinedInOnNonPersistedClass.class)
     public void shouldFailCreateIfIdIsDefined() {
-        Classroom model = ClassroomTest.createOne();
+        Classroom model = ClassroomTest.createOneEmpty();
         model.setId(25L);
 
         classroomManager.create(model);
@@ -139,7 +139,7 @@ public class ClassroomManagerTest extends WebApplicationTest {
         EquipmentType equipmentType = EquipmentTypeTest.createOne("Computer");
         equipmentType = equipmentTypeManager.create(equipmentType);
 
-        Classroom model = ClassroomTest.createOne("SCI_3006");
+        Classroom model = ClassroomTest.createOneEmpty("SCI_3006");
         model.addEquipment(new RoomEquipment(equipmentType, new Quantity(12)));
         classroomManager.create(model);
 
@@ -153,7 +153,7 @@ public class ClassroomManagerTest extends WebApplicationTest {
         EquipmentType equipmentType = EquipmentTypeTest.createOne("Computer");
         equipmentType = equipmentTypeManager.create(equipmentType);
 
-        Classroom model = ClassroomTest.createOne("SCI_3006");
+        Classroom model = ClassroomTest.createOneEmpty("SCI_3006");
         model = classroomManager.create(model);
 
         classroomManager.addEquipment(model.getId(), equipmentType.getId(), new Quantity(12));
@@ -181,7 +181,7 @@ public class ClassroomManagerTest extends WebApplicationTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotAddEquipmentToClassroomIfRoomEquipmentIsNull() {
-        Classroom model = ClassroomTest.createOne("SCI_3006");
+        Classroom model = ClassroomTest.createOneEmpty("SCI_3006");
         model = classroomManager.create(model);
 
         classroomManager.addEquipment(model.getId(), null, new Quantity(12));
@@ -189,7 +189,7 @@ public class ClassroomManagerTest extends WebApplicationTest {
 
     @Test(expected = EquipmentTypeResourceNotFoundException.class)
     public void shouldNotAddEquipmentToClassroomIfEquipmentTypeDoesNotExists() {
-        Classroom model = ClassroomTest.createOne("SCI_3006");
+        Classroom model = ClassroomTest.createOneEmpty("SCI_3006");
         model = classroomManager.create(model);
 
         EquipmentType equipmentType = EquipmentTypeTest.createOne("Computer");
@@ -203,7 +203,7 @@ public class ClassroomManagerTest extends WebApplicationTest {
         EquipmentType equipmentType = EquipmentTypeTest.createOne("Computer");
         equipmentType = equipmentTypeManager.create(equipmentType);
 
-        Classroom model = ClassroomTest.createOne("SCI_3006");
+        Classroom model = ClassroomTest.createOneEmpty("SCI_3006");
         model = classroomManager.create(model);
 
         classroomManager.addEquipment(model.getId(), equipmentType.getId(), null);

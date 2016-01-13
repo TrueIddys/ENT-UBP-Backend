@@ -1,4 +1,4 @@
-package org.ubp.ent.backend.core.model.teacher;
+package org.ubp.ent.backend.core.model.teacher.contact;
 
 import org.junit.Test;
 import org.ubp.ent.backend.core.exceptions.model.BadFormattedEmailAddress;

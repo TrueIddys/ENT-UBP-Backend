@@ -1,8 +1,8 @@
 package org.ubp.ent.backend.core.domains.teacher;
 
 import org.junit.Test;
-import org.ubp.ent.backend.core.model.teacher.Address;
-import org.ubp.ent.backend.core.model.teacher.AddressTest;
+import org.ubp.ent.backend.core.model.teacher.contact.Address;
+import org.ubp.ent.backend.core.model.teacher.contact.AddressTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

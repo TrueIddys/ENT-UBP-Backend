@@ -1,5 +1,7 @@
 package org.ubp.ent.backend.core.model.teacher;
 
+import org.ubp.ent.backend.core.model.teacher.contact.Contact;
+
 /**
  * Created by Anthony on 11/01/2016.
  */
@@ -7,18 +9,17 @@ public class Teacher {
 
     private Long id;
     private Name name;
-    private Address address;
+    private Contact contact;
 
-    public Teacher(Name name, Address address) {
+    public Teacher(Name name, Contact contact) {
         if (name == null) {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " with a null " + Name.class.getName());
         }
-        if (address == null) {
-            throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " with a null " + Address.class.getName());
+        if (contact == null) {
+            throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " with a null " + Contact.class.getName());
         }
-
         this.name = name;
-        this.address = address;
+        this.contact = contact;
     }
 
     public Long getId() {
@@ -33,8 +34,8 @@ public class Teacher {
         return name;
     }
 
-    public Address getAddress() {
-        return address;
+    public Contact getContact() {
+        return contact;
     }
 
 }

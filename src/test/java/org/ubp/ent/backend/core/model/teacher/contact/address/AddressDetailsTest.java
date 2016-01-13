@@ -1,4 +1,4 @@
-package org.ubp.ent.backend.core.model.teacher;
+package org.ubp.ent.backend.core.model.teacher.contact.address;
 
 import org.junit.Test;
 
@@ -7,18 +7,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Created by Anthony on 09/01/2016.
  */
-public class AddressTest {
-    private static final String VALID_ZIP = "63000";
-    private static final String VALID_CITY = "Clermont-Ferrand";
+public class AddressDetailsTest {
     private static final String VALID_STREET_NUMBER = "6 Bis";
     private static final String VALID_STREET = "Rue Jacques Essebag";
+    private static final String VALID_ZIP = "63000";
+    private static final String VALID_CITY = "Clermont-Ferrand";
 
-    public static Address createOne() {
+    public static AddressDetails createOne() {
         return createOne(VALID_STREET_NUMBER, VALID_STREET, VALID_ZIP, VALID_CITY);
     }
 
-    public static Address createOne(String streetNumber, String street, String zip, String city) {
-        return new Address(streetNumber, street, zip, city);
+    public static AddressDetails createOne(String streetNumber, String street, String zip, String city) {
+        return new AddressDetails(streetNumber, street, zip, city);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -73,7 +73,7 @@ public class AddressTest {
 
     @Test
     public void shouldAcceptSimpleDigitAndDigitPlusComplementaryStringAsStreetNumber() {
-        Address address = createOne("6", VALID_STREET, VALID_ZIP, VALID_CITY);;
+        AddressDetails address = createOne("6", VALID_STREET, VALID_ZIP, VALID_CITY);;
         assertThat(address.getStreetNumber()).isEqualTo("6");
 
         address = createOne("63", VALID_STREET, VALID_ZIP, VALID_CITY);
@@ -94,16 +94,16 @@ public class AddressTest {
 
     @Test
     public void shouldCapitalizeStreet() {
-        Address address = createOne(VALID_STREET_NUMBER, "clermont ferrand", VALID_ZIP, VALID_CITY);
-        assertThat(address.getStreet()).isEqualTo("Clermont Ferrand");
+        AddressDetails address = createOne(VALID_STREET_NUMBER, "rue bargouin", VALID_ZIP, VALID_CITY);
+        assertThat(address.getStreet()).isEqualTo("Rue Bargouin");
 
-        address = createOne(VALID_STREET_NUMBER, "clermont-ferrand", VALID_ZIP, VALID_CITY);
-        assertThat(address.getStreet()).isEqualTo("Clermont-Ferrand");
+        address = createOne(VALID_STREET_NUMBER, "rue-bargouin", VALID_ZIP, VALID_CITY);
+        assertThat(address.getStreet()).isEqualTo("Rue-Bargouin");
     }
 
     @Test
     public void shouldInstantiate() {
-        Address address = createOne();
+        AddressDetails address = createOne(VALID_STREET_NUMBER, VALID_STREET, VALID_ZIP, VALID_CITY);
         assertThat(address.getStreetNumber()).isEqualTo(VALID_STREET_NUMBER);
         assertThat(address.getStreet()).isEqualTo(VALID_STREET);
         assertThat(address.getZip()).isEqualTo(VALID_ZIP);
@@ -117,7 +117,7 @@ public class AddressTest {
         String zip = " " + VALID_ZIP.toLowerCase() + " ";
         String city = " " + VALID_CITY.toLowerCase() + " ";
 
-        Address address = createOne(streetNumber, street, zip, city);
+        AddressDetails address = createOne(streetNumber, street, zip, city);
         assertThat(address.getStreetNumber()).isEqualTo(VALID_STREET_NUMBER);
         assertThat(address.getStreet()).isEqualTo(VALID_STREET);
         assertThat(address.getZip()).isEqualTo(VALID_ZIP);

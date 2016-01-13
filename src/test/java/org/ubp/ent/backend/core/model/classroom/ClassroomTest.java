@@ -1,12 +1,15 @@
 package org.ubp.ent.backend.core.model.classroom;
 
 import com.google.common.collect.Sets;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.ubp.ent.backend.core.model.classroom.equipement.RoomEquipment;
 import org.ubp.ent.backend.core.model.classroom.equipement.RoomEquipmentTest;
 import org.ubp.ent.backend.core.model.type.ClassroomType;
 
 import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -16,7 +19,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ClassroomTest {
 
     public static Classroom createOne(String name) {
-        return new Classroom(name, createValidCapacity(), createValidClassroomTypeSet());
+        Classroom classroom = createOneEmpty(name);
+        classroom.addEquipment(RoomEquipmentTest.createOne());
+        classroom.addEquipment(RoomEquipmentTest.createOne());
+
+        return classroom;
+    }
+
+    public static Classroom createOneEmpty(String name) {
+        return new Classroom(name, RoomCapacityTest.createOne(), createValidClassroomTypeSet());
     }
 
     private static Set<ClassroomType> createValidClassroomTypeSet() {
@@ -26,9 +37,14 @@ public class ClassroomTest {
     public static Classroom createOne() {
         return createOne(createValidName());
     }
+    public static Classroom createOneEmpty() {
+        return createOneEmpty(createValidName());
+    }
 
     private static String createValidName() {
-        return "Default name";
+        int length = ThreadLocalRandom.current().nextInt(9, 15);
+        String name = RandomStringUtils.randomAlphanumeric(length);
+        return StringUtils.deleteWhitespace(name);
     }
 
     private static RoomCapacity createValidCapacity() {
@@ -37,11 +53,11 @@ public class ClassroomTest {
 
     @Test
     public void shouldInstantiate() {
-        Classroom classroom = createOne();
+        Classroom classroom = createOneEmpty();
 
         assertThat(classroom.getId()).isNull();
-        assertThat(classroom.getName()).isEqualTo(createValidName());
-        assertThat(classroom.getRoomCapacity()).isEqualTo(createValidCapacity());
+        assertThat(classroom.getName()).isNotNull();
+        assertThat(classroom.getRoomCapacity()).isNotNull();
         assertThat(classroom.getEquipments()).isEmpty();
         assertThat(classroom.getTypes()).isNotEmpty();
     }
@@ -82,11 +98,23 @@ public class ClassroomTest {
     public void shouldAddEquipmentToSet() {
         RoomEquipment equipment = RoomEquipmentTest.createOne();
 
-        Classroom classroom = createOne();
-        int equipmentSize = classroom.getEquipments().size();
+        Classroom classroom = createOneEmpty();
         classroom.addEquipment(equipment);
 
-        assertThat(classroom.getEquipments().size()).isEqualTo(equipmentSize + 1);
+        assertThat(classroom.getEquipments()).containsOnly(equipment);
+    }
+
+    @Test
+    public void shouldReplaceOldEquipmentIfEquipmentTypeAlreadyInList() {
+        Classroom classroom = createOneEmpty();
+
+        RoomEquipment equipment1 = RoomEquipmentTest.createOne("duplicated-equipment");
+        classroom.addEquipment(equipment1);
+
+        RoomEquipment equipment2 = RoomEquipmentTest.createOne("duplicated-equipment");
+        classroom.addEquipment(equipment2);
+
+        assertThat(classroom.getEquipments()).containsOnly(equipment2);
     }
 
     @Test
@@ -95,6 +123,14 @@ public class ClassroomTest {
         Classroom classroom2 = ClassroomTest.createOne("SL5");
 
         assertThat(classroom2).isEqualTo(classroom);
+    }
+
+    @Test
+    public void shouldNotBeEqualWithDifferentNames() {
+        Classroom classroom = ClassroomTest.createOne("SL5");
+        Classroom classroom2 = ClassroomTest.createOne("SL6");
+
+        assertThat(classroom2).isNotEqualTo(classroom);
     }
 
 }

@@ -1,22 +1,19 @@
-package org.ubp.ent.backend.core.model.classroom.equipement;
+package org.ubp.ent.backend.core.model.teacher.contact;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Objects;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Created by Anthony on 20/11/2015.
+ * Created by Anthony on 13/01/2016.
  */
-public class EquipmentType {
+public class ContactDetailsType {
 
     private Long id;
-    private final String name;
+    private String name;
 
-    @JsonCreator
-    public EquipmentType(@JsonProperty("name") String name) {
+    public ContactDetailsType(String name) {
         if (StringUtils.isBlank(name)) {
-            throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a name.");
+            throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a type name");
         }
         this.name = name;
     }
@@ -37,7 +34,7 @@ public class EquipmentType {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        EquipmentType that = (EquipmentType) o;
+        ContactDetailsType that = (ContactDetailsType) o;
         return Objects.equal(name, that.name);
     }
 

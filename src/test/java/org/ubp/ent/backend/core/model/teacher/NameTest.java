@@ -1,6 +1,9 @@
 package org.ubp.ent.backend.core.model.teacher;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Test;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -10,7 +13,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class NameTest {
 
     public static Name createOne() {
-        return new Name("Anthony", "RAYMOND");
+        String firstName = RandomStringUtils.randomAlphabetic(ThreadLocalRandom.current().nextInt(3, 10));
+        String lastName = RandomStringUtils.randomAlphabetic(ThreadLocalRandom.current().nextInt(3, 10));
+        return new Name(firstName, lastName);
     }
 
     @Test(expected = IllegalArgumentException.class)

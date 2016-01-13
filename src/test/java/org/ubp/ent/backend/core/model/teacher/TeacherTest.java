@@ -1,8 +1,15 @@
 package org.ubp.ent.backend.core.model.teacher;
 
 import org.junit.Test;
+import org.ubp.ent.backend.core.model.teacher.contact.Contact;
+import org.ubp.ent.backend.core.model.teacher.contact.ContactTest;
+import org.ubp.ent.backend.core.model.teacher.contact.address.Address;
+import org.ubp.ent.backend.core.model.teacher.contact.address.AddressDetails;
+import org.ubp.ent.backend.core.model.teacher.contact.address.AddressDetailsTest;
+import org.ubp.ent.backend.core.model.teacher.contact.address.AddressTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.StrictAssertions.assertThatThrownBy;
 
 /**
  * Created by Anthony on 11/01/2016.
@@ -10,28 +17,30 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TeacherTest {
 
     public static Teacher createOne() {
-        return new Teacher(NameTest.createOne(), AddressTest.createOne());
+        return new Teacher(NameTest.createOne(), ContactTest.createOne());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldNotBuildWithNullName() {
-        new Teacher(null, AddressTest.createOne());
+    public void shouldNotInstantiateWithNullName() {
+        new Teacher(null, ContactTest.createOne());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldNotBuildWithNullAddress() {
+    public void shouldNotInstantiateWithNullContact() {
         new Teacher(NameTest.createOne(), null);
     }
 
     @Test
     public void shouldInstantiate() {
         Name name = NameTest.createOne();
-        Address address = AddressTest.createOne();
-        Teacher teacher = new Teacher(name, address);
+        Contact contact = ContactTest.createOne();
+        Teacher teacher = new Teacher(name, contact);
 
         assertThat(teacher.getId()).isNull();
         assertThat(teacher.getName()).isEqualTo(name);
-        assertThat(teacher.getAddress()).isEqualTo(address);
+        assertThat(teacher.getContact()).isEqualTo(contact);
     }
+
+
 
 }

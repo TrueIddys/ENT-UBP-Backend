@@ -1,4 +1,4 @@
-package org.ubp.ent.backend.core.model.teacher;
+package org.ubp.ent.backend.core.model.teacher.contact.address;
 
 import com.google.common.base.Objects;
 import org.apache.commons.lang3.StringUtils;
@@ -10,14 +10,14 @@ import java.util.regex.Pattern;
 /**
  * Created by Anthony on 09/01/2016.
  */
-public class Address {
+public class AddressDetails {
 
     private String streetNumber;
     private String street;
     private String zip;
     private String city;
 
-    public Address(String streetNumber, String street, String zip, String city) {
+    public AddressDetails(String streetNumber, String street, String zip, String city) {
         if (StringUtils.isBlank(streetNumber)) {
             throw new IllegalArgumentException("Cannot create a " + getClass().getName() + " without a streetNumber : '" + streetNumber + "' given");
         }
@@ -101,7 +101,7 @@ public class Address {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Address address = (Address) o;
+        AddressDetails address = (AddressDetails) o;
         return Objects.equal(streetNumber, address.streetNumber) &&
                 Objects.equal(street, address.street) &&
                 Objects.equal(zip, address.zip) &&

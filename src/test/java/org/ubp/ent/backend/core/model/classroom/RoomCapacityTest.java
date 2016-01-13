@@ -4,6 +4,8 @@ package org.ubp.ent.backend.core.model.classroom;
 import org.junit.Test;
 import org.ubp.ent.backend.core.exceptions.database.ModelConstraintViolationException;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -12,7 +14,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RoomCapacityTest {
 
     public static RoomCapacity createOne() {
-        return new RoomCapacity(12);
+        return createOne(ThreadLocalRandom.current().nextInt(12, 35));
+    }
+
+    public static RoomCapacity createOne(int maxCapacity) {
+        return new RoomCapacity(maxCapacity);
     }
 
     @Test(expected = ModelConstraintViolationException.class)
@@ -32,4 +38,5 @@ public class RoomCapacityTest {
 
         assertThat(roomCapacity.getMaxCapacity().intValue()) .isEqualTo(maxCapacity);
     }
+
 }

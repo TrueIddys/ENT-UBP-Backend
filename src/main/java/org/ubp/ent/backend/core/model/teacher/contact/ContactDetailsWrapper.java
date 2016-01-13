@@ -1,8 +1,6 @@
 package org.ubp.ent.backend.core.model.teacher.contact;
 
 import com.google.common.base.Objects;
-import org.ubp.ent.backend.core.model.teacher.contact.address.Address;
-import org.ubp.ent.backend.core.model.teacher.contact.address.AddressType;
 
 /**
  * Created by Anthony on 13/01/2016.

@@ -1,8 +1,8 @@
 package org.ubp.ent.backend.core.model.teacher;
 
 import org.junit.Test;
-import org.ubp.ent.backend.core.model.teacher.contact.address.Address;
-import org.ubp.ent.backend.core.model.teacher.contact.address.AddressTest;
+import org.ubp.ent.backend.core.model.teacher.contact.address.AddressDetails;
+import org.ubp.ent.backend.core.model.teacher.contact.address.AddressDetailsTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -12,12 +12,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TeacherTest {
 
     public static Teacher createOne() {
-        return new Teacher(NameTest.createOne(), AddressTest.createOne());
+        return new Teacher(NameTest.createOne(), AddressDetailsTest.createOne());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotBuildWithNullName() {
-        new Teacher(null, AddressTest.createOne());
+        new Teacher(null, AddressDetailsTest.createOne());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -28,7 +28,7 @@ public class TeacherTest {
     @Test
     public void shouldInstantiate() {
         Name name = NameTest.createOne();
-        Address address = AddressTest.createOne();
+        AddressDetails address = AddressDetailsTest.createOne();
         Teacher teacher = new Teacher(name, address);
 
         assertThat(teacher.getId()).isNull();

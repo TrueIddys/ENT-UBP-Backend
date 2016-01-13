@@ -2,7 +2,8 @@ package org.ubp.ent.backend.core.domains.teacher;
 
 import com.google.common.base.Objects;
 import org.ubp.ent.backend.core.domains.ModelTransformable;
-import org.ubp.ent.backend.core.model.teacher.contact.address.Address;
+import org.ubp.ent.backend.core.domains.teacher.contact.address.AddressDetailsDomain;
+import org.ubp.ent.backend.core.model.teacher.contact.address.AddressDetails;
 import org.ubp.ent.backend.core.model.teacher.Name;
 import org.ubp.ent.backend.core.model.teacher.Teacher;
 
@@ -19,17 +20,17 @@ public class TeacherDomain implements ModelTransformable<Teacher> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Embedded
-    private NameDomain name;
+    private NameDetailsDomain name;
     @Embedded
-    private AddressDomain address;
+    private AddressDetailsDomain address;
 
     public TeacherDomain() {
     }
 
     public TeacherDomain(Teacher teacher) {
         this.id = teacher.getId();
-        this.name = new NameDomain(teacher.getName());
-        this.address = new AddressDomain(teacher.getAddress());
+        this.name = new NameDetailsDomain(teacher.getName());
+        this.address = new AddressDetailsDomain(teacher.getAddress());
     }
 
     public Long getId() {
@@ -40,18 +41,18 @@ public class TeacherDomain implements ModelTransformable<Teacher> {
         this.id = id;
     }
 
-    public NameDomain getName() {
+    public NameDetailsDomain getName() {
         return name;
     }
 
-    public AddressDomain getAddress() {
+    public AddressDetailsDomain getAddress() {
         return address;
     }
 
     @Override
     public Teacher toModel() {
         Name modelName = name.toModel();
-        Address modelAddress = address.toModel();
+        AddressDetails modelAddress = address.toModel();
         Teacher teacher = new Teacher(modelName, modelAddress);
         teacher.setId(id);
 

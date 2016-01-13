@@ -1,6 +1,7 @@
 package org.ubp.ent.backend.core.domains.teacher;
 
 import org.junit.Test;
+import org.ubp.ent.backend.core.domains.teacher.contact.address.AddressDetailsDomain;
 import org.ubp.ent.backend.core.model.teacher.Teacher;
 import org.ubp.ent.backend.core.model.teacher.TeacherTest;
 
@@ -22,8 +23,8 @@ public class TeacherDomainTest {
 
         TeacherDomain domain = new TeacherDomain(model);
         assertThat(domain.getId()).isEqualTo(model.getId());
-        assertThat(domain.getName()).isEqualTo(new NameDomain(model.getName()));
-        assertThat(domain.getAddress()).isEqualTo(new AddressDomain(model.getAddress()));
+        assertThat(domain.getName()).isEqualTo(new NameDetailsDomain(model.getName()));
+        assertThat(domain.getAddress()).isEqualTo(new AddressDetailsDomain(model.getAddress()));
     }
 
     @Test

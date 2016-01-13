@@ -1,73 +1,66 @@
 package org.ubp.ent.backend.core.model.teacher.contact.email;
 
 import org.junit.Test;
-import org.ubp.ent.backend.core.exceptions.model.BadFormattedEmailAddress;
-import org.ubp.ent.backend.core.model.teacher.contact.email.Email;
 
-import java.util.Arrays;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.StrictAssertions.fail;
+import static org.assertj.core.api.StrictAssertions.assertThat;
 
 /**
  * Created by Anthony on 13/01/2016.
  */
 public class EmailTest {
 
-    private static final String VALID_EMAIL = "aaa-rrr@ent-ubp.fr";
-
     public static Email createOne() {
-        return createOne(VALID_EMAIL);
+        return new Email(EmailTypeTest.createOne(), EmailDetailsTest.createOne());
     }
 
-    public static Email createOne(String email) {
-        return new Email(email);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldNotInstantiateWithNullNumber() {
-        new Email(null);
+    public static Email createOne(String EmailType) {
+        return new Email(EmailTypeTest.createOne(EmailType), EmailDetailsTest.createOne());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldNotInstantiateWithEmptyNumber() {
-        new Email(" ");
+    public void shouldNotInstantiateWithNullType() {
+        new Email(null, EmailDetailsTest.createOne());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldNotInstantiateWithNullDetail() {
+        new Email(EmailTypeTest.createOne(), null);
     }
 
     @Test
     public void shouldInstantiate() {
-        Email model = new Email(VALID_EMAIL);
-        assertThat(model.getAddress()).isEqualTo(VALID_EMAIL);
+        EmailType type = EmailTypeTest.createOne();
+        EmailDetails data = EmailDetailsTest.createOne();
+        Email model = new Email(type, data);
+
+        assertThat(model.getId()).isNull();
+        assertThat(model.getEmailType()).isEqualTo(type);
+        assertThat(model.getEmailDetails()).isEqualTo(data);
     }
 
     @Test
-    public void shouldRejectNonPhoneNumber() {
-        List<String> wrongMails = Arrays.asList(
-                "abcdefghij",
-                "@ent-ubp.fr",
-                "aa@ent-ubp",
-                "aa@fr"
-        );
-        for (String mail : wrongMails) {
-            try {
-                new Email(mail);
-                fail("'" + mail + "' should not be a valid email address");
-            } catch (BadFormattedEmailAddress e) {
-                assertThat(e.getMessage()).isNotEmpty();
-            }
-        }
-    }
-
-
-    @Test
-    public void shouldBeEqualByNumber() {
-        assertThat(createOne()).isEqualTo(createOne());
+    public void shouldBeEqualWithTypeAndData() {
+        EmailType type = EmailTypeTest.createOne();
+        EmailDetails data = EmailDetailsTest.createOne();
+        Email model1 = new Email(type, data);
+        Email model2 = new Email(type, data);
+        assertThat(model1).isEqualTo(model2);
     }
 
     @Test
-    public void shouldNotBeEqualWithDifferentNumbers() {
-        assertThat(createOne()).isNotEqualTo(new Email("pomme-api@ent-ubp.fr"));
+    public void shouldNotBeEqualWithDifferentType() {
+        EmailDetails data = EmailDetailsTest.createOne();
+        Email model1 = new Email(EmailTypeTest.createOne("Personal"), data);
+        Email model2 = new Email(EmailTypeTest.createOne("Work"), data);
+        assertThat(model1).isNotEqualTo(model2);
+    }
+
+    @Test
+    public void shouldNotBeEqualWithDifferentData() {
+        EmailType type = EmailTypeTest.createOne();
+        Email model1 = new Email(type, EmailDetailsTest.createOne());
+        Email model2 = new Email(type, EmailDetailsTest.createOne("john-doe@jdoe.com"));
+        assertThat(model1).isNotEqualTo(model2);
     }
 
 }

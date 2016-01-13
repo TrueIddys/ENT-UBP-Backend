@@ -1,49 +1,43 @@
 package org.ubp.ent.backend.core.model.teacher.contact.email;
 
 import com.google.common.base.Objects;
-import org.apache.commons.lang3.StringUtils;
-import org.ubp.ent.backend.core.exceptions.model.BadFormattedEmailAddress;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import org.ubp.ent.backend.core.model.teacher.contact.ContactDetailsWrapper;
 
 /**
  * Created by Anthony on 13/01/2016.
  */
-public class Email {
+public class Email extends ContactDetailsWrapper<EmailType> {
 
-    private String address;
+    private EmailDetails emailDetails;
 
-    public Email(String address) {
-        if (StringUtils.isBlank(address)) {
-            throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without an email address");
+    public Email(EmailType addressType, EmailDetails emailDetails) {
+        super(addressType);
+        if (emailDetails == null) {
+            throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without an email");
         }
-        validateAddress(address);
-        this.address = address;
+        this.emailDetails = emailDetails;
     }
 
-    public String getAddress() {
-        return address;
+    public EmailType getEmailType() {
+        return super.getType();
     }
 
-    private void validateAddress(String mail) {
-        Pattern p = Pattern.compile("\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\b", Pattern.CASE_INSENSITIVE);
-        Matcher m = p.matcher(mail);
-        if (!m.matches()) {
-            throw new BadFormattedEmailAddress("Given email address does not match pattern, given :" + mail);
-        }
+    public EmailDetails getEmailDetails() {
+        return emailDetails;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Email email = (Email) o;
-        return Objects.equal(address, email.address);
+        Email that = (Email) o;
+        return super.equals(o) &&
+                Objects.equal(emailDetails, that.emailDetails);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(address);
+        return Objects.hashCode(super.hashCode(), emailDetails);
     }
+
 }

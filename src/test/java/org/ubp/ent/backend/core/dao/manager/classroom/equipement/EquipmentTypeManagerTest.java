@@ -64,10 +64,10 @@ public class EquipmentTypeManagerTest extends WebApplicationTest {
 
     @Test(expected = DataIntegrityViolationException.class)
     public void shouldFailCreateTwoTypesWithTheSameName() {
-        EquipmentType model = EquipmentTypeTest.createOne();
+        EquipmentType model = EquipmentTypeTest.createOne("duplicated-name");
         manager.create(model);
 
-        EquipmentType model2 = EquipmentTypeTest.createOne();
+        EquipmentType model2 = EquipmentTypeTest.createOne("duplicated-name");
         manager.create(model2);
     }
 

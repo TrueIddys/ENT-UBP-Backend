@@ -1,6 +1,10 @@
 package org.ubp.ent.backend.core.model.teacher.contact.phone;
 
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -10,7 +14,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PhoneTypeTest {
 
     public static PhoneType createOne() {
-        return new PhoneType("Mobile");
+        int length = ThreadLocalRandom.current().nextInt(5, 9);
+        return createOne(RandomStringUtils.randomAlphabetic(length));
     }
 
     public static PhoneType createOne(String name) {

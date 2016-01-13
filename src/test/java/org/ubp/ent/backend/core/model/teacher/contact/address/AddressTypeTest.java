@@ -1,6 +1,9 @@
 package org.ubp.ent.backend.core.model.teacher.contact.address;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Test;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 import static org.assertj.core.api.StrictAssertions.assertThat;
 import static org.junit.Assert.*;
@@ -11,7 +14,8 @@ import static org.junit.Assert.*;
 public class AddressTypeTest {
 
     public static AddressType createOne() {
-        return new AddressType("Home");
+        int length = ThreadLocalRandom.current().nextInt(5, 9);
+        return createOne(RandomStringUtils.randomAlphabetic(length));
     }
 
     public static AddressType createOne(String name) {

@@ -113,10 +113,11 @@ public class ClassroomManagerTest extends WebApplicationTest {
 
     @Test(expected = DataIntegrityViolationException.class)
     public void shouldFailCreateTwoClassroomWithTheSameName() {
-        Classroom model = ClassroomTest.createOne();
+        String name = "Non-Unique-Name";
+        Classroom model = ClassroomTest.createOne(name);
         classroomManager.create(model);
 
-        Classroom model2 = ClassroomTest.createOne();
+        Classroom model2 = ClassroomTest.createOne(name);
         classroomManager.create(model2);
     }
 

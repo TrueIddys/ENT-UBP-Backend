@@ -1,12 +1,15 @@
 package org.ubp.ent.backend.core.model.classroom;
 
 import com.google.common.collect.Sets;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.ubp.ent.backend.core.model.classroom.equipement.RoomEquipment;
 import org.ubp.ent.backend.core.model.classroom.equipement.RoomEquipmentTest;
 import org.ubp.ent.backend.core.model.type.ClassroomType;
 
 import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -16,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ClassroomTest {
 
     public static Classroom createOne(String name) {
-        return new Classroom(name, createValidCapacity(), createValidClassroomTypeSet());
+        return new Classroom(name, RoomCapacityTest.createOne(), createValidClassroomTypeSet());
     }
 
     private static Set<ClassroomType> createValidClassroomTypeSet() {
@@ -28,7 +31,9 @@ public class ClassroomTest {
     }
 
     private static String createValidName() {
-        return "Default name";
+        int length = ThreadLocalRandom.current().nextInt(9, 15);
+        String name = RandomStringUtils.randomAlphanumeric(length);
+        return StringUtils.deleteWhitespace(name);
     }
 
     private static RoomCapacity createValidCapacity() {
@@ -40,8 +45,8 @@ public class ClassroomTest {
         Classroom classroom = createOne();
 
         assertThat(classroom.getId()).isNull();
-        assertThat(classroom.getName()).isEqualTo(createValidName());
-        assertThat(classroom.getRoomCapacity()).isEqualTo(createValidCapacity());
+        assertThat(classroom.getName()).isNotNull();
+        assertThat(classroom.getRoomCapacity()).isNotNull();
         assertThat(classroom.getEquipments()).isEmpty();
         assertThat(classroom.getTypes()).isNotEmpty();
     }

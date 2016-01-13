@@ -10,16 +10,16 @@ import javax.persistence.Embeddable;
  * Created by Anthony on 11/01/2016.
  */
 @Embeddable
-public class NameDomain implements ModelTransformable<Name> {
+public class NameDetailsDomain implements ModelTransformable<Name> {
 
     private String firstName;
     private String lastName;
 
-    protected NameDomain() {
+    protected NameDetailsDomain() {
 
     }
 
-    public NameDomain(Name name) {
+    public NameDetailsDomain(Name name) {
         if (name == null) {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " with a null " + Name.class.getName());
         }
@@ -45,7 +45,7 @@ public class NameDomain implements ModelTransformable<Name> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        NameDomain that = (NameDomain) o;
+        NameDetailsDomain that = (NameDetailsDomain) o;
         return Objects.equal(firstName, that.firstName) &&
                 Objects.equal(lastName, that.lastName);
     }

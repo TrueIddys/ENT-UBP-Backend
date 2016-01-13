@@ -1,9 +1,12 @@
 package org.ubp.ent.backend.core.model.classroom.equipement;
 
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static org.assertj.core.api.StrictAssertions.assertThat;
 
@@ -17,7 +20,9 @@ public class RoomEquipmentTest {
     }
 
     public static RoomEquipment createOne() {
-        return createOne("Default equipment name");
+        int length = ThreadLocalRandom.current().nextInt(9, 15);
+        String name = RandomStringUtils.randomAlphabetic(length);
+        return createOne(name);
     }
 
     private static Quantity createValidQuantity() {
@@ -37,8 +42,8 @@ public class RoomEquipmentTest {
 
     @Test
     public void shouldConsiderTwoRoomEquipmentEqualsIfTheyHaveTheSameEquipmentType() {
-        RoomEquipment equipment1 = createOne();
-        RoomEquipment equipment2 = createOne();
+        RoomEquipment equipment1 = createOne("equipment-name-duplicated");
+        RoomEquipment equipment2 = createOne("equipment-name-duplicated");
 
         assertThat(equipment1).isEqualTo(equipment2);
 

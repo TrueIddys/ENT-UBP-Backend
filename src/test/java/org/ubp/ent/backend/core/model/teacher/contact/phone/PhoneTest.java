@@ -4,6 +4,9 @@ import org.junit.Test;
 import org.ubp.ent.backend.core.exceptions.model.BadFormattedPhoneNumber;
 import org.ubp.ent.backend.core.model.teacher.contact.phone.Phone;
 
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -14,8 +17,25 @@ public class PhoneTest {
     private static final String VALID_NATIONAL_NUMBER = "+336 11 11 11 11";
     private static final String VALID_FULL_NATIONAL_NUMBER = "00336 11 11 11 11";
 
-    public Phone createOne() {
-        return new Phone(VALID_REGULAR_NUMBER);
+    public static Phone createOne() {
+        StringBuilder sb = new StringBuilder("06");
+        sb.append(ThreadLocalRandom.current().nextInt(10, 100));
+        sb.append(ThreadLocalRandom.current().nextInt(10, 100));
+        sb.append(ThreadLocalRandom.current().nextInt(10, 100));
+        sb.append(ThreadLocalRandom.current().nextInt(10, 100));
+        return new Phone(sb.toString());
+    }
+
+    public static Phone createOne(String number) {
+        return new Phone(number);
+    }
+
+    public static Phone[] createSeveral(int howMany) {
+        Phone[] phones = new Phone[howMany];
+        for (int i = 0; i < howMany; ++i) {
+            phones[i] = createOne();
+        }
+        return phones;
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -103,12 +123,13 @@ public class PhoneTest {
 
     @Test
     public void shouldBeEqualByNumber() {
-        assertThat(createOne()).isEqualTo(createOne());
+        String number = "06 11 12 13 14";
+        assertThat(createOne(number)).isEqualTo(createOne(number));
     }
 
     @Test
     public void shouldNotBeEqualWithDifferentNumbers() {
-        assertThat(createOne()).isNotEqualTo(new Phone("04 99 98 97 96"));
+        assertThat(createOne()).isNotEqualTo(createOne());
     }
 
 

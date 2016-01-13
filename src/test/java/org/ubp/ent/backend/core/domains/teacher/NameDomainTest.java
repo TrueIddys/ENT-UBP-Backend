@@ -9,16 +9,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Created by Anthony on 11/01/2016.
  */
-public class NameDetailsDomainTest {
+public class NameDomainTest {
 
-    public static NameDetailsDomain createOne() {
-        return new NameDetailsDomain(NameTest.createOne());
+    public static NameDomain createOne() {
+        return new NameDomain(NameTest.createOne());
     }
 
     @Test
     public void shouldCreateDomainFromModel() {
         Name model = NameTest.createOne();
-        NameDetailsDomain domain = new NameDetailsDomain(model);
+        NameDomain domain = new NameDomain(model);
 
         assertThat(domain.getFirstName()).isEqualTo(model.getFirstName());
         assertThat(domain.getLastName()).isEqualTo(model.getLastName());
@@ -26,7 +26,7 @@ public class NameDetailsDomainTest {
 
     @Test
     public void shouldTransformDomainToModel() {
-        NameDetailsDomain domain = createOne();
+        NameDomain domain = createOne();
         Name model = domain.toModel();
 
         assertThat(model.getFirstName()).isEqualTo(domain.getFirstName());
@@ -35,8 +35,8 @@ public class NameDetailsDomainTest {
 
     @Test
     public void shouldBeEqualByAllProp() {
-        NameDetailsDomain domain = new NameDetailsDomain(new Name("Anthony", "Raymond"));
-        NameDetailsDomain domain2 = new NameDetailsDomain(new Name("Anthony", "Raymond"));
+        NameDomain domain = new NameDomain(new Name("Anthony", "Raymond"));
+        NameDomain domain2 = new NameDomain(new Name("Anthony", "Raymond"));
 
         assertThat(domain).isEqualTo(domain2);
     }
@@ -44,13 +44,13 @@ public class NameDetailsDomainTest {
 
     @Test
     public void shouldNotBeEqualWithDifferentProp() {
-        NameDetailsDomain domain = new NameDetailsDomain(new Name("John", "Raymond"));
-        NameDetailsDomain domain2 = new NameDetailsDomain(new Name("Anthony", "Raymond"));
+        NameDomain domain = new NameDomain(new Name("John", "Raymond"));
+        NameDomain domain2 = new NameDomain(new Name("Anthony", "Raymond"));
 
         assertThat(domain).isNotEqualTo(domain2);
 
-        domain = new NameDetailsDomain(new Name("Anthony", "Doe"));
-        domain2 = new NameDetailsDomain(new Name("Anthony", "Raymond"));
+        domain = new NameDomain(new Name("Anthony", "Doe"));
+        domain2 = new NameDomain(new Name("Anthony", "Raymond"));
 
         assertThat(domain).isNotEqualTo(domain2);
     }

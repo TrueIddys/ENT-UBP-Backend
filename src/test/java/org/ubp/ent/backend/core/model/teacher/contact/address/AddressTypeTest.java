@@ -29,4 +29,20 @@ public class AddressTypeTest {
         assertThat(model.getName()).isEqualTo("Home");
     }
 
+    @Test
+    public void shouldBeEqualByName() {
+        AddressType model1 = createOne("Home");
+        AddressType model2 = createOne("Home");
+
+        assertThat(model2).isEqualTo(model1);
+    }
+
+    @Test
+    public void shouldNotBeEqualWithDifferentNames() {
+        AddressType model1 = createOne("Home");
+        AddressType model2 = createOne("Secondary Home");
+
+        assertThat(model2).isNotEqualTo(model1);
+    }
+
 }

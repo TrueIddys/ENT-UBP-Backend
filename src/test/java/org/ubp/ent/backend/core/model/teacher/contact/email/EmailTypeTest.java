@@ -29,4 +29,20 @@ public class EmailTypeTest {
         assertThat(model.getName()).isEqualTo("Personnal");
     }
 
+    @Test
+    public void shouldBeEqualByName() {
+        EmailType model1 = createOne("Personnal");
+        EmailType model2 = createOne("Personnal");
+
+        assertThat(model2).isEqualTo(model1);
+    }
+
+    @Test
+    public void shouldNotBeEqualWithDifferentNames() {
+        EmailType model1 = createOne("Personnal");
+        EmailType model2 = createOne("Work");
+
+        assertThat(model2).isNotEqualTo(model1);
+    }
+
 }

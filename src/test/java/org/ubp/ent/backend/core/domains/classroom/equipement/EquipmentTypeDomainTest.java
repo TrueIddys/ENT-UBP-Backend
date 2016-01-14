@@ -20,27 +20,27 @@ public class EquipmentTypeDomainTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldNotInstantiateWithNullEquipmentType() {
+    public void shouldNotInstantiateWithNullModel() {
         new EquipmentTypeDomain(null);
     }
 
     @Test
     public void shouldCreateFromModel() {
-        EquipmentType equipmentType = EquipmentTypeTest.createOne("equipment name");
-        equipmentType.setId(12L);
-        EquipmentTypeDomain domain = new EquipmentTypeDomain(equipmentType);
+        EquipmentType model = EquipmentTypeTest.createOne("equipment name");
+        model.setId(12L);
+        EquipmentTypeDomain domain = new EquipmentTypeDomain(model);
 
-        assertThat(domain.getId()).isEqualTo(equipmentType.getId());
-        assertThat(domain.getName()).isEqualTo(equipmentType.getName());
+        assertThat(domain.getId()).isEqualTo(model.getId());
+        assertThat(domain.getName()).isEqualTo(model.getName());
     }
 
     @Test
     public void shouldTransformToModel() {
-        EquipmentType equipmentType = EquipmentTypeTest.createOne("equipment name");
-        equipmentType.setId(12L);
-        EquipmentTypeDomain domain = new EquipmentTypeDomain(equipmentType);
+        EquipmentType model = EquipmentTypeTest.createOne("equipment name");
+        model.setId(12L);
+        EquipmentTypeDomain domain = new EquipmentTypeDomain(model);
         domain.setId(12L);
 
-        assertThat(domain.toModel()).isEqualTo(equipmentType);
+        assertThat(domain.toModel()).isEqualTo(model);
     }
 }

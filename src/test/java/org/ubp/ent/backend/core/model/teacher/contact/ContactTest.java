@@ -150,11 +150,10 @@ public class ContactTest {
         contact.addEmail(email1);
 
 
-        Email email2 = EmailTest.createOne("Personnal");
+        Email email2 = EmailTest.createOne("Personal");
         contact.addEmail(email2);
 
         assertThat(contact.getEmails()).containsOnly(email1, email2);
     }
-
 
 }

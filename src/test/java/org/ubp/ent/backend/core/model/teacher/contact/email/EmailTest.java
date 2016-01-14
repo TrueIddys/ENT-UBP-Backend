@@ -34,8 +34,23 @@ public class EmailTest {
         Email model = new Email(type, data);
 
         assertThat(model.getId()).isNull();
-        assertThat(model.getEmailType()).isEqualTo(type);
-        assertThat(model.getEmailDetails()).isEqualTo(data);
+        assertThat(model.getType()).isEqualTo(type);
+        assertThat(model.getDetails()).isEqualTo(data);
+    }
+
+    @Test
+    public void shouldBeEqualsBasedOnType() {
+        EmailType type = EmailTypeTest.createOne();
+        Email first = new Email(type, EmailDetailsTest.createOne());
+        Email second = new Email(type, EmailDetailsTest.createOne());
+        assertThat(second).isEqualTo(first);
+    }
+
+    @Test
+    public void shouldNotBeEqualsWithDifferentTypes() {
+        Email first = new Email(EmailTypeTest.createOne(), EmailDetailsTest.createOne());
+        Email second = new Email(EmailTypeTest.createOne(), EmailDetailsTest.createOne());
+        assertThat(second).isNotEqualTo(first);
     }
 
 }

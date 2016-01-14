@@ -12,35 +12,42 @@ public class ContactDetailsTypeTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNullName() {
-        new PhoneType(null);
+        new DefaultContactDetailsType(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithEmptyName() {
-        new PhoneType(" ");
+        new DefaultContactDetailsType(" ");
     }
 
     @Test
     public void shouldInstantiate() {
-        ContactDetailsType type = new ContactDetailsType("Mobile");
+        DefaultContactDetailsType type = new DefaultContactDetailsType("Mobile");
         assertThat(type.getId()).isNull();
         assertThat(type.getName()).isEqualTo("Mobile");
     }
 
     @Test
     public void shouldBeEqualByName() {
-        ContactDetailsType model1 = new ContactDetailsType("Home");
-        ContactDetailsType model2 = new ContactDetailsType("Home");
+        DefaultContactDetailsType model1 = new DefaultContactDetailsType("Home");
+        DefaultContactDetailsType model2 = new DefaultContactDetailsType("Home");
 
         assertThat(model1).isEqualTo(model2);
     }
 
     @Test
     public void shouldNotBeEqualWithDifferentNames() {
-        ContactDetailsType model1 = new ContactDetailsType("Home");
-        ContactDetailsType model2 = new ContactDetailsType("Mobile");
+        DefaultContactDetailsType model1 = new DefaultContactDetailsType("Home");
+        DefaultContactDetailsType model2 = new DefaultContactDetailsType("Mobile");
 
         assertThat(model1).isNotEqualTo(model2);
+    }
+
+    private static class DefaultContactDetailsType extends ContactDetailsType {
+
+        public DefaultContactDetailsType(String name) {
+            super(name);
+        }
     }
 
 }

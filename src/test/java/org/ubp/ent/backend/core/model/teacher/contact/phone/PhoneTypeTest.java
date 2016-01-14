@@ -29,4 +29,20 @@ public class PhoneTypeTest {
         assertThat(model.getName()).isEqualTo("Mobile");
     }
 
+    @Test
+    public void shouldBeEqualByName() {
+        PhoneType model1 = createOne("Home");
+        PhoneType model2 = createOne("Home");
+
+        assertThat(model2).isEqualTo(model1);
+    }
+
+    @Test
+    public void shouldNotBeEqualWithDifferentNames() {
+        PhoneType model1 = createOne("Home");
+        PhoneType model2 = createOne("Work");
+
+        assertThat(model2).isNotEqualTo(model1);
+    }
+
 }

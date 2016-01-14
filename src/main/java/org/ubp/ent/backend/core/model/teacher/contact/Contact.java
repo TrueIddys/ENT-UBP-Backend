@@ -1,5 +1,6 @@
 package org.ubp.ent.backend.core.model.teacher.contact;
 
+import com.google.common.base.Objects;
 import org.ubp.ent.backend.core.model.teacher.contact.address.Address;
 import org.ubp.ent.backend.core.model.teacher.contact.email.Email;
 import org.ubp.ent.backend.core.model.teacher.contact.phone.Phone;
@@ -22,6 +23,8 @@ public class Contact {
         this.phones = new HashSet<>();
         this.emails = new HashSet<>();
     }
+
+
 
     public Set<Address> getAddresses() {
         return Collections.unmodifiableSet(addresses);
@@ -56,4 +59,18 @@ public class Contact {
         this.emails.add(email);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Contact contact = (Contact) o;
+        return Objects.equal(addresses, contact.addresses) &&
+                Objects.equal(phones, contact.phones) &&
+                Objects.equal(emails, contact.emails);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(addresses, phones, emails);
+    }
 }

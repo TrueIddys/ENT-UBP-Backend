@@ -31,11 +31,11 @@ public class RoomEquipmentDomainIdTest {
 
     @Test
     public void shouldBeEqualWithSameClassroomAndEquipmentType() {
-        ClassroomDomain classroomDomainTest = ClassroomDomainTest.createOne();
-        EquipmentTypeDomain equipmentTypeDomainTest = EquipmentTypeDomainTest.createOne();
+        ClassroomDomain classroomDomain = ClassroomDomainTest.createOne();
+        EquipmentTypeDomain equipmentTypeDomain = EquipmentTypeDomainTest.createOne();
 
-        RoomEquipmentDomainId one = new RoomEquipmentDomainId(classroomDomainTest, equipmentTypeDomainTest);
-        RoomEquipmentDomainId two = new RoomEquipmentDomainId(classroomDomainTest, equipmentTypeDomainTest);
+        RoomEquipmentDomainId one = new RoomEquipmentDomainId(classroomDomain, equipmentTypeDomain);
+        RoomEquipmentDomainId two = new RoomEquipmentDomainId(classroomDomain, equipmentTypeDomain);
 
         assertThat(one).isEqualTo(two);
     }

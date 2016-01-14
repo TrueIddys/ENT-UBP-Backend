@@ -1,28 +1,54 @@
 package org.ubp.ent.backend.core.model.teacher.contact.phone;
 
-import org.ubp.ent.backend.core.model.teacher.contact.ContactDetailsWrapper;
+import com.google.common.base.Objects;
 
 /**
  * Created by Anthony on 13/01/2016.
  */
-public class Phone extends ContactDetailsWrapper<PhoneType> {
+public class Phone {
 
-    private PhoneDetails phoneDetails;
+    private Long id;
+    private PhoneType type;
+    private PhoneDetails details;
 
-    public Phone(PhoneType addressType, PhoneDetails phoneDetails) {
-        super(addressType);
-        if (phoneDetails == null) {
+    public Phone(PhoneType type, PhoneDetails details) {
+        if (type == null) {
+            throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a type");
+        }
+        if (details == null) {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a phone");
         }
-        this.phoneDetails = phoneDetails;
+        this.type = type;
+        this.details = details;
     }
 
-    public PhoneType getPhoneType() {
-        return super.getType();
+    public Long getId() {
+        return id;
     }
 
-    public PhoneDetails getPhoneDetails() {
-        return phoneDetails;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public PhoneType getType() {
+        return type;
+    }
+
+    public PhoneDetails getDetails() {
+        return details;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Phone that = (Phone) o;
+        return Objects.equal(type, that.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(type);
     }
 
 }

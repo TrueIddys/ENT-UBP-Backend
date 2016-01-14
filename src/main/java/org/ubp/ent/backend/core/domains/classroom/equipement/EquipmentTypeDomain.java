@@ -24,12 +24,12 @@ public class EquipmentTypeDomain implements ModelTransformable<EquipmentType> {
     protected EquipmentTypeDomain() {
     }
 
-    public EquipmentTypeDomain(EquipmentType equipmentType) {
-        if (equipmentType == null) {
+    public EquipmentTypeDomain(EquipmentType model) {
+        if (model == null) {
             throw new IllegalArgumentException("Cannot create a " + getClass().getName() + " with a null " + EquipmentType.class.getName());
         }
-        id = equipmentType.getId();
-        name = equipmentType.getName();
+        id = model.getId();
+        name = model.getName();
     }
 
     public Long getId() {

@@ -27,10 +27,10 @@ public class RoomEquipmentDomainId implements Serializable {
 
     public RoomEquipmentDomainId(ClassroomDomain classroom, EquipmentTypeDomain equipmentType) {
         if (classroom == null) {
-            throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a " + ClassroomDomain.class.getName());
+            throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " with a null " + ClassroomDomain.class.getName());
         }
         if (equipmentType == null) {
-            throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a " + EquipmentTypeDomain.class.getName());
+            throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " with a null " + EquipmentTypeDomain.class.getName());
         }
         this.classroom = classroom;
         this.equipmentType = equipmentType;

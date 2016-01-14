@@ -46,12 +46,12 @@ public class ClassroomDomainTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldNotInstantiateWithNullClassroom() {
+    public void shouldNotInstantiateWithNullModel() {
         new ClassroomDomain(null);
     }
 
     @Test
-    public void shouldCreateDomainFromModel() {
+    public void shouldCreateFromModel() {
         Classroom model = ClassroomTest.createOne();
         model.setId(12L);
         ClassroomDomain domain = new ClassroomDomain(model);
@@ -65,7 +65,7 @@ public class ClassroomDomainTest {
     }
 
     @Test
-    public void shouldTransformDomainToModel() {
+    public void shouldTransformToModel() {
         Classroom model = ClassroomTest.createOne();
         model.setId(12L);
         ClassroomDomain domain = new ClassroomDomain(model);

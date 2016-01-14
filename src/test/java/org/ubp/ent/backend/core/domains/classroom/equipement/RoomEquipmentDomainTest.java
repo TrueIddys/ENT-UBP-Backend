@@ -13,7 +13,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class RoomEquipmentDomainTest {
 
-
     public static RoomEquipmentDomain createOne(String name, ClassroomDomain classroomDomain) {
         return new RoomEquipmentDomain(RoomEquipmentTest.createOne(name), classroomDomain);
     }
@@ -23,21 +22,20 @@ public class RoomEquipmentDomainTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldNotInstantiateWithoutRoomEquipment() {
+    public void shouldNotInstantiateWithNullRoomEquipment() {
         new RoomEquipmentDomain(null, ClassroomDomainTest.createOne());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldNotInstantiateWithoutClassroomDomain() {
+    public void shouldNotInstantiateWithNullClassroomDomain() {
         new RoomEquipmentDomain(RoomEquipmentTest.createOne(), null);
     }
 
     @Test
-    public void shouldCreateDomainFromModel() {
+    public void shouldCreateFromModel() {
         RoomEquipment model = RoomEquipmentTest.createOne();
         ClassroomDomain classroomDomain = ClassroomDomainTest.createOne();
         RoomEquipmentDomain domain = new RoomEquipmentDomain(model, classroomDomain);
-
 
         assertThat(domain.getClassroom()).isEqualTo(classroomDomain);
         assertThat(domain.getEquipmentType().getName()).isEqualTo(model.getEquipmentType().getName());
@@ -45,7 +43,7 @@ public class RoomEquipmentDomainTest {
     }
 
     @Test
-    public void shouldTransformFromDomainToModel() {
+    public void shouldTransformToModel() {
         RoomEquipment model = RoomEquipmentTest.createOne();
         ClassroomDomain classroomDomain = ClassroomDomainTest.createOne();
         RoomEquipmentDomain domain = new RoomEquipmentDomain(model, classroomDomain);

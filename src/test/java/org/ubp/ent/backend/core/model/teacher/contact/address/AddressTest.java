@@ -34,8 +34,23 @@ public class AddressTest {
         Address model = new Address(type, data);
 
         assertThat(model.getId()).isNull();
-        assertThat(model.getAddressType()).isEqualTo(type);
-        assertThat(model.getAddressDetails()).isEqualTo(data);
+        assertThat(model.getType()).isEqualTo(type);
+        assertThat(model.getDetails()).isEqualTo(data);
+    }
+
+    @Test
+    public void shouldBeEqualsBasedOnType() {
+        AddressType type = AddressTypeTest.createOne();
+        Address first = new Address(type, AddressDetailsTest.createOne());
+        Address second = new Address(type, AddressDetailsTest.createOne());
+        assertThat(second).isEqualTo(first);
+    }
+
+    @Test
+    public void shouldNotBeEqualsWithDifferentTypes() {
+        Address first = new Address(AddressTypeTest.createOne(), AddressDetailsTest.createOne());
+        Address second = new Address(AddressTypeTest.createOne(), AddressDetailsTest.createOne());
+        assertThat(second).isNotEqualTo(first);
     }
 
 }

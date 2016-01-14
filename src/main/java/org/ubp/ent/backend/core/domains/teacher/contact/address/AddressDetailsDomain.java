@@ -17,14 +17,17 @@ public class AddressDetailsDomain implements ModelTransformable<AddressDetails> 
     private String zip;
     private String city;
 
-    public AddressDetailsDomain() {
+    protected AddressDetailsDomain() {
     }
 
-    public AddressDetailsDomain(AddressDetails address) {
-        this.streetNumber = address.getStreetNumber();
-        this.street = address.getStreet();
-        this.zip = address.getZip();
-        this.city = address.getCity();
+    public AddressDetailsDomain(AddressDetails model) {
+        if (model == null) {
+            throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " with a null " + AddressDetails.class.getName());
+        }
+        this.streetNumber = model.getStreetNumber();
+        this.street = model.getStreet();
+        this.zip = model.getZip();
+        this.city = model.getCity();
     }
 
     public String getStreetNumber() {

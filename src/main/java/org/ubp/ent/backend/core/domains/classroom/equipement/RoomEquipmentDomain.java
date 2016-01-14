@@ -29,10 +29,10 @@ public class RoomEquipmentDomain implements ModelTransformable<RoomEquipment> {
 
     public RoomEquipmentDomain(RoomEquipment roomEquipment, ClassroomDomain classroomDomain) {
         if (roomEquipment == null) {
-            throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a " + RoomEquipment.class.getName());
+            throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " with a null " + RoomEquipment.class.getName());
         }
         if (classroomDomain == null) {
-            throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a " + ClassroomDomain.class.getName());
+            throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " with a null " + ClassroomDomain.class.getName());
         }
 
         EquipmentTypeDomain equipmentTypeDomain = new EquipmentTypeDomain(roomEquipment.getEquipmentType());

@@ -41,14 +41,14 @@ public class ClassroomDomain implements ModelTransformable<Classroom> {
     protected ClassroomDomain() {
     }
 
-    public ClassroomDomain(Classroom classroom) {
-        if (classroom == null) {
-            throw new IllegalArgumentException("Cannot instantiate a " + getClass().getName() + " with a null " + Classroom.class.getName());
+    public ClassroomDomain(Classroom model) {
+        if (model == null) {
+            throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " with a null " + Classroom.class.getName());
         }
-        id = classroom.getId();
-        name = classroom.getName();
-        capacity = classroom.getRoomCapacity().getMaxCapacity();
-        types = Sets.newHashSet(classroom.getTypes());
+        id = model.getId();
+        name = model.getName();
+        capacity = model.getRoomCapacity().getMaxCapacity();
+        types = Sets.newHashSet(model.getTypes());
     }
 
     public Long getId() {

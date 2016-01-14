@@ -15,8 +15,13 @@ public class NameDomainTest {
         return new NameDomain(NameTest.createOne());
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldNotInstantiateWithNullModel() {
+        new NameDomain(null);
+    }
+
     @Test
-    public void shouldCreateDomainFromModel() {
+    public void shouldCreateFromModel() {
         Name model = NameTest.createOne();
         NameDomain domain = new NameDomain(model);
 
@@ -25,34 +30,12 @@ public class NameDomainTest {
     }
 
     @Test
-    public void shouldTransformDomainToModel() {
+    public void shouldTransformToModel() {
         NameDomain domain = createOne();
         Name model = domain.toModel();
 
         assertThat(model.getFirstName()).isEqualTo(domain.getFirstName());
         assertThat(model.getLastName()).isEqualTo(domain.getLastName());
-    }
-
-    @Test
-    public void shouldBeEqualByAllProp() {
-        NameDomain domain = new NameDomain(new Name("Anthony", "Raymond"));
-        NameDomain domain2 = new NameDomain(new Name("Anthony", "Raymond"));
-
-        assertThat(domain).isEqualTo(domain2);
-    }
-
-
-    @Test
-    public void shouldNotBeEqualWithDifferentProp() {
-        NameDomain domain = new NameDomain(new Name("John", "Raymond"));
-        NameDomain domain2 = new NameDomain(new Name("Anthony", "Raymond"));
-
-        assertThat(domain).isNotEqualTo(domain2);
-
-        domain = new NameDomain(new Name("Anthony", "Doe"));
-        domain2 = new NameDomain(new Name("Anthony", "Raymond"));
-
-        assertThat(domain).isNotEqualTo(domain2);
     }
 
 }

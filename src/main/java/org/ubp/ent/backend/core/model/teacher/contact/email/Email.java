@@ -1,28 +1,54 @@
 package org.ubp.ent.backend.core.model.teacher.contact.email;
 
-import org.ubp.ent.backend.core.model.teacher.contact.ContactDetailsWrapper;
+import com.google.common.base.Objects;
 
 /**
  * Created by Anthony on 13/01/2016.
  */
-public class Email extends ContactDetailsWrapper<EmailType> {
+public class Email {
 
-    private EmailDetails emailDetails;
+    private Long id;
+    private EmailType type;
+    private EmailDetails details;
 
-    public Email(EmailType addressType, EmailDetails emailDetails) {
-        super(addressType);
-        if (emailDetails == null) {
+    public Email(EmailType type, EmailDetails details) {
+        if (type == null) {
+            throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a type");
+        }
+        if (details == null) {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without an email");
         }
-        this.emailDetails = emailDetails;
+        this.type = type;
+        this.details = details;
     }
 
-    public EmailType getEmailType() {
-        return super.getType();
+    public Long getId() {
+        return id;
     }
 
-    public EmailDetails getEmailDetails() {
-        return emailDetails;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public EmailType getType() {
+        return type;
+    }
+
+    public EmailDetails getDetails() {
+        return details;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Email that = (Email) o;
+        return Objects.equal(type, that.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(type);
     }
 
 }

@@ -24,6 +24,4 @@ public abstract class EqualComparableById<T extends EqualComparableById, ID> {
     }
 
 
-
-
 }

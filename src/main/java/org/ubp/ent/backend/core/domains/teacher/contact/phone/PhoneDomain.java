@@ -71,5 +71,5 @@ public class PhoneDomain implements ModelTransformable<Phone> {
     public int hashCode() {
         return Objects.hashCode(type);
     }
-    
+
 }

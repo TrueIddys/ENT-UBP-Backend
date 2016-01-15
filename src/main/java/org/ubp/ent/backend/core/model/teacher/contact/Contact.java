@@ -25,7 +25,6 @@ public class Contact {
     }
 
 
-
     public Set<Address> getAddresses() {
         return Collections.unmodifiableSet(addresses);
     }

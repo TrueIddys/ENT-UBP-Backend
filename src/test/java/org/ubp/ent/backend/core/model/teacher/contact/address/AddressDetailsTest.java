@@ -73,7 +73,8 @@ public class AddressDetailsTest {
 
     @Test
     public void shouldAcceptSimpleDigitAndDigitPlusComplementaryStringAsStreetNumber() {
-        AddressDetails address = createOne("6", VALID_STREET, VALID_ZIP, VALID_CITY);;
+        AddressDetails address = createOne("6", VALID_STREET, VALID_ZIP, VALID_CITY);
+        ;
         assertThat(address.getStreetNumber()).isEqualTo("6");
 
         address = createOne("63", VALID_STREET, VALID_ZIP, VALID_CITY);
@@ -112,7 +113,7 @@ public class AddressDetailsTest {
 
     @Test
     public void shouldCapitalizeAndTrim() {
-        String streetNumber = " " + VALID_STREET_NUMBER.toLowerCase().replaceAll("\\s","") + " ";
+        String streetNumber = " " + VALID_STREET_NUMBER.toLowerCase().replaceAll("\\s", "") + " ";
         String street = " " + VALID_STREET.toLowerCase() + " ";
         String zip = " " + VALID_ZIP.toLowerCase() + " ";
         String city = " " + VALID_CITY.toLowerCase() + " ";

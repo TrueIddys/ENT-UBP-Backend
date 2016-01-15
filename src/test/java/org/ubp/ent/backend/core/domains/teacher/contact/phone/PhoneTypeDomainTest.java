@@ -6,7 +6,6 @@ import org.ubp.ent.backend.core.model.teacher.contact.phone.PhoneType;
 import org.ubp.ent.backend.core.model.teacher.contact.phone.PhoneTypeTest;
 
 import static org.assertj.core.api.StrictAssertions.assertThat;
-import static org.junit.Assert.*;
 
 /**
  * Created by Anthony on 14/01/2016.

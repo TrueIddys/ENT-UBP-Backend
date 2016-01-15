@@ -1,6 +1,5 @@
 package org.ubp.ent.backend.core.domains.teacher;
 
-import com.google.common.base.Objects;
 import org.ubp.ent.backend.core.domains.ModelTransformable;
 import org.ubp.ent.backend.core.domains.teacher.contact.ContactDomain;
 import org.ubp.ent.backend.core.model.teacher.Teacher;

@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.ubp.ent.backend.core.model.teacher.contact.email.EmailDetails;
 import org.ubp.ent.backend.core.model.teacher.contact.email.EmailDetailsTest;
 
-import static org.assertj.core.api.StrictAssertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Created by Anthony on 14/01/2016.

@@ -2,9 +2,8 @@ package org.ubp.ent.backend.core.domains.teacher.contact;
 
 import org.junit.Test;
 import org.ubp.ent.backend.core.model.teacher.contact.ContactDetailsType;
-import org.ubp.ent.backend.core.model.teacher.contact.ContactDetailsTypeTest;
 
-import static org.assertj.core.api.StrictAssertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Created by Anthony on 14/01/2016.

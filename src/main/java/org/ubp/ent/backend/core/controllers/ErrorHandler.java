@@ -7,7 +7,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.ubp.ent.backend.core.exceptions.database.AlreadyDefinedInOnNonPersistedClass;
+import org.ubp.ent.backend.core.exceptions.database.AlreadyDefinedInOnNonPersistedEntity;
 import org.ubp.ent.backend.core.exceptions.database.ModelConstraintViolationException;
 import org.ubp.ent.backend.core.exceptions.database.notfound.ResourceNotFoundException;
 
@@ -55,8 +55,8 @@ public class ErrorHandler {
     }
 
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(AlreadyDefinedInOnNonPersistedClass.class)
-    public void alreadyDefinedInOnNonPersistedClass(HttpServletRequest req, AlreadyDefinedInOnNonPersistedClass e) {
+    @ExceptionHandler(AlreadyDefinedInOnNonPersistedEntity.class)
+    public void alreadyDefinedInOnNonPersistedClass(HttpServletRequest req, AlreadyDefinedInOnNonPersistedEntity e) {
         if (log.isInfoEnabled()) {
             log.info("Cannot create an object for the first time is id is already defined.", e);
         }

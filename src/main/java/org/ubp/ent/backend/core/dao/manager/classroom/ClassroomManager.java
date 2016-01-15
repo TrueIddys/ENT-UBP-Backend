@@ -6,7 +6,7 @@ import org.ubp.ent.backend.core.dao.repository.classroom.ClassroomRepository;
 import org.ubp.ent.backend.core.dao.repository.classroom.equipment.RoomEquipmentRepository;
 import org.ubp.ent.backend.core.domains.classroom.ClassroomDomain;
 import org.ubp.ent.backend.core.domains.classroom.equipement.RoomEquipmentDomain;
-import org.ubp.ent.backend.core.exceptions.database.AlreadyDefinedInOnNonPersistedClass;
+import org.ubp.ent.backend.core.exceptions.database.AlreadyDefinedInOnNonPersistedEntity;
 import org.ubp.ent.backend.core.exceptions.database.ModelConstraintViolationException;
 import org.ubp.ent.backend.core.exceptions.database.notfound.impl.ClassroomResourceNotFoundException;
 import org.ubp.ent.backend.core.model.classroom.Classroom;
@@ -38,7 +38,7 @@ public class ClassroomManager {
             throw new IllegalArgumentException("Cannot persist a null " + Classroom.class.getName());
         }
         if (classroom.getId() != null) {
-            throw new AlreadyDefinedInOnNonPersistedClass("Cannot persist a " + Classroom.class.getName() + " which already has an ID.");
+            throw new AlreadyDefinedInOnNonPersistedEntity("Cannot persist a " + Classroom.class.getName() + " which already has an ID.");
         }
 
         ClassroomDomain domain = new ClassroomDomain(classroom);

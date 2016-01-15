@@ -32,9 +32,9 @@ public class ClassroomDomain implements ModelTransformable<Classroom> {
 
     private int capacity;
 
-    @ElementCollection(targetClass=ClassroomType.class, fetch = FetchType.EAGER)
+    @ElementCollection(targetClass = ClassroomType.class, fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name="classroom_types")
+    @CollectionTable(name = "classroom_types")
     private Set<ClassroomType> types;
 
     @SuppressWarnings("unused")

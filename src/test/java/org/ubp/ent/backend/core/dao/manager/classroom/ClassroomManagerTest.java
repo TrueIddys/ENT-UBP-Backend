@@ -3,7 +3,7 @@ package org.ubp.ent.backend.core.dao.manager.classroom;
 import org.junit.Test;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.ubp.ent.backend.core.dao.manager.classroom.equipement.EquipmentTypeManager;
-import org.ubp.ent.backend.core.exceptions.database.AlreadyDefinedInOnNonPersistedClass;
+import org.ubp.ent.backend.core.exceptions.database.AlreadyDefinedInOnNonPersistedEntity;
 import org.ubp.ent.backend.core.exceptions.database.notfound.impl.ClassroomResourceNotFoundException;
 import org.ubp.ent.backend.core.exceptions.database.notfound.impl.EquipmentTypeResourceNotFoundException;
 import org.ubp.ent.backend.core.model.classroom.Classroom;
@@ -126,7 +126,7 @@ public class ClassroomManagerTest extends WebApplicationTest {
         classroomManager.create(null);
     }
 
-    @Test(expected = AlreadyDefinedInOnNonPersistedClass.class)
+    @Test(expected = AlreadyDefinedInOnNonPersistedEntity.class)
     public void shouldFailCreateIfIdIsDefined() {
         Classroom model = ClassroomTest.createOneEmpty();
         model.setId(25L);

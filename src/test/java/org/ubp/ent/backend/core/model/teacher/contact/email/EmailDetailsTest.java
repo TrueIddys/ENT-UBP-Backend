@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.StrictAssertions.fail;
+import static org.assertj.core.api.Assertions.fail;
 
 /**
  * Created by Anthony on 13/01/2016.

@@ -5,7 +5,7 @@ import org.ubp.ent.backend.core.model.teacher.contact.ContactDetailsType;
 import org.ubp.ent.backend.core.model.teacher.contact.address.AddressType;
 import org.ubp.ent.backend.core.model.teacher.contact.address.AddressTypeTest;
 
-import static org.assertj.core.api.StrictAssertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Created by Anthony on 13/01/2016.

@@ -36,7 +36,7 @@ public class RoomCapacityTest {
         int maxCapacity = 22;
         RoomCapacity roomCapacity = new RoomCapacity(maxCapacity);
 
-        assertThat(roomCapacity.getMaxCapacity().intValue()) .isEqualTo(maxCapacity);
+        assertThat(roomCapacity.getMaxCapacity().intValue()).isEqualTo(maxCapacity);
     }
 
 }

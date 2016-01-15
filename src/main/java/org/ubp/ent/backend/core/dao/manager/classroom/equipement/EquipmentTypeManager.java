@@ -3,7 +3,7 @@ package org.ubp.ent.backend.core.dao.manager.classroom.equipement;
 import org.springframework.stereotype.Service;
 import org.ubp.ent.backend.core.dao.repository.classroom.equipment.EquipmentTypeRepository;
 import org.ubp.ent.backend.core.domains.classroom.equipement.EquipmentTypeDomain;
-import org.ubp.ent.backend.core.exceptions.database.AlreadyDefinedInOnNonPersistedClass;
+import org.ubp.ent.backend.core.exceptions.database.AlreadyDefinedInOnNonPersistedEntity;
 import org.ubp.ent.backend.core.exceptions.database.notfound.impl.EquipmentTypeResourceNotFoundException;
 import org.ubp.ent.backend.core.model.classroom.equipement.EquipmentType;
 
@@ -25,7 +25,7 @@ public class EquipmentTypeManager {
             throw new IllegalArgumentException("Cannot persists a null " + EquipmentType.class.getName());
         }
         if (equipmentType.getId() != null) {
-            throw new AlreadyDefinedInOnNonPersistedClass("Cannot persist a " + EquipmentType.class.getName() + " which already has an ID.");
+            throw new AlreadyDefinedInOnNonPersistedEntity("Cannot persist a " + EquipmentType.class.getName() + " which already has an ID.");
         }
         EquipmentTypeDomain domain = new EquipmentTypeDomain(equipmentType);
 

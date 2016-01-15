@@ -1,7 +1,6 @@
 package org.ubp.ent.backend.core.domains;
 
 import org.junit.Test;
-import org.ubp.ent.backend.core.domains.EqualComparableById;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

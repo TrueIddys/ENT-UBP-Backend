@@ -37,6 +37,7 @@ public class ClassroomTest {
     public static Classroom createOne() {
         return createOne(createValidName());
     }
+
     public static Classroom createOneEmpty() {
         return createOneEmpty(createValidName());
     }

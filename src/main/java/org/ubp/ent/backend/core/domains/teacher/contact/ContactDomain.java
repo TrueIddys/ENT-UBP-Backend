@@ -7,6 +7,7 @@ import org.ubp.ent.backend.core.domains.teacher.contact.email.EmailDomain;
 import org.ubp.ent.backend.core.domains.teacher.contact.phone.PhoneDomain;
 import org.ubp.ent.backend.core.model.teacher.contact.Contact;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -20,13 +21,13 @@ import java.util.Set;
 @Embeddable
 public class ContactDomain implements ModelTransformable<Contact> {
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<AddressDomain> addresses = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<PhoneDomain> phones = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<EmailDomain> emails = new HashSet<>();
 
     protected ContactDomain() {

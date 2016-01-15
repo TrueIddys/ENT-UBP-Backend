@@ -13,9 +13,14 @@ public class AddressTest {
         return new Address(AddressTypeTest.createOne(), AddressDetailsTest.createOne());
     }
 
-    public static Address createOne(String addressType) {
-        return new Address(AddressTypeTest.createOne(addressType), AddressDetailsTest.createOne());
+    public static Address createOne(String addressTypeName) {
+        return new Address(AddressTypeTest.createOne(addressTypeName), AddressDetailsTest.createOne());
     }
+
+    public static Address createOne(AddressType addressType) {
+        return new Address(addressType, AddressDetailsTest.createOne());
+    }
+
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNullType() {

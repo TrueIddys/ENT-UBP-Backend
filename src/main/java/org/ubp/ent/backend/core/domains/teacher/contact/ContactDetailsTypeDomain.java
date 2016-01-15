@@ -15,6 +15,7 @@ public abstract class ContactDetailsTypeDomain {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
+
     @Column(name = "TYPE_ID", unique = true)
     private String name;
 

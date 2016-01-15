@@ -34,7 +34,7 @@ public class AddressManager {
 
     public void delete(Long id) {
         if (id == null) {
-            throw new IllegalArgumentException("Cannot delete a " + Address.class.getName() + " with a null ID");
+            throw new IllegalArgumentException("Cannot delete an " + Address.class.getName() + " with a null ID");
         }
 
         AddressDomain domain = repository.findOne(id);
@@ -43,5 +43,6 @@ public class AddressManager {
         }
         repository.delete(domain);
     }
+
 
 }

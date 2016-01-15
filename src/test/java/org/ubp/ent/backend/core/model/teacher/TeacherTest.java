@@ -12,7 +12,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TeacherTest {
 
     public static Teacher createOne() {
-        return new Teacher(NameTest.createOne(), ContactTest.createOne());
+        return createOne(NameTest.createOne(), ContactTest.createOne());
+    }
+
+    public static Teacher createOne(Name name, Contact contact) {
+        return new Teacher(name, contact);
+    }
+
+    public static Teacher createOneEmpty() {
+        return createOne(NameTest.createOne(), ContactTest.createOneEmpty());
     }
 
     @Test(expected = IllegalArgumentException.class)

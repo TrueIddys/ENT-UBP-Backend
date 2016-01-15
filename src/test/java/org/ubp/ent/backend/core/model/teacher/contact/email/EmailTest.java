@@ -10,11 +10,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class EmailTest {
 
     public static Email createOne() {
-        return new Email(EmailTypeTest.createOne(), EmailDetailsTest.createOne());
+        return createOne(EmailTypeTest.createOne());
     }
 
     public static Email createOne(String EmailType) {
-        return new Email(EmailTypeTest.createOne(EmailType), EmailDetailsTest.createOne());
+        return createOne(EmailTypeTest.createOne(EmailType));
+    }
+
+    public static Email createOne(EmailType type) {
+        return new Email(type, EmailDetailsTest.createOne());
     }
 
     @Test(expected = IllegalArgumentException.class)

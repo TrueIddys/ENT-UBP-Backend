@@ -1,15 +1,17 @@
 package org.ubp.ent.backend.core.domains.teacher.contact;
 
 import com.google.common.base.Objects;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.ubp.ent.backend.core.domains.ModelTransformable;
 import org.ubp.ent.backend.core.domains.teacher.contact.address.AddressDomain;
 import org.ubp.ent.backend.core.domains.teacher.contact.email.EmailDomain;
 import org.ubp.ent.backend.core.domains.teacher.contact.phone.PhoneDomain;
 import org.ubp.ent.backend.core.model.teacher.contact.Contact;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import java.util.Collections;
 import java.util.HashSet;
@@ -21,13 +23,19 @@ import java.util.Set;
 @Embeddable
 public class ContactDomain implements ModelTransformable<Contact> {
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "teacher_id")
+    @Cascade({CascadeType.PERSIST, CascadeType.DELETE})
     private Set<AddressDomain> addresses = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "teacher_id")
+    @Cascade({CascadeType.PERSIST, CascadeType.DELETE})
     private Set<PhoneDomain> phones = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "teacher_id")
+    @Cascade({CascadeType.PERSIST, CascadeType.DELETE})
     private Set<EmailDomain> emails = new HashSet<>();
 
     protected ContactDomain() {

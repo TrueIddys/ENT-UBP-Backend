@@ -2,17 +2,25 @@ package org.ubp.ent.backend.core.dao.manager.teacher;
 
 import org.springframework.stereotype.Service;
 import org.ubp.ent.backend.core.dao.manager.teacher.contact.address.AddressManager;
+import org.ubp.ent.backend.core.dao.manager.teacher.contact.email.EmailManager;
+import org.ubp.ent.backend.core.dao.manager.teacher.contact.phone.PhoneManager;
 import org.ubp.ent.backend.core.dao.repository.teacher.TeacherRepository;
 import org.ubp.ent.backend.core.dao.repository.teacher.contact.address.AddressTypeRepository;
+import org.ubp.ent.backend.core.dao.repository.teacher.contact.email.EmailTypeRepository;
+import org.ubp.ent.backend.core.dao.repository.teacher.contact.phone.PhoneTypeRepository;
 import org.ubp.ent.backend.core.domains.teacher.TeacherDomain;
 import org.ubp.ent.backend.core.exceptions.database.AlreadyDefinedInOnNonPersistedEntity;
 import org.ubp.ent.backend.core.exceptions.database.notfound.impl.AddressTypeResourceNotFoundException;
+import org.ubp.ent.backend.core.exceptions.database.notfound.impl.EmailTypeResourceNotFoundException;
+import org.ubp.ent.backend.core.exceptions.database.notfound.impl.PhoneTypeResourceNotFoundException;
 import org.ubp.ent.backend.core.exceptions.database.notfound.impl.TeacherResourceNotFoundException;
 import org.ubp.ent.backend.core.model.teacher.Teacher;
 import org.ubp.ent.backend.core.model.teacher.contact.address.Address;
 import org.ubp.ent.backend.core.model.teacher.contact.address.AddressType;
 import org.ubp.ent.backend.core.model.teacher.contact.email.Email;
+import org.ubp.ent.backend.core.model.teacher.contact.email.EmailType;
 import org.ubp.ent.backend.core.model.teacher.contact.phone.Phone;
+import org.ubp.ent.backend.core.model.teacher.contact.phone.PhoneType;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -31,6 +39,16 @@ public class TeacherManager {
     private AddressManager addressManager;
     @Inject
     private AddressTypeRepository addressTypeRepository;
+
+    @Inject
+    private EmailManager emailManager;
+    @Inject
+    private EmailTypeRepository emailTypeRepository;
+
+    @Inject
+    private PhoneManager phoneManager;
+    @Inject
+    private PhoneTypeRepository phoneTypeRepository;
 
     public Teacher create(Teacher model) {
         if (model == null) {
@@ -65,7 +83,7 @@ public class TeacherManager {
                 .collect(Collectors.toList());
     }
 
-    public void addAddress(Long teacherId, Address model) {
+    public Address addAddress(Long teacherId, Address model) {
         if (teacherId == null) {
             throw new IllegalArgumentException("Cannot find a " + Teacher.class.getName() + " with a null id.");
         }
@@ -85,26 +103,65 @@ public class TeacherManager {
         Teacher fetched = findOneById(teacherId);
         fetched.getContact().addAddress(model);
         teacherRepository.saveAndFlush(new TeacherDomain(fetched));
+        return model;
     }
 
-    public void removeTeacherAddress(Long teacherId, Long addressId) {
-
+    public void removeAddress(Long addressId) {
+        addressManager.delete(addressId);
     }
 
     public Email addEmail(Long teacherId, Email model) {
-        return null;
+        if (teacherId == null) {
+            throw new IllegalArgumentException("Cannot find a " + Teacher.class.getName() + " with a null id.");
+        }
+        if (model == null) {
+            throw new IllegalArgumentException("Cannot persist a null " + Email.class.getName());
+        }
+        if (model.getId() != null) {
+            throw new AlreadyDefinedInOnNonPersistedEntity("Cannot persist a " + Email.class.getName() + " which already has an ID.");
+        }
+
+        if (model.getType().getId() == null || !emailTypeRepository.exists(model.getType().getId())) {
+            throw new EmailTypeResourceNotFoundException("No " + EmailType.class.getName() + " found for id :" + model.getType().getId());
+        }
+
+        model = emailManager.create(model);
+
+        Teacher fetched = findOneById(teacherId);
+        fetched.getContact().addEmail(model);
+        teacherRepository.saveAndFlush(new TeacherDomain(fetched));
+        return model;
     }
 
-    public void removeTeacherEmail(Long teacherId, Long emailId) {
-
+    public void removeEmail(Long emailId) {
+        emailManager.delete(emailId);
     }
 
     public Phone addPhone(Long teacherId, Phone model) {
-        return null;
+        if (teacherId == null) {
+            throw new IllegalArgumentException("Cannot find a " + Teacher.class.getName() + " with a null id.");
+        }
+        if (model == null) {
+            throw new IllegalArgumentException("Cannot persist a null " + Phone.class.getName());
+        }
+        if (model.getId() != null) {
+            throw new AlreadyDefinedInOnNonPersistedEntity("Cannot persist a " + Phone.class.getName() + " which already has an ID.");
+        }
+
+        if (model.getType().getId() == null || !phoneTypeRepository.exists(model.getType().getId())) {
+            throw new PhoneTypeResourceNotFoundException("No " + PhoneType.class.getName() + " found for id :" + model.getType().getId());
+        }
+
+        model = phoneManager.create(model);
+
+        Teacher fetched = findOneById(teacherId);
+        fetched.getContact().addPhone(model);
+        teacherRepository.saveAndFlush(new TeacherDomain(fetched));
+        return model;
     }
 
-    public void removeTeacherPhone(Long teacherId, Long phoneId) {
-
+    public void removePhone(Long phoneId) {
+        phoneManager.delete(phoneId);
     }
 
 

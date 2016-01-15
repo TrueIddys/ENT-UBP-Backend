@@ -10,11 +10,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PhoneTest {
 
     public static Phone createOne() {
-        return new Phone(PhoneTypeTest.createOne(), PhoneDetailsTest.createOne());
+        return createOne(PhoneTypeTest.createOne());
     }
 
     public static Phone createOne(String PhoneType) {
-        return new Phone(PhoneTypeTest.createOne(PhoneType), PhoneDetailsTest.createOne());
+        return createOne(PhoneTypeTest.createOne(PhoneType));
+    }
+
+    public static Phone createOne(PhoneType type) {
+        return new Phone(type, PhoneDetailsTest.createOne());
     }
 
     @Test(expected = IllegalArgumentException.class)

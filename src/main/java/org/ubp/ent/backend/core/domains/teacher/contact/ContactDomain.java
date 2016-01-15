@@ -11,6 +11,7 @@ import org.ubp.ent.backend.core.model.teacher.contact.Contact;
 
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import java.util.Collections;
 import java.util.HashSet;
@@ -23,14 +24,17 @@ import java.util.Set;
 public class ContactDomain implements ModelTransformable<Contact> {
 
     @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "teacher_id")
     @Cascade({CascadeType.PERSIST, CascadeType.DELETE})
     private Set<AddressDomain> addresses = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "teacher_id")
     @Cascade({CascadeType.PERSIST, CascadeType.DELETE})
     private Set<PhoneDomain> phones = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "teacher_id")
     @Cascade({CascadeType.PERSIST, CascadeType.DELETE})
     private Set<EmailDomain> emails = new HashSet<>();
 

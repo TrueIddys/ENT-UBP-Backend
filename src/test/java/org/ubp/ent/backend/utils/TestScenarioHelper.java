@@ -119,5 +119,4 @@ public class TestScenarioHelper {
         return phoneTypeM.create(model);
     }
 
-
 }

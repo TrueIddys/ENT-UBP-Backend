@@ -9,7 +9,7 @@ import javax.persistence.Table;
  * Created by Anthony on 14/01/2016.
  */
 @Entity
-@Table(name = "teacher")
+@Table(name = "university_teacher")
 public class UniversityTeacherDomain extends TeacherDomain<UniversityTeacher> {
 
     protected UniversityTeacherDomain() {

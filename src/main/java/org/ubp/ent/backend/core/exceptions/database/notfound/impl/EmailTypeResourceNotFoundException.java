@@ -26,4 +26,5 @@ public class EmailTypeResourceNotFoundException extends ResourceNotFoundExceptio
     public EmailTypeResourceNotFoundException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
+
 }

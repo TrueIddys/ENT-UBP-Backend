@@ -26,4 +26,5 @@ public class ClassroomResourceNotFoundException extends ResourceNotFoundExceptio
     public ClassroomResourceNotFoundException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
+
 }

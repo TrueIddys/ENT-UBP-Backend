@@ -53,4 +53,5 @@ public class EquipmentTypeManager {
 
         return domain.toModel();
     }
+
 }

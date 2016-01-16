@@ -7,4 +7,5 @@ import org.ubp.ent.backend.core.domains.teacher.contact.phone.PhoneTypeDomain;
  * Created by Anthony on 15/01/2016.
  */
 public interface PhoneTypeRepository extends JpaRepository<PhoneTypeDomain, Long> {
+
 }

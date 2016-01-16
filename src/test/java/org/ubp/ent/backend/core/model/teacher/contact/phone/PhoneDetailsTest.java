@@ -130,5 +130,4 @@ public class PhoneDetailsTest {
         assertThat(createOne()).isNotEqualTo(createOne());
     }
 
-
 }

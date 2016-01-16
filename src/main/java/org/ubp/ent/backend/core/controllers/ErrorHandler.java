@@ -25,7 +25,7 @@ public class ErrorHandler {
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Throwable.class)
     public void exception(HttpServletRequest req, Throwable e) {
-        if (log.isInfoEnabled()) {
+        if (log.isErrorEnabled()) {
             log.error("An unhandled Throwable was catch by the ControllerAdvice : '" + getClass().getName() + "', this needs a fix.", e);
         }
     }
@@ -33,8 +33,8 @@ public class ErrorHandler {
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public void httpMessageNotReadableException(HttpServletRequest req, HttpMessageNotReadableException e) {
-        if (log.isInfoEnabled()) {
-            log.error("An http request has failed.", e);
+        if (log.isErrorEnabled()) {
+            log.error("Http request has failed.", e);
         }
     }
 

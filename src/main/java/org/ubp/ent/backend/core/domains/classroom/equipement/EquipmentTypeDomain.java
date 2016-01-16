@@ -63,4 +63,5 @@ public class EquipmentTypeDomain implements ModelTransformable<EquipmentType> {
     public int hashCode() {
         return com.google.common.base.Objects.hashCode(name);
     }
+
 }

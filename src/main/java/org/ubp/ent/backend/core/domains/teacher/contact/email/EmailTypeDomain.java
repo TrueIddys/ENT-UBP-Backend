@@ -28,4 +28,5 @@ public class EmailTypeDomain extends ContactDetailsTypeDomain implements ModelTr
 
         return model;
     }
+
 }

@@ -39,4 +39,5 @@ public class NameDomain implements ModelTransformable<Name> {
     public Name toModel() {
         return new Name(firstName, lastName);
     }
+
 }

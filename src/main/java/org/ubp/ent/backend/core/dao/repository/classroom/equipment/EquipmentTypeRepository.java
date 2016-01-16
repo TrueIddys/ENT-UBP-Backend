@@ -9,4 +9,5 @@ import org.ubp.ent.backend.core.domains.classroom.equipement.EquipmentTypeDomain
  */
 @Repository
 public interface EquipmentTypeRepository extends JpaRepository<EquipmentTypeDomain, Long> {
+
 }

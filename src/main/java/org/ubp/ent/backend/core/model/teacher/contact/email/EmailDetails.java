@@ -46,4 +46,5 @@ public class EmailDetails {
     public int hashCode() {
         return Objects.hashCode(address);
     }
+
 }

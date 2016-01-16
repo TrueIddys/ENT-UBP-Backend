@@ -9,19 +9,19 @@ import org.ubp.ent.backend.core.model.teacher.name.NameTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Created by Anthony on 11/01/2016.
+ * Created by Anthony on 16/01/2016.
  */
-public class UniversityTeacherTest {
+public class OutsiderTeacherTest {
 
-    public static UniversityTeacher createOne() {
+    public static OutsiderTeacher createOne() {
         return createOne(NameTest.createOne(), ContactTest.createOne());
     }
 
-    public static UniversityTeacher createOne(Name name, Contact contact) {
-        return new UniversityTeacher(name, contact);
+    public static OutsiderTeacher createOne(Name name, Contact contact) {
+        return new OutsiderTeacher(name, contact);
     }
 
-    public static UniversityTeacher createOneEmpty() {
+    public static OutsiderTeacher createOneEmpty() {
         return createOne(NameTest.createOne(), ContactTest.createOneEmpty());
     }
 
@@ -30,7 +30,7 @@ public class UniversityTeacherTest {
     public void shouldInstantiate() {
         Name name = NameTest.createOne();
         Contact contact = ContactTest.createOne();
-        UniversityTeacher teacher = new UniversityTeacher(name, contact);
+        OutsiderTeacher teacher = new OutsiderTeacher(name, contact);
 
         assertThat(teacher.getId()).isNull();
         assertThat(teacher.getName()).isEqualTo(name);

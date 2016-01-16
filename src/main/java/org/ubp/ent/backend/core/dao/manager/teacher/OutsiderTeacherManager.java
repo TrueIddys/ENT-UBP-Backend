@@ -4,17 +4,17 @@ import org.springframework.stereotype.Service;
 import org.ubp.ent.backend.core.dao.manager.teacher.contact.address.AddressManager;
 import org.ubp.ent.backend.core.dao.manager.teacher.contact.email.EmailManager;
 import org.ubp.ent.backend.core.dao.manager.teacher.contact.phone.PhoneManager;
-import org.ubp.ent.backend.core.dao.repository.teacher.UniversityTeacherRepository;
+import org.ubp.ent.backend.core.dao.repository.teacher.OutsiderTeacherRepository;
 import org.ubp.ent.backend.core.dao.repository.teacher.contact.address.AddressTypeRepository;
 import org.ubp.ent.backend.core.dao.repository.teacher.contact.email.EmailTypeRepository;
 import org.ubp.ent.backend.core.dao.repository.teacher.contact.phone.PhoneTypeRepository;
-import org.ubp.ent.backend.core.domains.teacher.UniversityTeacherDomain;
+import org.ubp.ent.backend.core.domains.teacher.OutsiderTeacherDomain;
 import org.ubp.ent.backend.core.exceptions.database.AlreadyDefinedInOnNonPersistedEntity;
 import org.ubp.ent.backend.core.exceptions.database.notfound.impl.AddressTypeResourceNotFoundException;
 import org.ubp.ent.backend.core.exceptions.database.notfound.impl.EmailTypeResourceNotFoundException;
 import org.ubp.ent.backend.core.exceptions.database.notfound.impl.PhoneTypeResourceNotFoundException;
 import org.ubp.ent.backend.core.exceptions.database.notfound.impl.TeacherResourceNotFoundException;
-import org.ubp.ent.backend.core.model.teacher.UniversityTeacher;
+import org.ubp.ent.backend.core.model.teacher.OutsiderTeacher;
 import org.ubp.ent.backend.core.model.teacher.contact.address.Address;
 import org.ubp.ent.backend.core.model.teacher.contact.address.AddressType;
 import org.ubp.ent.backend.core.model.teacher.contact.email.Email;
@@ -27,13 +27,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Created by Anthony on 15/01/2016.
+ * Created by Anthony on 16/01/2016.
  */
 @Service
-public class UniversityTeacherManager {
+public class OutsiderTeacherManager {
 
     @Inject
-    private UniversityTeacherRepository universityTeacherRepository;
+    private OutsiderTeacherRepository outsiderTeacherRepository;
 
     @Inject
     private AddressManager addressManager;
@@ -50,42 +50,42 @@ public class UniversityTeacherManager {
     @Inject
     private PhoneTypeRepository phoneTypeRepository;
 
-    public UniversityTeacher create(UniversityTeacher model) {
+    public OutsiderTeacher create(OutsiderTeacher model) {
         if (model == null) {
-            throw new IllegalArgumentException("Cannot persist a null " + UniversityTeacher.class.getName());
+            throw new IllegalArgumentException("Cannot persist a null " + OutsiderTeacher.class.getName());
         }
         if (model.getId() != null) {
-            throw new AlreadyDefinedInOnNonPersistedEntity("Cannot persist a " + UniversityTeacher.class.getName() + " which already has an ID.");
+            throw new AlreadyDefinedInOnNonPersistedEntity("Cannot persist a " + OutsiderTeacher.class.getName() + " which already has an ID.");
         }
-        UniversityTeacherDomain domain = new UniversityTeacherDomain(model);
-        domain = universityTeacherRepository.saveAndFlush(domain);
+        OutsiderTeacherDomain domain = new OutsiderTeacherDomain(model);
+        domain = outsiderTeacherRepository.saveAndFlush(domain);
         model.setId(domain.getId());
 
         return domain.toModel();
     }
 
-    public UniversityTeacher findOneById(Long id) {
+    public OutsiderTeacher findOneById(Long id) {
         if (id == null) {
-            throw new IllegalArgumentException("Cannot find a " + UniversityTeacher.class.getName() + " with a null id.");
+            throw new IllegalArgumentException("Cannot find a " + OutsiderTeacher.class.getName() + " with a null id.");
         }
-        UniversityTeacherDomain domain = universityTeacherRepository.findOne(id);
+        OutsiderTeacherDomain domain = outsiderTeacherRepository.findOne(id);
 
         if (domain == null) {
-            throw new TeacherResourceNotFoundException("No " + UniversityTeacher.class.getName() + " found for id :" + id);
+            throw new TeacherResourceNotFoundException("No " + OutsiderTeacher.class.getName() + " found for id :" + id);
         }
 
         return domain.toModel();
     }
 
-    public List<UniversityTeacher> findAll() {
-        return universityTeacherRepository.findAll().parallelStream()
-                .map(UniversityTeacherDomain::toModel)
+    public List<OutsiderTeacher> findAll() {
+        return outsiderTeacherRepository.findAll().parallelStream()
+                .map(OutsiderTeacherDomain::toModel)
                 .collect(Collectors.toList());
     }
 
     public Address addAddress(Long teacherId, Address model) {
         if (teacherId == null) {
-            throw new IllegalArgumentException("Cannot find a " + UniversityTeacher.class.getName() + " with a null id.");
+            throw new IllegalArgumentException("Cannot find a " + OutsiderTeacher.class.getName() + " with a null id.");
         }
         if (model == null) {
             throw new IllegalArgumentException("Cannot persist a null " + Address.class.getName());
@@ -100,9 +100,9 @@ public class UniversityTeacherManager {
 
         model = addressManager.create(model);
 
-        UniversityTeacher fetched = findOneById(teacherId);
+        OutsiderTeacher fetched = findOneById(teacherId);
         fetched.getContact().addAddress(model);
-        universityTeacherRepository.saveAndFlush(new UniversityTeacherDomain(fetched));
+        outsiderTeacherRepository.saveAndFlush(new OutsiderTeacherDomain(fetched));
         return model;
     }
 
@@ -112,7 +112,7 @@ public class UniversityTeacherManager {
 
     public Email addEmail(Long teacherId, Email model) {
         if (teacherId == null) {
-            throw new IllegalArgumentException("Cannot find a " + UniversityTeacher.class.getName() + " with a null id.");
+            throw new IllegalArgumentException("Cannot find a " + OutsiderTeacher.class.getName() + " with a null id.");
         }
         if (model == null) {
             throw new IllegalArgumentException("Cannot persist a null " + Email.class.getName());
@@ -127,9 +127,9 @@ public class UniversityTeacherManager {
 
         model = emailManager.create(model);
 
-        UniversityTeacher fetched = findOneById(teacherId);
+        OutsiderTeacher fetched = findOneById(teacherId);
         fetched.getContact().addEmail(model);
-        universityTeacherRepository.saveAndFlush(new UniversityTeacherDomain(fetched));
+        outsiderTeacherRepository.saveAndFlush(new OutsiderTeacherDomain(fetched));
         return model;
     }
 
@@ -139,7 +139,7 @@ public class UniversityTeacherManager {
 
     public Phone addPhone(Long teacherId, Phone model) {
         if (teacherId == null) {
-            throw new IllegalArgumentException("Cannot find a " + UniversityTeacher.class.getName() + " with a null id.");
+            throw new IllegalArgumentException("Cannot find a " + OutsiderTeacher.class.getName() + " with a null id.");
         }
         if (model == null) {
             throw new IllegalArgumentException("Cannot persist a null " + Phone.class.getName());
@@ -154,9 +154,9 @@ public class UniversityTeacherManager {
 
         model = phoneManager.create(model);
 
-        UniversityTeacher fetched = findOneById(teacherId);
+        OutsiderTeacher fetched = findOneById(teacherId);
         fetched.getContact().addPhone(model);
-        universityTeacherRepository.saveAndFlush(new UniversityTeacherDomain(fetched));
+        outsiderTeacherRepository.saveAndFlush(new OutsiderTeacherDomain(fetched));
         return model;
     }
 

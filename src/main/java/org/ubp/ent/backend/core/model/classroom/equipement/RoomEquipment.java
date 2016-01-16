@@ -44,5 +44,4 @@ public class RoomEquipment {
         return com.google.common.base.Objects.hashCode(equipmentType);
     }
 
-
 }

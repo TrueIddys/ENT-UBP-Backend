@@ -47,5 +47,4 @@ public abstract class WebIntegrationTest extends WebTest {
         return MockMvcRequestBuilders.delete(url);
     }
 
-
 }

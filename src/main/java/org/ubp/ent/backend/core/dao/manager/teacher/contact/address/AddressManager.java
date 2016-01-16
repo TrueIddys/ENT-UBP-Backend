@@ -44,5 +44,4 @@ public class AddressManager {
         repository.delete(domain);
     }
 
-
 }

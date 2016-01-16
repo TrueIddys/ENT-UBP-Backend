@@ -37,4 +37,5 @@ public class RoomCapacity {
     public int hashCode() {
         return Objects.hashCode(maxCapacity);
     }
+
 }

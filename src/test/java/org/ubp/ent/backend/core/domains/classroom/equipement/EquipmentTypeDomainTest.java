@@ -43,4 +43,5 @@ public class EquipmentTypeDomainTest {
 
         assertThat(domain.toModel()).isEqualTo(model);
     }
+
 }

@@ -46,5 +46,4 @@ public class EmailDetailsDomain implements ModelTransformable<EmailDetails> {
         return Objects.hashCode(address);
     }
 
-
 }

@@ -72,4 +72,5 @@ public class Contact {
     public int hashCode() {
         return Objects.hashCode(addresses, phones, emails);
     }
+
 }

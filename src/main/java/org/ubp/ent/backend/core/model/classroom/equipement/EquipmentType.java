@@ -45,4 +45,5 @@ public class EquipmentType {
     public int hashCode() {
         return Objects.hashCode(name);
     }
+
 }

@@ -28,4 +28,5 @@ public class AddressTypeDomain extends ContactDetailsTypeDomain implements Model
 
         return model;
     }
+
 }

@@ -15,11 +15,6 @@ public class UniversityTeacherDomainTest {
         return new UniversityTeacherDomain(UniversityTeacherTest.createOne());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldNotInstantiateWithNullModel() {
-        new UniversityTeacherDomain(null);
-    }
-
     @Test
     public void shouldCreateFromModel() {
         UniversityTeacher model = UniversityTeacherTest.createOne();

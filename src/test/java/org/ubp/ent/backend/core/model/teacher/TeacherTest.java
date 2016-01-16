@@ -13,16 +13,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class TeacherTest {
 
-    private static DefaultTeacher createOne() {
-        return createOne(NameTest.createOne(), ContactTest.createOne());
-    }
-
     private static DefaultTeacher createOne(Name name, Contact contact) {
         return new DefaultTeacher(name, contact);
-    }
-
-    private static DefaultTeacher createOneEmpty() {
-        return createOne(NameTest.createOne(), ContactTest.createOneEmpty());
     }
 
     @Test(expected = IllegalArgumentException.class)

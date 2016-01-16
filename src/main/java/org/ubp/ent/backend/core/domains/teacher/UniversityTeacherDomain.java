@@ -12,50 +12,19 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "teacher")
-public class UniversityTeacherDomain implements ModelTransformable<UniversityTeacher> {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Embedded
-    private NameDomain name;
-
-    @Embedded
-    private ContactDomain contact;
+public class UniversityTeacherDomain extends TeacherDomain<UniversityTeacher> {
 
     protected UniversityTeacherDomain() {
     }
 
     public UniversityTeacherDomain(UniversityTeacher model) {
-        if (model == null) {
-            throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " with a null " + UniversityTeacher.class.getName());
-        }
-        id = model.getId();
-        name = new NameDomain(model.getName());
-        contact = new ContactDomain(model.getContact());
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public NameDomain getName() {
-        return name;
-    }
-
-    public ContactDomain getContact() {
-        return contact;
+        super(model);
     }
 
     @Override
     public UniversityTeacher toModel() {
-        UniversityTeacher model = new UniversityTeacher(name.toModel(), contact.toModel());
-        model.setId(id);
+        UniversityTeacher model = new UniversityTeacher(getName().toModel(), getContact().toModel());
+        model.setId(this.getId());
         return model;
     }
 

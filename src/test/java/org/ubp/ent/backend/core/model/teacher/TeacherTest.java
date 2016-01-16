@@ -9,33 +9,48 @@ import org.ubp.ent.backend.core.model.teacher.name.NameTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Created by Anthony on 11/01/2016.
+ * Created by Anthony on 16/01/2016.
  */
-public class UniversityTeacherTest {
+public class TeacherTest {
 
-    public static UniversityTeacher createOne() {
+    private static DefaultTeacher createOne() {
         return createOne(NameTest.createOne(), ContactTest.createOne());
     }
 
-    public static UniversityTeacher createOne(Name name, Contact contact) {
-        return new UniversityTeacher(name, contact);
+    private static DefaultTeacher createOne(Name name, Contact contact) {
+        return new DefaultTeacher(name, contact);
     }
 
-    public static UniversityTeacher createOneEmpty() {
+    private static DefaultTeacher createOneEmpty() {
         return createOne(NameTest.createOne(), ContactTest.createOneEmpty());
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldNotInstantiateWithNullName() {
+        new DefaultTeacher(null, ContactTest.createOne());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldNotInstantiateWithNullContact() {
+        new DefaultTeacher(NameTest.createOne(), null);
+    }
 
     @Test
     public void shouldInstantiate() {
         Name name = NameTest.createOne();
         Contact contact = ContactTest.createOne();
-        UniversityTeacher teacher = new UniversityTeacher(name, contact);
+        DefaultTeacher teacher = new DefaultTeacher(name, contact);
 
         assertThat(teacher.getId()).isNull();
         assertThat(teacher.getName()).isEqualTo(name);
         assertThat(teacher.getContact()).isEqualTo(contact);
     }
 
+    private static class DefaultTeacher extends Teacher {
+
+        public DefaultTeacher(Name name, Contact contact) {
+            super(name, contact);
+        }
+    }
 
 }

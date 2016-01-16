@@ -3,12 +3,12 @@ package org.ubp.ent.backend.utils;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
 import org.ubp.ent.backend.config.conditional.condition.TestProfileCondition;
-import org.ubp.ent.backend.core.dao.manager.teacher.TeacherManager;
+import org.ubp.ent.backend.core.dao.manager.teacher.UniversityTeacherManager;
 import org.ubp.ent.backend.core.dao.manager.teacher.contact.address.AddressTypeManager;
 import org.ubp.ent.backend.core.dao.manager.teacher.contact.email.EmailTypeManager;
 import org.ubp.ent.backend.core.dao.manager.teacher.contact.phone.PhoneTypeManager;
-import org.ubp.ent.backend.core.model.teacher.Teacher;
-import org.ubp.ent.backend.core.model.teacher.TeacherTest;
+import org.ubp.ent.backend.core.model.teacher.UniversityTeacher;
+import org.ubp.ent.backend.core.model.teacher.UniversityTeacherTest;
 import org.ubp.ent.backend.core.model.teacher.contact.address.Address;
 import org.ubp.ent.backend.core.model.teacher.contact.address.AddressType;
 import org.ubp.ent.backend.core.model.teacher.contact.address.AddressTypeTest;
@@ -29,7 +29,7 @@ import javax.inject.Inject;
 public class TestScenarioHelper {
 
     @Inject
-    private TeacherManager teacherM;
+    private UniversityTeacherManager teacherM;
 
     @Inject
     private AddressTypeManager addressTypeM;
@@ -38,13 +38,13 @@ public class TestScenarioHelper {
     @Inject
     private PhoneTypeManager phoneTypeM;
 
-    public Teacher createTeacher() {
-        return createTeacher(TeacherTest.createOne());
+    public UniversityTeacher createTeacher() {
+        return createTeacher(UniversityTeacherTest.createOne());
     }
-    public Teacher createEmptyTeacher() {
-        return createTeacher(TeacherTest.createOneEmpty());
+    public UniversityTeacher createEmptyTeacher() {
+        return createTeacher(UniversityTeacherTest.createOneEmpty());
     }
-    public Teacher createTeacher(Teacher model) {
+    public UniversityTeacher createTeacher(UniversityTeacher model) {
         model.getContact().getAddresses().stream()
                 .map(Address::getType)
                 .forEach(addressTypeM::create);

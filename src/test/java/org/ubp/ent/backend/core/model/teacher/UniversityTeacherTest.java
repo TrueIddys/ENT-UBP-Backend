@@ -3,41 +3,43 @@ package org.ubp.ent.backend.core.model.teacher;
 import org.junit.Test;
 import org.ubp.ent.backend.core.model.teacher.contact.Contact;
 import org.ubp.ent.backend.core.model.teacher.contact.ContactTest;
+import org.ubp.ent.backend.core.model.teacher.name.Name;
+import org.ubp.ent.backend.core.model.teacher.name.NameTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Created by Anthony on 11/01/2016.
  */
-public class TeacherTest {
+public class UniversityTeacherTest {
 
-    public static Teacher createOne() {
+    public static UniversityTeacher createOne() {
         return createOne(NameTest.createOne(), ContactTest.createOne());
     }
 
-    public static Teacher createOne(Name name, Contact contact) {
-        return new Teacher(name, contact);
+    public static UniversityTeacher createOne(Name name, Contact contact) {
+        return new UniversityTeacher(name, contact);
     }
 
-    public static Teacher createOneEmpty() {
+    public static UniversityTeacher createOneEmpty() {
         return createOne(NameTest.createOne(), ContactTest.createOneEmpty());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNullName() {
-        new Teacher(null, ContactTest.createOne());
+        new UniversityTeacher(null, ContactTest.createOne());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNullContact() {
-        new Teacher(NameTest.createOne(), null);
+        new UniversityTeacher(NameTest.createOne(), null);
     }
 
     @Test
     public void shouldInstantiate() {
         Name name = NameTest.createOne();
         Contact contact = ContactTest.createOne();
-        Teacher teacher = new Teacher(name, contact);
+        UniversityTeacher teacher = new UniversityTeacher(name, contact);
 
         assertThat(teacher.getId()).isNull();
         assertThat(teacher.getName()).isEqualTo(name);

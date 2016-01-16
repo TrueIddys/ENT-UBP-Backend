@@ -2,7 +2,8 @@ package org.ubp.ent.backend.core.domains.teacher;
 
 import org.ubp.ent.backend.core.domains.ModelTransformable;
 import org.ubp.ent.backend.core.domains.teacher.contact.ContactDomain;
-import org.ubp.ent.backend.core.model.teacher.Teacher;
+import org.ubp.ent.backend.core.domains.teacher.name.NameDomain;
+import org.ubp.ent.backend.core.model.teacher.UniversityTeacher;
 
 import javax.persistence.*;
 
@@ -11,7 +12,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "teacher")
-public class TeacherDomain implements ModelTransformable<Teacher> {
+public class TeacherDomain implements ModelTransformable<UniversityTeacher> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,9 +27,9 @@ public class TeacherDomain implements ModelTransformable<Teacher> {
     protected TeacherDomain() {
     }
 
-    public TeacherDomain(Teacher model) {
+    public TeacherDomain(UniversityTeacher model) {
         if (model == null) {
-            throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " with a null " + Teacher.class.getName());
+            throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " with a null " + UniversityTeacher.class.getName());
         }
         id = model.getId();
         name = new NameDomain(model.getName());
@@ -52,8 +53,8 @@ public class TeacherDomain implements ModelTransformable<Teacher> {
     }
 
     @Override
-    public Teacher toModel() {
-        Teacher model = new Teacher(name.toModel(), contact.toModel());
+    public UniversityTeacher toModel() {
+        UniversityTeacher model = new UniversityTeacher(name.toModel(), contact.toModel());
         model.setId(id);
         return model;
     }

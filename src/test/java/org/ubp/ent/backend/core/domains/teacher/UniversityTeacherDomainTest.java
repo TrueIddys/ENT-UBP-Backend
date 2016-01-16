@@ -1,18 +1,18 @@
 package org.ubp.ent.backend.core.domains.teacher;
 
 import org.junit.Test;
-import org.ubp.ent.backend.core.model.teacher.Teacher;
-import org.ubp.ent.backend.core.model.teacher.TeacherTest;
+import org.ubp.ent.backend.core.model.teacher.UniversityTeacher;
+import org.ubp.ent.backend.core.model.teacher.UniversityTeacherTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Created by Anthony on 14/01/2016.
  */
-public class TeacherDomainTest {
+public class UniversityTeacherDomainTest {
 
     public static TeacherDomain createOne() {
-        return new TeacherDomain(TeacherTest.createOne());
+        return new TeacherDomain(UniversityTeacherTest.createOne());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -22,7 +22,7 @@ public class TeacherDomainTest {
 
     @Test
     public void shouldCreateFromModel() {
-        Teacher model = TeacherTest.createOne();
+        UniversityTeacher model = UniversityTeacherTest.createOne();
         model.setId(12L);
         TeacherDomain domain = new TeacherDomain(model);
 
@@ -33,9 +33,9 @@ public class TeacherDomainTest {
 
     @Test
     public void shouldTransformToModel() {
-        TeacherDomain domain = TeacherDomainTest.createOne();
+        TeacherDomain domain = UniversityTeacherDomainTest.createOne();
         domain.setId(12L);
-        Teacher model = domain.toModel();
+        UniversityTeacher model = domain.toModel();
 
         assertThat(model.getId()).isEqualTo(domain.getId());
         assertThat(model.getName()).isEqualTo(domain.getName().toModel());

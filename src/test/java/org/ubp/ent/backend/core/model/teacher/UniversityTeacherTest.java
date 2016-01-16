@@ -37,5 +37,4 @@ public class UniversityTeacherTest {
         assertThat(teacher.getContact()).isEqualTo(contact);
     }
 
-
 }

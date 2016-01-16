@@ -71,4 +71,5 @@ public class AddressDomain implements ModelTransformable<Address> {
     public int hashCode() {
         return Objects.hashCode(type);
     }
+
 }

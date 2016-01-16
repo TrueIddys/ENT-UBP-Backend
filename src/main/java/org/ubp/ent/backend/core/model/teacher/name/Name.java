@@ -56,4 +56,5 @@ public class Name {
     public int hashCode() {
         return Objects.hashCode(firstName, lastName);
     }
+
 }

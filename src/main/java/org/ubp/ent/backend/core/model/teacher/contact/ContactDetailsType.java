@@ -42,4 +42,5 @@ public class ContactDetailsType {
     public int hashCode() {
         return Objects.hashCode(name);
     }
+
 }

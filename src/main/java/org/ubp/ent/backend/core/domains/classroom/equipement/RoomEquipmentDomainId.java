@@ -57,4 +57,5 @@ public class RoomEquipmentDomainId implements Serializable {
     public int hashCode() {
         return Objects.hashCode(classroom, equipmentType);
     }
+
 }

@@ -54,4 +54,5 @@ public abstract class ContactDetailsTypeDomain {
     public int hashCode() {
         return Objects.hashCode(name);
     }
+
 }

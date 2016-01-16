@@ -112,4 +112,5 @@ public class AddressDetails {
     public int hashCode() {
         return Objects.hashCode(streetNumber, street, zip, city);
     }
+
 }

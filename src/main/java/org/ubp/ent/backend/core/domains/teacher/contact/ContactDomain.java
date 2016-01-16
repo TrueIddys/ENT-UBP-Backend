@@ -106,4 +106,5 @@ public class ContactDomain implements ModelTransformable<Contact> {
     public int hashCode() {
         return Objects.hashCode(addresses, phones, emails);
     }
+
 }

@@ -71,4 +71,5 @@ public class EmailDomain implements ModelTransformable<Email> {
     public int hashCode() {
         return Objects.hashCode(type);
     }
+
 }

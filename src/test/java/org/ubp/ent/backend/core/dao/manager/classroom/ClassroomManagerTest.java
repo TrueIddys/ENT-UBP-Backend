@@ -209,5 +209,4 @@ public class ClassroomManagerTest extends WebApplicationTest {
         classroomManager.addEquipment(model.getId(), equipmentType.getId(), null);
     }
 
-
 }

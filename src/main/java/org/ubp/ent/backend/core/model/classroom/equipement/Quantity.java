@@ -25,4 +25,5 @@ public class Quantity {
     public Integer getMaxQuantity() {
         return maxQuantity;
     }
+
 }

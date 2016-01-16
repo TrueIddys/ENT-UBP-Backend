@@ -61,5 +61,4 @@ public class NameTest {
         assertThat(name.getLastName()).isEqualTo("RAYMOND");
     }
 
-
 }

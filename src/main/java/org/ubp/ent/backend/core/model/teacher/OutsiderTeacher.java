@@ -11,4 +11,5 @@ public class OutsiderTeacher extends Teacher {
     public OutsiderTeacher(Name name, Contact contact) {
         super(name, contact);
     }
+
 }

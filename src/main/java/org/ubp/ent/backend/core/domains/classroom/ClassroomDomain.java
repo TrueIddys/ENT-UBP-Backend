@@ -102,4 +102,5 @@ public class ClassroomDomain implements ModelTransformable<Classroom> {
     public int hashCode() {
         return Objects.hashCode(name);
     }
+
 }

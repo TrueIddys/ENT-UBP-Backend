@@ -7,4 +7,5 @@ import org.ubp.ent.backend.core.domains.teacher.UniversityTeacherDomain;
  * Created by Anthony on 14/01/2016.
  */
 public interface UniversityTeacherRepository extends JpaRepository<UniversityTeacherDomain, Long> {
+
 }

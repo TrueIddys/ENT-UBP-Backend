@@ -26,4 +26,5 @@ public class AddressTypeResourceNotFoundException extends ResourceNotFoundExcept
     public AddressTypeResourceNotFoundException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
+
 }

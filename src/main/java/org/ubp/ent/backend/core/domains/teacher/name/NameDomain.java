@@ -1,7 +1,7 @@
-package org.ubp.ent.backend.core.domains.teacher;
+package org.ubp.ent.backend.core.domains.teacher.name;
 
 import org.ubp.ent.backend.core.domains.ModelTransformable;
-import org.ubp.ent.backend.core.model.teacher.Name;
+import org.ubp.ent.backend.core.model.teacher.name.Name;
 
 import javax.persistence.Embeddable;
 

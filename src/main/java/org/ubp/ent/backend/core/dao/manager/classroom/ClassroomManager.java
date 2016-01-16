@@ -89,9 +89,7 @@ public class ClassroomManager {
 
         return domains.parallelStream().map(domain -> {
             Classroom model = domain.toModel();
-            domain.getEquipments().forEach(e -> {
-                model.addEquipment(e.toModel());
-            });
+            domain.getEquipments().forEach(e -> model.addEquipment(e.toModel()));
 
             return model;
         }).collect(Collectors.toList());

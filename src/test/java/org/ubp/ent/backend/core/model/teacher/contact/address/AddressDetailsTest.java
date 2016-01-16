@@ -74,7 +74,7 @@ public class AddressDetailsTest {
     @Test
     public void shouldAcceptSimpleDigitAndDigitPlusComplementaryStringAsStreetNumber() {
         AddressDetails address = createOne("6", VALID_STREET, VALID_ZIP, VALID_CITY);
-        ;
+
         assertThat(address.getStreetNumber()).isEqualTo("6");
 
         address = createOne("63", VALID_STREET, VALID_ZIP, VALID_CITY);

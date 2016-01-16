@@ -2,19 +2,20 @@ package org.ubp.ent.backend.core.domains.teacher;
 
 import org.ubp.ent.backend.core.domains.ModelTransformable;
 import org.ubp.ent.backend.core.domains.teacher.contact.ContactDomain;
+import org.ubp.ent.backend.core.domains.teacher.name.NameDomain;
 import org.ubp.ent.backend.core.model.teacher.Teacher;
 
 import javax.persistence.*;
 
 /**
- * Created by Anthony on 14/01/2016.
+ * Created by Anthony on 16/01/2016.
  */
 @Entity
-@Table(name = "teacher")
-public class TeacherDomain implements ModelTransformable<Teacher> {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class TeacherDomain<T extends Teacher> implements ModelTransformable<T> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
     @Embedded
@@ -26,7 +27,7 @@ public class TeacherDomain implements ModelTransformable<Teacher> {
     protected TeacherDomain() {
     }
 
-    public TeacherDomain(Teacher model) {
+    public TeacherDomain(T model) {
         if (model == null) {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " with a null " + Teacher.class.getName());
         }
@@ -49,13 +50,6 @@ public class TeacherDomain implements ModelTransformable<Teacher> {
 
     public ContactDomain getContact() {
         return contact;
-    }
-
-    @Override
-    public Teacher toModel() {
-        Teacher model = new Teacher(name.toModel(), contact.toModel());
-        model.setId(id);
-        return model;
     }
 
 }

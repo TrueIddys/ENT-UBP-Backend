@@ -23,22 +23,22 @@ public class EmailTypeTest {
 
     @Test
     public void shouldInstantiate() {
-        EmailType model = createOne("Personnal");
+        EmailType model = createOne("Personal");
         assertThat(model.getId()).isNull();
-        assertThat(model.getName()).isEqualTo("Personnal");
+        assertThat(model.getName()).isEqualTo("Personal");
     }
 
     @Test
     public void shouldBeEqualByName() {
-        EmailType model1 = createOne("Personnal");
-        EmailType model2 = createOne("Personnal");
+        EmailType model1 = createOne("Personal");
+        EmailType model2 = createOne("Personal");
 
         assertThat(model2).isEqualTo(model1);
     }
 
     @Test
     public void shouldNotBeEqualWithDifferentNames() {
-        EmailType model1 = createOne("Personnal");
+        EmailType model1 = createOne("Personal");
         EmailType model2 = createOne("Work");
 
         assertThat(model2).isNotEqualTo(model1);

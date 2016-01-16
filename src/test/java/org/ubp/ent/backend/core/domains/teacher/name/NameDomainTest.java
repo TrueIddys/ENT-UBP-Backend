@@ -1,8 +1,8 @@
-package org.ubp.ent.backend.core.domains.teacher;
+package org.ubp.ent.backend.core.domains.teacher.name;
 
 import org.junit.Test;
-import org.ubp.ent.backend.core.model.teacher.Name;
-import org.ubp.ent.backend.core.model.teacher.NameTest;
+import org.ubp.ent.backend.core.model.teacher.name.Name;
+import org.ubp.ent.backend.core.model.teacher.name.NameTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

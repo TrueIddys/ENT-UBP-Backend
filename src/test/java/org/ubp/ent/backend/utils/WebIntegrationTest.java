@@ -31,7 +31,7 @@ public abstract class WebIntegrationTest extends WebTest {
         return mockMvc.perform(requestBuilder);
     }
 
-    public MockHttpServletRequestBuilder get(String url) {
+    public RequestBuilder get(String url) {
         return MockMvcRequestBuilders.get(url);
     }
 

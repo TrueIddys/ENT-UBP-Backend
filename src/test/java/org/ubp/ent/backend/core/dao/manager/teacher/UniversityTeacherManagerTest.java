@@ -196,7 +196,6 @@ public class UniversityTeacherManagerTest extends WebApplicationTest {
     }
 
 
-
     /*
      * addEmail()
      */

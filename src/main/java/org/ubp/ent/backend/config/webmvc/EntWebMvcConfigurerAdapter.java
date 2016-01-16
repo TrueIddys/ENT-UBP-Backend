@@ -11,10 +11,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class EntWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
 
     /*
-     * Enable Cross Origin Ressouces Sharing
+     * Enable Cross Origin Resources Sharing
      */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
+        // TODO : UPDATE THIS BEFORE DEPLOYING TO PRODUCTION !!!!!
         registry.addMapping("/**");
     }
 

@@ -1,11 +1,9 @@
 package org.ubp.ent.backend.core.domains.teacher;
 
-import org.ubp.ent.backend.core.domains.ModelTransformable;
-import org.ubp.ent.backend.core.domains.teacher.contact.ContactDomain;
-import org.ubp.ent.backend.core.domains.teacher.name.NameDomain;
 import org.ubp.ent.backend.core.model.teacher.UniversityTeacher;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * Created by Anthony on 14/01/2016.

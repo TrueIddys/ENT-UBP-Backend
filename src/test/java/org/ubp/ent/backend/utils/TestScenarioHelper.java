@@ -41,9 +41,11 @@ public class TestScenarioHelper {
     public UniversityTeacher createTeacher() {
         return createTeacher(UniversityTeacherTest.createOne());
     }
+
     public UniversityTeacher createEmptyTeacher() {
         return createTeacher(UniversityTeacherTest.createOneEmpty());
     }
+
     public UniversityTeacher createTeacher(UniversityTeacher model) {
         model.getContact().getAddresses().stream()
                 .map(Address::getType)
@@ -61,6 +63,7 @@ public class TestScenarioHelper {
     public AddressType createAddressType() {
         return createAddressType(AddressTypeTest.createOne());
     }
+
     public AddressType createAddressType(AddressType model) {
         return addressTypeM.create(model);
     }
@@ -68,6 +71,7 @@ public class TestScenarioHelper {
     public EmailType createEmailType() {
         return createEmailType(EmailTypeTest.createOne());
     }
+
     public EmailType createEmailType(EmailType model) {
         return emailTypeM.create(model);
     }
@@ -75,6 +79,7 @@ public class TestScenarioHelper {
     public PhoneType createPhoneType() {
         return createPhoneType(PhoneTypeTest.createOne());
     }
+
     public PhoneType createPhoneType(PhoneType model) {
         return phoneTypeM.create(model);
     }

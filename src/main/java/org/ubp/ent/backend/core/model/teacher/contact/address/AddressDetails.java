@@ -79,7 +79,7 @@ public class AddressDetails {
         Pattern p = Pattern.compile("([0-9]+)[\\s]*(.*)?");
         Matcher m = p.matcher(sn);
         if (!m.find()) {
-            throw new IllegalArgumentException("A street number must be composed with at least a number (and optionaly 'bis', 'ter', ...) : '" + sn + "' given");
+            throw new IllegalArgumentException("A street number must be composed with at least a number (and optional 'bis', 'ter', ...) : '" + sn + "' given");
         }
         StringBuilder sb = new StringBuilder();
         sb.append(m.group(1));

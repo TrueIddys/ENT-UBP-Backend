@@ -37,9 +37,7 @@ abstract class WebTest {
         try {
             transaction.begin();
             emCopy.createNativeQuery("SET REFERENTIAL_INTEGRITY FALSE;").executeUpdate();
-            tableList.getNames().parallelStream().forEach(table -> {
-                emCopy.createNativeQuery("TRUNCATE TABLE " + table).executeUpdate();
-            });
+            tableList.getNames().parallelStream().forEach(table -> emCopy.createNativeQuery("TRUNCATE TABLE " + table).executeUpdate());
             emCopy.createNativeQuery("SET REFERENTIAL_INTEGRITY TRUE;").executeUpdate();
             transaction.commit();
         } catch (Exception e) {

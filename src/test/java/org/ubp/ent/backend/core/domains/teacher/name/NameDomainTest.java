@@ -1,7 +1,6 @@
 package org.ubp.ent.backend.core.domains.teacher.name;
 
 import org.junit.Test;
-import org.ubp.ent.backend.core.domains.teacher.name.NameDomain;
 import org.ubp.ent.backend.core.model.teacher.name.Name;
 import org.ubp.ent.backend.core.model.teacher.name.NameTest;
 

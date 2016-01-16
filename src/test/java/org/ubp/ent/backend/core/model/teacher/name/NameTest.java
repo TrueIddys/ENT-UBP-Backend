@@ -2,7 +2,6 @@ package org.ubp.ent.backend.core.model.teacher.name;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Test;
-import org.ubp.ent.backend.core.model.teacher.name.Name;
 
 import java.util.concurrent.ThreadLocalRandom;
 

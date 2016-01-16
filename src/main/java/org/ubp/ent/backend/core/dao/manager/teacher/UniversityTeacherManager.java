@@ -8,7 +8,7 @@ import org.ubp.ent.backend.core.dao.repository.teacher.UniversityTeacherReposito
 import org.ubp.ent.backend.core.dao.repository.teacher.contact.address.AddressTypeRepository;
 import org.ubp.ent.backend.core.dao.repository.teacher.contact.email.EmailTypeRepository;
 import org.ubp.ent.backend.core.dao.repository.teacher.contact.phone.PhoneTypeRepository;
-import org.ubp.ent.backend.core.domains.teacher.TeacherDomain;
+import org.ubp.ent.backend.core.domains.teacher.UniversityTeacherDomain;
 import org.ubp.ent.backend.core.exceptions.database.AlreadyDefinedInOnNonPersistedEntity;
 import org.ubp.ent.backend.core.exceptions.database.notfound.impl.AddressTypeResourceNotFoundException;
 import org.ubp.ent.backend.core.exceptions.database.notfound.impl.EmailTypeResourceNotFoundException;
@@ -57,7 +57,7 @@ public class UniversityTeacherManager {
         if (model.getId() != null) {
             throw new AlreadyDefinedInOnNonPersistedEntity("Cannot persist a " + UniversityTeacher.class.getName() + " which already has an ID.");
         }
-        TeacherDomain domain = new TeacherDomain(model);
+        UniversityTeacherDomain domain = new UniversityTeacherDomain(model);
         domain = universityTeacherRepository.saveAndFlush(domain);
         model.setId(domain.getId());
 
@@ -68,7 +68,7 @@ public class UniversityTeacherManager {
         if (id == null) {
             throw new IllegalArgumentException("Cannot find a " + UniversityTeacher.class.getName() + " with a null id.");
         }
-        TeacherDomain domain = universityTeacherRepository.findOne(id);
+        UniversityTeacherDomain domain = universityTeacherRepository.findOne(id);
 
         if (domain == null) {
             throw new TeacherResourceNotFoundException("No " + UniversityTeacher.class.getName() + " found for id :" + id);
@@ -79,7 +79,7 @@ public class UniversityTeacherManager {
 
     public List<UniversityTeacher> findAll() {
         return universityTeacherRepository.findAll().parallelStream()
-                .map(TeacherDomain::toModel)
+                .map(UniversityTeacherDomain::toModel)
                 .collect(Collectors.toList());
     }
 
@@ -102,7 +102,7 @@ public class UniversityTeacherManager {
 
         UniversityTeacher fetched = findOneById(teacherId);
         fetched.getContact().addAddress(model);
-        universityTeacherRepository.saveAndFlush(new TeacherDomain(fetched));
+        universityTeacherRepository.saveAndFlush(new UniversityTeacherDomain(fetched));
         return model;
     }
 
@@ -129,7 +129,7 @@ public class UniversityTeacherManager {
 
         UniversityTeacher fetched = findOneById(teacherId);
         fetched.getContact().addEmail(model);
-        universityTeacherRepository.saveAndFlush(new TeacherDomain(fetched));
+        universityTeacherRepository.saveAndFlush(new UniversityTeacherDomain(fetched));
         return model;
     }
 
@@ -156,7 +156,7 @@ public class UniversityTeacherManager {
 
         UniversityTeacher fetched = findOneById(teacherId);
         fetched.getContact().addPhone(model);
-        universityTeacherRepository.saveAndFlush(new TeacherDomain(fetched));
+        universityTeacherRepository.saveAndFlush(new UniversityTeacherDomain(fetched));
         return model;
     }
 

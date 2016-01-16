@@ -5,7 +5,7 @@ import org.ubp.ent.backend.core.dao.repository.teacher.UniversityTeacherReposito
 import org.ubp.ent.backend.core.dao.repository.teacher.contact.address.AddressRepository;
 import org.ubp.ent.backend.core.dao.repository.teacher.contact.email.EmailRepository;
 import org.ubp.ent.backend.core.dao.repository.teacher.contact.phone.PhoneRepository;
-import org.ubp.ent.backend.core.domains.teacher.TeacherDomain;
+import org.ubp.ent.backend.core.domains.teacher.UniversityTeacherDomain;
 import org.ubp.ent.backend.core.exceptions.database.AlreadyDefinedInOnNonPersistedEntity;
 import org.ubp.ent.backend.core.exceptions.database.notfound.impl.*;
 import org.ubp.ent.backend.core.model.teacher.UniversityTeacher;
@@ -89,7 +89,7 @@ public class UniversityTeacherManagerTest extends WebApplicationTest {
     public void shouldDeleteAddressAndEmailAndPhoneOnCascade() {
         UniversityTeacher model = UniversityTeacherTest.createOne();
         scenarioHelper.createTeacher(model);
-        universityTeacherRepository.delete(new TeacherDomain(model));
+        universityTeacherRepository.delete(new UniversityTeacherDomain(model));
 
         assertThat(addressRepository.findAll()).isEmpty();
         assertThat(emailRepository.findAll()).isEmpty();

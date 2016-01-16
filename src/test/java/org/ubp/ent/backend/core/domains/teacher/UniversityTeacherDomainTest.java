@@ -11,20 +11,20 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class UniversityTeacherDomainTest {
 
-    public static TeacherDomain createOne() {
-        return new TeacherDomain(UniversityTeacherTest.createOne());
+    public static UniversityTeacherDomain createOne() {
+        return new UniversityTeacherDomain(UniversityTeacherTest.createOne());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNullModel() {
-        new TeacherDomain(null);
+        new UniversityTeacherDomain(null);
     }
 
     @Test
     public void shouldCreateFromModel() {
         UniversityTeacher model = UniversityTeacherTest.createOne();
         model.setId(12L);
-        TeacherDomain domain = new TeacherDomain(model);
+        UniversityTeacherDomain domain = new UniversityTeacherDomain(model);
 
         assertThat(domain.getId()).isEqualTo(model.getId());
         assertThat(domain.getName().toModel()).isEqualTo(model.getName());
@@ -33,7 +33,7 @@ public class UniversityTeacherDomainTest {
 
     @Test
     public void shouldTransformToModel() {
-        TeacherDomain domain = UniversityTeacherDomainTest.createOne();
+        UniversityTeacherDomain domain = UniversityTeacherDomainTest.createOne();
         domain.setId(12L);
         UniversityTeacher model = domain.toModel();
 

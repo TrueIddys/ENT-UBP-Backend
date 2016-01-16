@@ -12,7 +12,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "teacher")
-public class TeacherDomain implements ModelTransformable<UniversityTeacher> {
+public class UniversityTeacherDomain implements ModelTransformable<UniversityTeacher> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,10 +24,10 @@ public class TeacherDomain implements ModelTransformable<UniversityTeacher> {
     @Embedded
     private ContactDomain contact;
 
-    protected TeacherDomain() {
+    protected UniversityTeacherDomain() {
     }
 
-    public TeacherDomain(UniversityTeacher model) {
+    public UniversityTeacherDomain(UniversityTeacher model) {
         if (model == null) {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " with a null " + UniversityTeacher.class.getName());
         }

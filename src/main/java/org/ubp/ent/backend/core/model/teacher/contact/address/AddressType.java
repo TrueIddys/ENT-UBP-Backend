@@ -1,5 +1,6 @@
 package org.ubp.ent.backend.core.model.teacher.contact.address;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.ubp.ent.backend.core.model.teacher.contact.ContactDetailsType;
 
 /**
@@ -7,7 +8,7 @@ import org.ubp.ent.backend.core.model.teacher.contact.ContactDetailsType;
  */
 public class AddressType extends ContactDetailsType {
 
-    public AddressType(String name) {
+    public AddressType(@JsonProperty("name") String name) {
         super(name);
     }
 

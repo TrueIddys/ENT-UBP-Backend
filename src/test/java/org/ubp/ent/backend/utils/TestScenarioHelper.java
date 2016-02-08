@@ -49,6 +49,7 @@ public class TestScenarioHelper {
     public UniversityTeacher createUniversityTeacher() {
         return createUniversityTeacher(UniversityTeacherTest.createOne());
     }
+
     public UniversityTeacher createUniversityTeacher(UniversityTeacher model) {
         model.getContact().getAddresses().stream()
                 .map(Address::getType)
@@ -62,6 +63,7 @@ public class TestScenarioHelper {
 
         return universityTeacherM.create(model);
     }
+
     public UniversityTeacher createEmptyUniversityTeacher() {
         return createUniversityTeacher(UniversityTeacherTest.createOneEmpty());
     }
@@ -72,6 +74,7 @@ public class TestScenarioHelper {
     public OutsiderTeacher createOutsiderTeacher() {
         return createOutsiderTeacher(OutsiderTeacherTest.createOne());
     }
+
     public OutsiderTeacher createOutsiderTeacher(OutsiderTeacher model) {
         model.getContact().getAddresses().stream()
                 .map(Address::getType)
@@ -85,6 +88,7 @@ public class TestScenarioHelper {
 
         return outsiderTeacherM.create(model);
     }
+
     public OutsiderTeacher createEmptyOutsiderTeacher() {
         return createOutsiderTeacher(OutsiderTeacherTest.createOneEmpty());
     }
@@ -95,6 +99,7 @@ public class TestScenarioHelper {
     public AddressType createAddressType() {
         return createAddressType(AddressTypeTest.createOne());
     }
+
     public AddressType createAddressType(AddressType model) {
         return addressTypeM.create(model);
     }
@@ -105,6 +110,7 @@ public class TestScenarioHelper {
     public EmailType createEmailType() {
         return createEmailType(EmailTypeTest.createOne());
     }
+
     public EmailType createEmailType(EmailType model) {
         return emailTypeM.create(model);
     }
@@ -115,6 +121,7 @@ public class TestScenarioHelper {
     public PhoneType createPhoneType() {
         return createPhoneType(PhoneTypeTest.createOne());
     }
+
     public PhoneType createPhoneType(PhoneType model) {
         return phoneTypeM.create(model);
     }

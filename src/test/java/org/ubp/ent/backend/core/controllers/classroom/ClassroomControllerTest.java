@@ -38,8 +38,8 @@ public class ClassroomControllerTest extends WebIntegrationTest {
     private List<Classroom> createClassroom(int count) throws Exception {
         List<Classroom> created = new ArrayList<>(count);
         for (int i = 0; i < count; ++i) {
-            Classroom classroom = ClassroomTest.createOne("name " + i);
-            String json = mapper.writeValueAsString(classroom);
+            Classroom model = ClassroomTest.createOne("name " + i);
+            String json = mapper.writeValueAsString(model);
             perform(post(CLASSROOM_BASE_URL).content(json).contentType(MediaType.APPLICATION_JSON_UTF8))
                     .andExpect(status().isCreated())
                     .andDo(result -> {
@@ -54,12 +54,12 @@ public class ClassroomControllerTest extends WebIntegrationTest {
 
     @Test
     public void shouldFindClassroomById() throws Exception {
-        List<Classroom> classrooms = createClassroom(5);
+        List<Classroom> models = createClassroom(5);
 
-        for (Classroom classroom : classrooms) {
-            perform(get(CLASSROOM_BASE_URL + "/" + classroom.getId()))
+        for (Classroom model : models) {
+            perform(get(CLASSROOM_BASE_URL + "/" + model.getId()))
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.id", is(classroom.getId().intValue())));
+                    .andExpect(jsonPath("$.id", is(model.getId().intValue())));
         }
     }
 
@@ -86,24 +86,33 @@ public class ClassroomControllerTest extends WebIntegrationTest {
     }
 
     @Test
-    public void shouldCreateWithValidClassroom() throws Exception {
-        Classroom classroom = ClassroomTest.createOne("3005");
-        String classroomJson = mapper.writeValueAsString(classroom);
+    public void shouldNotCreateIfIdIsAlreadyDefined() throws Exception {
+        Classroom model = ClassroomTest.createOne();
+        model.setId(125L);
 
-        perform(post(CLASSROOM_BASE_URL).content(classroomJson).contentType(MediaType.APPLICATION_JSON_UTF8))
+        perform(post(CLASSROOM_BASE_URL).contentType(MediaType.APPLICATION_JSON_UTF8).content(mapper.writeValueAsString(model)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void shouldCreateWithValidClassroom() throws Exception {
+        Classroom model = ClassroomTest.createOne("3005");
+        String modelAsJson = mapper.writeValueAsString(model);
+
+        perform(post(CLASSROOM_BASE_URL).content(modelAsJson).contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", notNullValue()));
     }
 
     @Test
     public void shouldAddRoomEquipmentToClassroom() throws Exception {
-        Classroom classroom = createClassroom();
+        Classroom model = createClassroom();
 
         EquipmentType equipmentType = EquipmentTypeTest.createOne("Computer");
         equipmentType = equipmentTypeManager.create(equipmentType);
 
         int quantity = 12;
-        perform(post(CLASSROOM_BASE_URL + "/" + classroom.getId() + "/equipment-type/" + equipmentType.getId()).param("quantity", String.valueOf(quantity)))
+        perform(post(CLASSROOM_BASE_URL + "/" + model.getId() + "/equipment-type/" + equipmentType.getId()).param("quantity", String.valueOf(quantity)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.equipmentType.id", is(equipmentType.getId().intValue())))
                 .andExpect(jsonPath("$.quantity.maxQuantity", is(quantity)));
@@ -112,15 +121,15 @@ public class ClassroomControllerTest extends WebIntegrationTest {
 
     @Test
     public void shouldNotAddTwoRoomEquipmentWithTheSameEquipmentTypeToAClassroom() throws Exception {
-        Classroom classroom = createClassroom();
+        Classroom model = createClassroom();
 
         EquipmentType equipmentType = EquipmentTypeTest.createOne("Computer");
         equipmentType = equipmentTypeManager.create(equipmentType);
 
-        perform(post(CLASSROOM_BASE_URL + "/" + classroom.getId() + "/equipment-type/" + equipmentType.getId()).param("quantity", "12"))
+        perform(post(CLASSROOM_BASE_URL + "/" + model.getId() + "/equipment-type/" + equipmentType.getId()).param("quantity", "12"))
                 .andExpect(status().isCreated());
 
-        perform(post(CLASSROOM_BASE_URL + "/" + classroom.getId() + "/equipment-type/" + equipmentType.getId()).param("quantity", "12"))
+        perform(post(CLASSROOM_BASE_URL + "/" + model.getId() + "/equipment-type/" + equipmentType.getId()).param("quantity", "12"))
                 .andExpect(status().isBadRequest());
     }
 
@@ -138,12 +147,12 @@ public class ClassroomControllerTest extends WebIntegrationTest {
 
     @Test
     public void shouldNotAddRoomEquipmentIfEquipmentTypeDoesNotExists() throws Exception {
-        Classroom classroom = createClassroom();
+        Classroom model = createClassroom();
 
         EquipmentType equipmentType = EquipmentTypeTest.createOne("Computer");
         equipmentType.setId(256L);
 
-        perform(post(CLASSROOM_BASE_URL + "/" + classroom.getId() + "/equipment-type/" + equipmentType.getId()).param("quantity", "12"))
+        perform(post(CLASSROOM_BASE_URL + "/" + model.getId() + "/equipment-type/" + equipmentType.getId()).param("quantity", "12"))
                 .andExpect(status().isNotFound());
     }
 

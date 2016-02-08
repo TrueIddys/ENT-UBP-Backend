@@ -1,5 +1,7 @@
 package org.ubp.ent.backend.core.model.teacher.name;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Objects;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
@@ -12,7 +14,8 @@ public class Name {
     private String firstName;
     private String lastName;
 
-    public Name(String firstName, String lastName) {
+    @JsonCreator
+    public Name(@JsonProperty("firstName") String firstName, @JsonProperty("lastName") String lastName) {
         if (StringUtils.isBlank(firstName)) {
             throw new IllegalArgumentException("Cannot create a " + getClass().getName() + " without a firstName : '" + firstName + "' given");
         }

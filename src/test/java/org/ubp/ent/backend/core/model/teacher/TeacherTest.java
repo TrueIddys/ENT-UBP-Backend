@@ -43,6 +43,7 @@ public class TeacherTest {
         public DefaultTeacher(Name name, Contact contact) {
             super(name, contact);
         }
+
     }
 
 }

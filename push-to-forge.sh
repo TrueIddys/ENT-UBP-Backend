@@ -13,7 +13,7 @@ function get_last_real_commiter() {
 }
 
 function get_name_for_commiter() {
-	echo $(printenv $1_PASS)
+	echo $(printenv $1_NAME)
 }
 
 function get_pass_for_commiter() {

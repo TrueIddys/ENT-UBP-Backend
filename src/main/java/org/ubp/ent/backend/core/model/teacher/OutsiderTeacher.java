@@ -1,5 +1,7 @@
 package org.ubp.ent.backend.core.model.teacher;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.ubp.ent.backend.core.model.teacher.contact.Contact;
 import org.ubp.ent.backend.core.model.teacher.name.Name;
 
@@ -8,7 +10,8 @@ import org.ubp.ent.backend.core.model.teacher.name.Name;
  */
 public class OutsiderTeacher extends Teacher {
 
-    public OutsiderTeacher(Name name, Contact contact) {
+    @JsonCreator
+    public OutsiderTeacher(@JsonProperty("name") Name name, @JsonProperty("contact") Contact contact) {
         super(name, contact);
     }
 

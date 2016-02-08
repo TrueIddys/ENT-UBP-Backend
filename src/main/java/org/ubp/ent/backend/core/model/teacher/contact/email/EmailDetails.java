@@ -1,5 +1,7 @@
 package org.ubp.ent.backend.core.model.teacher.contact.email;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Objects;
 import org.apache.commons.lang3.StringUtils;
 import org.ubp.ent.backend.core.exceptions.model.BadFormattedEmailAddress;
@@ -14,7 +16,8 @@ public class EmailDetails {
 
     private String address;
 
-    public EmailDetails(String address) {
+    @JsonCreator
+    public EmailDetails(@JsonProperty("address") String address) {
         if (StringUtils.isBlank(address)) {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without an email address");
         }

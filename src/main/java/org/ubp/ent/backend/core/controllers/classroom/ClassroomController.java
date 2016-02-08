@@ -29,13 +29,11 @@ public class ClassroomController {
         return classroomManager.findAll();
     }
 
-
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public Classroom findOneById(@PathVariable("id") Long id) {
         return classroomManager.findOneById(id);
     }
-
 
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.CREATED)

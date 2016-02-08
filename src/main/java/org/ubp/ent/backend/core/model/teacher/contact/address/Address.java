@@ -1,5 +1,7 @@
 package org.ubp.ent.backend.core.model.teacher.contact.address;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Objects;
 
 /**
@@ -11,7 +13,8 @@ public class Address {
     private AddressType type;
     private AddressDetails details;
 
-    public Address(AddressType type, AddressDetails details) {
+    @JsonCreator
+    public Address(@JsonProperty("type") AddressType type, @JsonProperty("details") AddressDetails details) {
         if (type == null) {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a type");
         }

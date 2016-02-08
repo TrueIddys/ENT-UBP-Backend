@@ -1,5 +1,7 @@
 package org.ubp.ent.backend.core.model.teacher.contact.email;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.ubp.ent.backend.core.model.teacher.contact.ContactDetailsType;
 
 /**
@@ -7,7 +9,8 @@ import org.ubp.ent.backend.core.model.teacher.contact.ContactDetailsType;
  */
 public class EmailType extends ContactDetailsType {
 
-    public EmailType(String name) {
+    @JsonCreator
+    public EmailType(@JsonProperty("name") String name) {
         super(name);
     }
 

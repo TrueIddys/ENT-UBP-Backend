@@ -1,5 +1,7 @@
 package org.ubp.ent.backend.core.model.teacher.contact.phone;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Objects;
 import org.apache.commons.lang3.StringUtils;
 import org.ubp.ent.backend.core.exceptions.model.BadFormattedPhoneNumber;
@@ -14,7 +16,8 @@ public class PhoneDetails {
 
     private String number;
 
-    public PhoneDetails(String number) {
+    @JsonCreator
+    public PhoneDetails(@JsonProperty("number") String number) {
         if (StringUtils.isBlank(number)) {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a number");
         }

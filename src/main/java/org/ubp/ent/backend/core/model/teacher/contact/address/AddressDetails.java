@@ -1,5 +1,7 @@
 package org.ubp.ent.backend.core.model.teacher.contact.address;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Objects;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
@@ -17,7 +19,8 @@ public class AddressDetails {
     private String zip;
     private String city;
 
-    public AddressDetails(String streetNumber, String street, String zip, String city) {
+    @JsonCreator
+    public AddressDetails(@JsonProperty("streetNumber") String streetNumber, @JsonProperty("street") String street, @JsonProperty("zip") String zip, @JsonProperty("city") String city) {
         if (StringUtils.isBlank(streetNumber)) {
             throw new IllegalArgumentException("Cannot create a " + getClass().getName() + " without a streetNumber : '" + streetNumber + "' given");
         }

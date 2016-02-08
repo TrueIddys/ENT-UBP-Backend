@@ -1,5 +1,7 @@
 package org.ubp.ent.backend.core.model.teacher.contact.email;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Objects;
 
 /**
@@ -11,7 +13,8 @@ public class Email {
     private EmailType type;
     private EmailDetails details;
 
-    public Email(EmailType type, EmailDetails details) {
+    @JsonCreator
+    public Email(@JsonProperty("type") EmailType type, @JsonProperty("details") EmailDetails details) {
         if (type == null) {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a type");
         }

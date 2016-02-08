@@ -1,5 +1,7 @@
 package org.ubp.ent.backend.core.model.teacher;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.ubp.ent.backend.core.model.teacher.contact.Contact;
 import org.ubp.ent.backend.core.model.teacher.name.Name;
 
@@ -12,7 +14,8 @@ public abstract class Teacher {
     private Name name;
     private Contact contact;
 
-    public Teacher(Name name, Contact contact) {
+    @JsonCreator
+    public Teacher(@JsonProperty("name") Name name, @JsonProperty("contact") Contact contact) {
         if (name == null) {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " with a null " + Name.class.getName());
         }

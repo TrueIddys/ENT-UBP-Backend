@@ -1,5 +1,7 @@
 package org.ubp.ent.backend.core.model.teacher.contact;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Objects;
 import org.apache.commons.lang3.StringUtils;
 
@@ -11,7 +13,8 @@ public class ContactDetailsType {
     private Long id;
     private String name;
 
-    public ContactDetailsType(String name) {
+    @JsonCreator
+    public ContactDetailsType(@JsonProperty("name") String name) {
         if (StringUtils.isBlank(name)) {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a type name");
         }

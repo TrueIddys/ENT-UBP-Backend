@@ -47,6 +47,7 @@ public class OutsiderTeacherManager {
 
     @Inject
     private PhoneManager phoneManager;
+
     @Inject
     private PhoneTypeRepository phoneTypeRepository;
 

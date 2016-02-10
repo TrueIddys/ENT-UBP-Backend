@@ -118,7 +118,6 @@ public class ClassroomControllerTest extends WebIntegrationTest {
                 .andExpect(jsonPath("$.quantity.maxQuantity", is(quantity)));
     }
 
-
     @Test
     public void shouldNotAddTwoRoomEquipmentWithTheSameEquipmentTypeToAClassroom() throws Exception {
         Classroom model = createClassroom();

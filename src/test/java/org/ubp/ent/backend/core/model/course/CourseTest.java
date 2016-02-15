@@ -49,12 +49,12 @@ public class CourseTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldNotInstantiateWithEmptyName() {
+    public void shouldNotInstantiateWithNullName() {
         new Course(null, ClassroomType.CM);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldNotInstantiateWithNullName() {
+    public void shouldNotInstantiateWithEmptyName() {
         new Course("", ClassroomType.CM);
     }
 

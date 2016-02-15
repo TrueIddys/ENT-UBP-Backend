@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(CourseController.BASE_URL)
-public aspect CourseController {
+public class CourseController {
 
     public static final String BASE_URL = "/api/course";
 

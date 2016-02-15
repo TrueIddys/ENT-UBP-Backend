@@ -12,10 +12,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CourseDomainTest {
 
     public static CourseDomain createOne(String name) {
-        Course course = CourseTest.createOne(name);
-        CourseDomain domain = new CourseDomain(course);
+        return new CourseDomain(CourseTest.createOne(name));
+    }
 
-        return domain;
+    public static CourseDomain createOne()
+    {
+        return new CourseDomain(CourseTest.createOneEmpty());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -25,7 +27,7 @@ public class CourseDomainTest {
 
     @Test
     public void shouldCreateFromModel() {
-        Course model = CourseTest.createOne();
+        Course model = CourseTest.createOneEmpty();
         model.setId(12L);
         CourseDomain domain = new CourseDomain(model);
 
@@ -36,7 +38,7 @@ public class CourseDomainTest {
 
     @Test
     public void shouldTransformToModel() {
-        Course model = CourseTest.createOne();
+        Course model = CourseTest.createOneEmpty();
         model.setId(12L);
         CourseDomain domain = new CourseDomain(model);
 
@@ -47,19 +49,4 @@ public class CourseDomainTest {
 
     }
 
-    @Test
-    public void shouldBeEqualByName() {
-        CourseDomain domain = CourseDomainTest.createOne("SL5");
-        CourseDomain domain2 = CourseDomainTest.createOne("SL5");
-
-        assertThat(domain2).isEqualTo(domain);
-    }
-
-    @Test
-    public void shouldNotBeEqualWithDifferentName() {
-        CourseDomain domain = CourseDomainTest.createOne("SL5");
-        CourseDomain domain2 = CourseDomainTest.createOne("SL6");
-
-        assertThat(domain2).isNotEqualTo(domain);
-    }
 }

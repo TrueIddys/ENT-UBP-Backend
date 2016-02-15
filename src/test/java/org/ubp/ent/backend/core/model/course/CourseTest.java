@@ -15,21 +15,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CourseTest {
 
     public static Course createOne(String name) {
-        Course course = createOneEmpty(name);
-
-        return course;
-    }
-
-    public static Course createOneEmpty(String name) {
         return new Course(name, ClassroomType.CM);
     }
 
     public static Course createOne() {
-        return createOne(createValidName());
-    }
-
-    public static Course createOneEmpty() {
-        return createOneEmpty(createValidName());
+        return new Course(createValidName(), ClassroomType.CM);
     }
 
     private static String createValidName() {
@@ -41,9 +31,8 @@ public class CourseTest {
 
     @Test
     public void shouldInstantiate() {
-        Course course = createOneEmpty();
+        Course course = createOne();
 
-        assertThat(course.getId()).isNull();
         assertThat(course.getName()).isNotNull();
         assertThat(course.getType()).isNotNull();
     }
@@ -55,7 +44,7 @@ public class CourseTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithEmptyName() {
-        new Course("", ClassroomType.CM);
+        new Course(" ", ClassroomType.CM);
     }
 
 
@@ -64,22 +53,5 @@ public class CourseTest {
         new Course(createValidName(), null);
 
     }
-
-    @Test
-    public void shouldBeEqualByName() {
-        Course course = CourseTest.createOne("SL5");
-        Course course2 = CourseTest.createOne("SL5");
-
-        assertThat(course2).isEqualTo(course);
-    }
-
-    @Test
-    public void shouldNotBeEqualWithDifferentNames() {
-        Course course = CourseTest.createOne("SL5");
-        Course course2 = CourseTest.createOne("SL6");
-
-        assertThat(course2).isNotEqualTo(course);
-    }
-
 
 }

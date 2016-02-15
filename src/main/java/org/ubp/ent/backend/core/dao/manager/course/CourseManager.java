@@ -8,6 +8,7 @@ import org.ubp.ent.backend.core.domains.course.CourseDomain;
 import org.ubp.ent.backend.core.exceptions.database.AlreadyDefinedInOnNonPersistedEntity;
 import org.ubp.ent.backend.core.exceptions.database.ModelConstraintViolationException;
 import org.ubp.ent.backend.core.exceptions.database.notfound.impl.ClassroomResourceNotFoundException;
+import org.ubp.ent.backend.core.exceptions.database.notfound.impl.CourseResourceNotFoundException;
 import org.ubp.ent.backend.core.model.classroom.Classroom;
 import org.ubp.ent.backend.core.model.classroom.equipement.EquipmentType;
 import org.ubp.ent.backend.core.model.classroom.equipement.Quantity;
@@ -50,7 +51,7 @@ public class CourseManager {
         CourseDomain domain = courseRepository.findOne(id);
 
         if (domain == null) {
-            throw new ClassroomResourceNotFoundException("No " + Course.class.getName() + " found for id :" + id);
+            throw new CourseResourceNotFoundException("No " + Course.class.getName() + " found for id :" + id);
         }
 
         return domain.toModel();

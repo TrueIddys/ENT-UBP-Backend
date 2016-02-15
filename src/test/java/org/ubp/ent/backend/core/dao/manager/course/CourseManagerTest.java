@@ -4,8 +4,10 @@ import org.junit.Test;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.ubp.ent.backend.core.dao.manager.classroom.ClassroomManager;
 import org.ubp.ent.backend.core.dao.manager.classroom.equipement.EquipmentTypeManager;
+import org.ubp.ent.backend.core.domains.course.CourseDomain;
 import org.ubp.ent.backend.core.exceptions.database.AlreadyDefinedInOnNonPersistedEntity;
 import org.ubp.ent.backend.core.exceptions.database.notfound.impl.ClassroomResourceNotFoundException;
+import org.ubp.ent.backend.core.exceptions.database.notfound.impl.CourseResourceNotFoundException;
 import org.ubp.ent.backend.core.exceptions.database.notfound.impl.EquipmentTypeResourceNotFoundException;
 import org.ubp.ent.backend.core.model.classroom.Classroom;
 import org.ubp.ent.backend.core.model.classroom.ClassroomTest;
@@ -32,10 +34,13 @@ public class CourseManagerTest extends WebApplicationTest{
 
     @Test
     public void shouldFindOneById() {
-        Course model = CourseTest.createOneEmpty("SCI_3006");
+        Course model = CourseTest.createOneEmpty("Anglais");
         model = courseManager.create(model);
 
-        assertThat(courseManager.findOneById(model.getId())).isEqualTo(model);
+        Course fetched = courseManager.findOneById(model.getId());
+        assertThat(fetched.getId()).isEqualTo(model.getId());
+        assertThat(fetched.getName()).isEqualTo(model.getName());
+        assertThat(fetched.getType()).isEqualTo(model.getType());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -43,7 +48,7 @@ public class CourseManagerTest extends WebApplicationTest{
         courseManager.findOneById(null);
     }
 
-    @Test(expected = ClassroomResourceNotFoundException.class)
+    @Test(expected = CourseResourceNotFoundException.class)
     public void shouldFailFindOneByIdWithNonExistingId() {
         courseManager.findOneById(205L);
     }
@@ -51,12 +56,12 @@ public class CourseManagerTest extends WebApplicationTest{
 
     @Test
     public void shouldCreate() {
-        Course model = CourseTest.createOneEmpty("SL4");
+        Course model = CourseTest.createOne("Espagnol");
         courseManager.create(model);
 
         assertThat(courseManager.findAll()).hasSize(1);
 
-        Course model2 = CourseTest.createOneEmpty("SL5");
+        Course model2 = CourseTest.createOne("Allemand");
         courseManager.create(model2);
 
         assertThat(courseManager.findAll()).hasSize(2);
@@ -64,21 +69,11 @@ public class CourseManagerTest extends WebApplicationTest{
 
     @Test
     public void shouldSetIdOnReferenceWhenCreating() {
-        Course model = CourseTest.createOneEmpty("SL5");
+        Course model = CourseTest.createOneEmpty("Allemand");
 
         courseManager.create(model);
 
         assertThat(model.getId()).isNotNull();
-    }
-
-    @Test(expected = DataIntegrityViolationException.class)
-    public void shouldFailCreateTwoCourseWithTheSameName() {
-        String name = "Non-Unique-Name";
-        Course model = CourseTest.createOneEmpty(name);
-        courseManager.create(model);
-
-        Course model2 = CourseTest.createOneEmpty(name);
-        courseManager.create(model2);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -88,7 +83,7 @@ public class CourseManagerTest extends WebApplicationTest{
 
     @Test(expected = AlreadyDefinedInOnNonPersistedEntity.class)
     public void shouldFailCreateIfIdIsDefined() {
-        Course model = CourseTest.createOneEmpty();
+        Course model = CourseTest.createOne();
         model.setId(25L);
 
         courseManager.create(model);

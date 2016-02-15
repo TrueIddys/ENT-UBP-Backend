@@ -29,7 +29,7 @@ public class CourseDomain implements ModelTransformable<Course> {
     @Column(unique = true)
     private String name;
 
-    @OneToOne(mappedBy = "primaryKey.course", cascade = CascadeType.REMOVE)
+    @Enumerated(EnumType.STRING)
     private ClassroomType type;
 
     @SuppressWarnings("unused")
@@ -68,18 +68,5 @@ public class CourseDomain implements ModelTransformable<Course> {
         course.setId(id);
 
         return course;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CourseDomain that = (CourseDomain) o;
-        return Objects.equal(name, that.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(name);
     }
 }

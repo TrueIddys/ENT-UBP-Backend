@@ -17,7 +17,7 @@ public class CourseDomainTest {
 
     public static CourseDomain createOne()
     {
-        return new CourseDomain(CourseTest.createOneEmpty());
+        return new CourseDomain(CourseTest.createOne());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -27,7 +27,7 @@ public class CourseDomainTest {
 
     @Test
     public void shouldCreateFromModel() {
-        Course model = CourseTest.createOneEmpty();
+        Course model = CourseTest.createOne();
         model.setId(12L);
         CourseDomain domain = new CourseDomain(model);
 
@@ -38,7 +38,7 @@ public class CourseDomainTest {
 
     @Test
     public void shouldTransformToModel() {
-        Course model = CourseTest.createOneEmpty();
+        Course model = CourseTest.createOne();
         model.setId(12L);
         CourseDomain domain = new CourseDomain(model);
 

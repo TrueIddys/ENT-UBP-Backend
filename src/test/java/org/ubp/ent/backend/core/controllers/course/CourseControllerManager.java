@@ -85,7 +85,7 @@ public class CourseControllerManager extends WebIntegrationTest {
 
     @Test
     public void shouldNotCreateIfIdIsAlreadyDefined() throws Exception {
-        Course model = CourseTest.createOneEmpty();
+        Course model = CourseTest.createOne();
         model.setId(125L);
 
         perform(post(COURSE_BASE_URL).contentType(MediaType.APPLICATION_JSON_UTF8).content(mapper.writeValueAsString(model)))

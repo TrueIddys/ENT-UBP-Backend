@@ -34,7 +34,7 @@ public class CourseManagerTest extends WebApplicationTest{
 
     @Test
     public void shouldFindOneById() {
-        Course model = CourseTest.createOneEmpty("Anglais");
+        Course model = CourseTest.createOne("Anglais");
         model = courseManager.create(model);
 
         Course fetched = courseManager.findOneById(model.getId());
@@ -69,7 +69,7 @@ public class CourseManagerTest extends WebApplicationTest{
 
     @Test
     public void shouldSetIdOnReferenceWhenCreating() {
-        Course model = CourseTest.createOneEmpty("Allemand");
+        Course model = CourseTest.createOne("Allemand");
 
         courseManager.create(model);
 

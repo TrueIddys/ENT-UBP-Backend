@@ -15,8 +15,7 @@ public class Course {
     private Long id;
 
     @JsonCreator
-    public Course(@JsonProperty("name") final String name, @JsonProperty("type") final ClassroomType type)
-    {
+    public Course(@JsonProperty("name") final String name, @JsonProperty("type") final ClassroomType type) {
         if (StringUtils.isBlank(name)) {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a name.");
         }
@@ -37,13 +36,11 @@ public class Course {
         this.id = id;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public ClassroomType getType()
-    {
+    public ClassroomType getType() {
         return type;
     }
 }

@@ -3,10 +3,6 @@ package org.ubp.ent.backend.core.controllers.course;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.springframework.http.MediaType;
-import org.ubp.ent.backend.core.model.classroom.Classroom;
-import org.ubp.ent.backend.core.model.classroom.ClassroomTest;
-import org.ubp.ent.backend.core.model.classroom.equipement.EquipmentType;
-import org.ubp.ent.backend.core.model.classroom.equipement.EquipmentTypeTest;
 import org.ubp.ent.backend.core.model.course.Course;
 import org.ubp.ent.backend.core.model.course.CourseTest;
 import org.ubp.ent.backend.utils.WebIntegrationTest;
@@ -40,11 +36,13 @@ public class CourseControllerManager extends WebIntegrationTest {
             String json = mapper.writeValueAsString(model);
             perform(post(COURSE_BASE_URL).content(json).contentType(MediaType.APPLICATION_JSON_UTF8))
                     .andExpect(status().isCreated())
-                    .andDo(result -> {
-                        String response = result.getResponse().getContentAsString();
-                        Course createdCourse = mapper.readValue(response, Course.class);
-                        created.add(createdCourse);
-                    });
+                    .andDo(
+                            result -> {
+                                String response = result.getResponse().getContentAsString();
+                                Course createdCourse = mapper.readValue(response, Course.class);
+                                created.add(createdCourse);
+                            }
+                    );
         }
         return created;
     }

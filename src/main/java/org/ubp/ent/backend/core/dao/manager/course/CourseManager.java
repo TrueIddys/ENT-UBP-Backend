@@ -2,17 +2,9 @@ package org.ubp.ent.backend.core.dao.manager.course;
 
 import org.springframework.stereotype.Service;
 import org.ubp.ent.backend.core.dao.repository.course.CourseRepository;
-import org.ubp.ent.backend.core.domains.classroom.ClassroomDomain;
-import org.ubp.ent.backend.core.domains.classroom.equipement.RoomEquipmentDomain;
 import org.ubp.ent.backend.core.domains.course.CourseDomain;
 import org.ubp.ent.backend.core.exceptions.database.AlreadyDefinedInOnNonPersistedEntity;
-import org.ubp.ent.backend.core.exceptions.database.ModelConstraintViolationException;
-import org.ubp.ent.backend.core.exceptions.database.notfound.impl.ClassroomResourceNotFoundException;
 import org.ubp.ent.backend.core.exceptions.database.notfound.impl.CourseResourceNotFoundException;
-import org.ubp.ent.backend.core.model.classroom.Classroom;
-import org.ubp.ent.backend.core.model.classroom.equipement.EquipmentType;
-import org.ubp.ent.backend.core.model.classroom.equipement.Quantity;
-import org.ubp.ent.backend.core.model.classroom.equipement.RoomEquipment;
 import org.ubp.ent.backend.core.model.course.Course;
 
 import javax.inject.Inject;

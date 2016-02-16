@@ -17,10 +17,6 @@ public class EmailDomain implements ModelTransformable<Email> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "TYPE_ID")
-    private EmailTypeDomain type;
-
     @Embedded
     private EmailDetailsDomain details;
 
@@ -32,7 +28,6 @@ public class EmailDomain implements ModelTransformable<Email> {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " with a null " + Email.class.getName());
         }
         id = model.getId();
-        type = new EmailTypeDomain(model.getType());
         details = new EmailDetailsDomain(model.getDetails());
     }
 
@@ -44,17 +39,13 @@ public class EmailDomain implements ModelTransformable<Email> {
         this.id = id;
     }
 
-    public EmailTypeDomain getType() {
-        return type;
-    }
-
     public EmailDetailsDomain getDetails() {
         return details;
     }
 
     @Override
     public Email toModel() {
-        Email model = new Email(type.toModel(), details.toModel());
+        Email model = new Email(details.toModel());
         model.setId(id);
         return model;
     }
@@ -64,12 +55,12 @@ public class EmailDomain implements ModelTransformable<Email> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EmailDomain that = (EmailDomain) o;
-        return Objects.equal(type, that.type);
+        return Objects.equal(details, that.details);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(type);
+        return Objects.hashCode(details);
     }
 
 }

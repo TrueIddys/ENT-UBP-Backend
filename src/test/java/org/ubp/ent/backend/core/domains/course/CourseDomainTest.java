@@ -15,8 +15,7 @@ public class CourseDomainTest {
         return new CourseDomain(CourseTest.createOne(name));
     }
 
-    public static CourseDomain createOne()
-    {
+    public static CourseDomain createOne() {
         return new CourseDomain(CourseTest.createOne());
     }
 

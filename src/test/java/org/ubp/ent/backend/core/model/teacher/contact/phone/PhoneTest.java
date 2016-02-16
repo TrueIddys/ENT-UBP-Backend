@@ -10,50 +10,38 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PhoneTest {
 
     public static Phone createOne() {
-        return createOne(PhoneTypeTest.createOne());
+        return new Phone(PhoneDetailsTest.createOne());
     }
 
-    public static Phone createOne(String PhoneType) {
-        return createOne(PhoneTypeTest.createOne(PhoneType));
-    }
-
-    public static Phone createOne(PhoneType type) {
-        return new Phone(type, PhoneDetailsTest.createOne());
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldNotInstantiateWithNullType() {
-        new Phone(null, PhoneDetailsTest.createOne());
+    public static Phone createOne(String number) {
+        return new Phone(PhoneDetailsTest.createOne(number));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNullDetail() {
-        new Phone(PhoneTypeTest.createOne(), null);
+        new Phone(null);
     }
 
     @Test
     public void shouldInstantiate() {
-        PhoneType type = PhoneTypeTest.createOne();
         PhoneDetails data = PhoneDetailsTest.createOne();
-        Phone model = new Phone(type, data);
+        Phone model = new Phone(data);
 
         assertThat(model.getId()).isNull();
-        assertThat(model.getType()).isEqualTo(type);
         assertThat(model.getDetails()).isEqualTo(data);
     }
 
     @Test
-    public void shouldBeEqualsBasedOnType() {
-        PhoneType type = PhoneTypeTest.createOne();
-        Phone first = new Phone(type, PhoneDetailsTest.createOne());
-        Phone second = new Phone(type, PhoneDetailsTest.createOne());
+    public void shouldBeEqualsBasedOnNumber() {
+        Phone first = createOne("04 00 00 00 00");
+        Phone second = createOne("04 00 00 00 00");
         assertThat(second).isEqualTo(first);
     }
 
     @Test
-    public void shouldNotBeEqualsWithDifferentTypes() {
-        Phone first = new Phone(PhoneTypeTest.createOne(), PhoneDetailsTest.createOne());
-        Phone second = new Phone(PhoneTypeTest.createOne(), PhoneDetailsTest.createOne());
+    public void shouldNotBeEqualsWithDifferentNumber() {
+        Phone first = createOne();
+        Phone second = createOne();
         assertThat(second).isNotEqualTo(first);
     }
 

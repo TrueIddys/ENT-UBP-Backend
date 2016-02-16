@@ -10,50 +10,38 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class EmailTest {
 
     public static Email createOne() {
-        return createOne(EmailTypeTest.createOne());
+        return new Email(EmailDetailsTest.createOne());
     }
 
-    public static Email createOne(String EmailType) {
-        return createOne(EmailTypeTest.createOne(EmailType));
-    }
-
-    public static Email createOne(EmailType type) {
-        return new Email(type, EmailDetailsTest.createOne());
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldNotInstantiateWithNullType() {
-        new Email(null, EmailDetailsTest.createOne());
+    public static Email createOne(String email) {
+        return new Email(EmailDetailsTest.createOne(email));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNullDetail() {
-        new Email(EmailTypeTest.createOne(), null);
+        new Email(null);
     }
 
     @Test
     public void shouldInstantiate() {
-        EmailType type = EmailTypeTest.createOne();
         EmailDetails data = EmailDetailsTest.createOne();
-        Email model = new Email(type, data);
+        Email model = new Email(data);
 
         assertThat(model.getId()).isNull();
-        assertThat(model.getType()).isEqualTo(type);
         assertThat(model.getDetails()).isEqualTo(data);
     }
 
     @Test
-    public void shouldBeEqualsBasedOnType() {
-        EmailType type = EmailTypeTest.createOne();
-        Email first = new Email(type, EmailDetailsTest.createOne());
-        Email second = new Email(type, EmailDetailsTest.createOne());
+    public void shouldBeEqualsBasedOnNumber() {
+        Email first = createOne("abc@dd.fr");
+        Email second = createOne("abc@dd.fr");
         assertThat(second).isEqualTo(first);
     }
 
     @Test
-    public void shouldNotBeEqualsWithDifferentTypes() {
-        Email first = new Email(EmailTypeTest.createOne(), EmailDetailsTest.createOne());
-        Email second = new Email(EmailTypeTest.createOne(), EmailDetailsTest.createOne());
+    public void shouldNotBeEqualsWithDifferentNumber() {
+        Email first = createOne();
+        Email second = createOne();
         assertThat(second).isNotEqualTo(first);
     }
 

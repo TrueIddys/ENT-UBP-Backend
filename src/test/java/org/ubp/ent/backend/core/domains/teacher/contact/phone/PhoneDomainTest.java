@@ -15,8 +15,8 @@ public class PhoneDomainTest {
         return new PhoneDomain(PhoneTest.createOne());
     }
 
-    public static PhoneDomain createOne(String PhoneTypeDomain) {
-        return new PhoneDomain(PhoneTest.createOne(PhoneTypeDomain));
+    public static PhoneDomain createOne(String number) {
+        return new PhoneDomain(PhoneTest.createOne(number));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -31,7 +31,6 @@ public class PhoneDomainTest {
         PhoneDomain domain = new PhoneDomain(model);
 
         assertThat(domain.getId()).isEqualTo(model.getId());
-        assertThat(domain.getType().toModel()).isEqualTo(model.getType());
         assertThat(domain.getDetails().toModel()).isEqualTo(model.getDetails());
     }
 
@@ -42,21 +41,21 @@ public class PhoneDomainTest {
         Phone model = domain.toModel();
 
         assertThat(model.getId()).isEqualTo(domain.getId());
-        assertThat(model.getType()).isEqualTo(domain.getType().toModel());
         assertThat(model.getDetails()).isEqualTo(domain.getDetails().toModel());
     }
 
+
     @Test
-    public void shouldBeEqualsBasedOnType() {
-        PhoneDomain first = createOne("Home");
-        PhoneDomain second = createOne("Home");
+    public void shouldBeEqualsBasedOnNumber() {
+        PhoneDomain first = createOne("04 00 00 00 00");
+        PhoneDomain second = createOne("04 00 00 00 00");
         assertThat(second).isEqualTo(first);
     }
 
     @Test
-    public void shouldNotBeEqualsWithDifferentTypes() {
-        PhoneDomain first = createOne("Home");
-        PhoneDomain second = createOne("Work");
+    public void shouldNotBeEqualsWithDifferentNumber() {
+        PhoneDomain first = createOne();
+        PhoneDomain second = createOne();
         assertThat(second).isNotEqualTo(first);
     }
 

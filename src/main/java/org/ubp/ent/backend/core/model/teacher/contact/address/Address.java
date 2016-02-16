@@ -10,18 +10,13 @@ import com.google.common.base.Objects;
 public class Address {
 
     private Long id;
-    private AddressType type;
     private AddressDetails details;
 
     @JsonCreator
-    public Address(@JsonProperty("type") AddressType type, @JsonProperty("details") AddressDetails details) {
-        if (type == null) {
-            throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a type");
-        }
+    public Address(@JsonProperty("details") AddressDetails details) {
         if (details == null) {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without an address");
         }
-        this.type = type;
         this.details = details;
     }
 
@@ -33,10 +28,6 @@ public class Address {
         this.id = id;
     }
 
-    public AddressType getType() {
-        return type;
-    }
-
     public AddressDetails getDetails() {
         return details;
     }
@@ -46,12 +37,12 @@ public class Address {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Address that = (Address) o;
-        return Objects.equal(type, that.type);
+        return Objects.equal(details, that.details);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(type);
+        return Objects.hashCode(details);
     }
 
 }

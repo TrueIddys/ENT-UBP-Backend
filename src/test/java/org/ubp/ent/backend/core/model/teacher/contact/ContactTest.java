@@ -2,6 +2,7 @@ package org.ubp.ent.backend.core.model.teacher.contact;
 
 import org.junit.Test;
 import org.ubp.ent.backend.core.model.teacher.contact.address.Address;
+import org.ubp.ent.backend.core.model.teacher.contact.address.AddressDetails;
 import org.ubp.ent.backend.core.model.teacher.contact.address.AddressTest;
 import org.ubp.ent.backend.core.model.teacher.contact.email.Email;
 import org.ubp.ent.backend.core.model.teacher.contact.email.EmailTest;
@@ -49,28 +50,28 @@ public class ContactTest {
     }
 
     @Test
-    public void shouldNotAddTwoAddressWithSameType() {
+    public void shouldNotAddTwoAddressWithSameAddress() {
         Contact contact = createOneEmpty();
 
-        Address address1 = AddressTest.createOne("Home");
+        AddressDetails firstDetails = new AddressDetails("9", "rue park", "63000", "Clermont-Ferrand");
+        Address address1 = new Address(firstDetails);
         contact.addAddress(address1);
 
-
-        Address address2 = AddressTest.createOne("Home");
+        AddressDetails secondDetails = new AddressDetails("9", "rue park", "63000", "Clermont-Ferrand");
+        Address address2 = new Address(secondDetails);
         contact.addAddress(address2);
 
         assertThat(contact.getAddresses()).containsOnly(address2);
     }
 
     @Test
-    public void shouldAddTwoAddressWithDifferentTypes() {
+    public void shouldAddTwoAddressWithDifferentAddress() {
         Contact contact = createOneEmpty();
 
-        Address address1 = AddressTest.createOne("Home");
+        Address address1 = AddressTest.createOne();
         contact.addAddress(address1);
 
-
-        Address address2 = AddressTest.createOne("Secondary Home");
+        Address address2 = AddressTest.createOne();
         contact.addAddress(address2);
 
         assertThat(contact.getAddresses()).containsOnly(address1, address2);
@@ -89,28 +90,26 @@ public class ContactTest {
     }
 
     @Test
-    public void shouldNotAddTwoPhoneWithSameType() {
+    public void shouldNotAddTwoPhoneWithSameNumber() {
         Contact contact = createOneEmpty();
 
-        Phone phone1 = PhoneTest.createOne("Home");
+        Phone phone1 = PhoneTest.createOne("04 00 00 00 00");
         contact.addPhone(phone1);
 
-
-        Phone phone2 = PhoneTest.createOne("Home");
+        Phone phone2 = PhoneTest.createOne("04 00 00 00 00");
         contact.addPhone(phone2);
 
         assertThat(contact.getPhones()).containsOnly(phone2);
     }
 
     @Test
-    public void shouldAddTwoPhoneWithDifferentTypes() {
+    public void shouldAddTwoPhoneWithDifferentNumber() {
         Contact contact = createOneEmpty();
 
-        Phone phone1 = PhoneTest.createOne("Home");
+        Phone phone1 = PhoneTest.createOne();
         contact.addPhone(phone1);
 
-
-        Phone phone2 = PhoneTest.createOne("Mobile");
+        Phone phone2 = PhoneTest.createOne();
         contact.addPhone(phone2);
 
         assertThat(contact.getPhones()).containsOnly(phone1, phone2);
@@ -129,28 +128,26 @@ public class ContactTest {
     }
 
     @Test
-    public void shouldNotAddTwoEmailWithSameType() {
+    public void shouldNotAddTwoEmailWithSameAddress() {
         Contact contact = createOneEmpty();
 
-        Email email1 = EmailTest.createOne("University");
+        Email email1 = EmailTest.createOne("aa@a.fr");
         contact.addEmail(email1);
 
-
-        Email email2 = EmailTest.createOne("University");
+        Email email2 = EmailTest.createOne("aa@a.fr");
         contact.addEmail(email2);
 
         assertThat(contact.getEmails()).containsOnly(email2);
     }
 
     @Test
-    public void shouldAddTwoEmailWithDifferentTypes() {
+    public void shouldAddTwoEmailWithDifferentAddress() {
         Contact contact = createOneEmpty();
 
-        Email email1 = EmailTest.createOne("University");
+        Email email1 = EmailTest.createOne();
         contact.addEmail(email1);
 
-
-        Email email2 = EmailTest.createOne("Personal");
+        Email email2 = EmailTest.createOne();
         contact.addEmail(email2);
 
         assertThat(contact.getEmails()).containsOnly(email1, email2);

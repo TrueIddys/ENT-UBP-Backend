@@ -15,8 +15,8 @@ public class EmailDomainTest {
         return new EmailDomain(EmailTest.createOne());
     }
 
-    public static EmailDomain createOne(String EmailTypeDomain) {
-        return new EmailDomain(EmailTest.createOne(EmailTypeDomain));
+    public static EmailDomain createOne(String email) {
+        return new EmailDomain(EmailTest.createOne(email));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -31,7 +31,6 @@ public class EmailDomainTest {
         EmailDomain domain = new EmailDomain(model);
 
         assertThat(domain.getId()).isEqualTo(model.getId());
-        assertThat(domain.getType().toModel()).isEqualTo(model.getType());
         assertThat(domain.getDetails().toModel()).isEqualTo(model.getDetails());
     }
 
@@ -42,21 +41,20 @@ public class EmailDomainTest {
         Email model = domain.toModel();
 
         assertThat(model.getId()).isEqualTo(domain.getId());
-        assertThat(model.getType()).isEqualTo(domain.getType().toModel());
         assertThat(model.getDetails()).isEqualTo(domain.getDetails().toModel());
     }
 
     @Test
-    public void shouldBeEqualsBasedOnType() {
-        EmailDomain first = createOne("Personal");
-        EmailDomain second = createOne("Personal");
+    public void shouldBeEqualsBasedOnAddress() {
+        EmailDomain first = createOne("aa@a.fr");
+        EmailDomain second = createOne("aa@a.fr");
         assertThat(second).isEqualTo(first);
     }
 
     @Test
-    public void shouldNotBeEqualsWithDifferentTypes() {
-        EmailDomain first = createOne("Personal");
-        EmailDomain second = createOne("Work");
+    public void shouldNotBeEqualsWithDifferentAddress() {
+        EmailDomain first = createOne();
+        EmailDomain second = createOne();
         assertThat(second).isNotEqualTo(first);
     }
 

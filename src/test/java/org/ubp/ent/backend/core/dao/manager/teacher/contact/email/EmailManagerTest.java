@@ -18,15 +18,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class EmailManagerTest extends WebApplicationTest {
 
     @Inject
-    private EmailTypeManager emailTypeManager;
-    @Inject
     private EmailManager emailManager;
     @Inject
     private EmailRepository repository;
 
     public Email createPersistedEmail() {
         Email model = EmailTest.createOne();
-        emailTypeManager.create(model.getType());
         emailManager.create(model);
         return model;
     }

@@ -7,18 +7,18 @@ import org.ubp.ent.backend.core.dao.repository.teacher.contact.email.EmailReposi
 import org.ubp.ent.backend.core.dao.repository.teacher.contact.phone.PhoneRepository;
 import org.ubp.ent.backend.core.domains.teacher.OutsiderTeacherDomain;
 import org.ubp.ent.backend.core.exceptions.database.AlreadyDefinedInOnNonPersistedEntity;
-import org.ubp.ent.backend.core.exceptions.database.notfound.impl.*;
+import org.ubp.ent.backend.core.exceptions.database.notfound.impl.AddressResourceNotFoundException;
+import org.ubp.ent.backend.core.exceptions.database.notfound.impl.EmailResourceNotFoundException;
+import org.ubp.ent.backend.core.exceptions.database.notfound.impl.PhoneResourceNotFoundException;
+import org.ubp.ent.backend.core.exceptions.database.notfound.impl.TeacherResourceNotFoundException;
 import org.ubp.ent.backend.core.model.teacher.OutsiderTeacher;
 import org.ubp.ent.backend.core.model.teacher.OutsiderTeacherTest;
 import org.ubp.ent.backend.core.model.teacher.contact.address.Address;
 import org.ubp.ent.backend.core.model.teacher.contact.address.AddressTest;
-import org.ubp.ent.backend.core.model.teacher.contact.address.AddressType;
 import org.ubp.ent.backend.core.model.teacher.contact.email.Email;
 import org.ubp.ent.backend.core.model.teacher.contact.email.EmailTest;
-import org.ubp.ent.backend.core.model.teacher.contact.email.EmailType;
 import org.ubp.ent.backend.core.model.teacher.contact.phone.Phone;
 import org.ubp.ent.backend.core.model.teacher.contact.phone.PhoneTest;
-import org.ubp.ent.backend.core.model.teacher.contact.phone.PhoneType;
 import org.ubp.ent.backend.utils.TestScenarioHelper;
 import org.ubp.ent.backend.utils.WebApplicationTest;
 
@@ -134,8 +134,7 @@ public class OutsiderTeacherManagerTest extends WebApplicationTest {
 
     @Test(expected = TeacherResourceNotFoundException.class)
     public void shouldFailAddAddressWithNonExistingTeacher() {
-        AddressType type = scenarioHelper.createAddressType();
-        outsiderTeacherManager.addAddress(12L, AddressTest.createOne(type));
+        outsiderTeacherManager.addAddress(12L, AddressTest.createOne());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -150,16 +149,10 @@ public class OutsiderTeacherManagerTest extends WebApplicationTest {
         outsiderTeacherManager.addAddress(12L, model);
     }
 
-    @Test(expected = AddressTypeResourceNotFoundException.class)
-    public void shouldFailAddAddressWithAddressHavingNonExistingType() {
-        OutsiderTeacher model = scenarioHelper.createEmptyOutsiderTeacher();
-        outsiderTeacherManager.addAddress(model.getId(), AddressTest.createOne());
-    }
-
     @Test
     public void shouldAddAddress() {
         OutsiderTeacher teacher = scenarioHelper.createEmptyOutsiderTeacher();
-        Address address = AddressTest.createOne(scenarioHelper.createAddressType());
+        Address address = AddressTest.createOne();
 
         assertThat(outsiderTeacherManager.findOneById(teacher.getId()).getContact().getAddresses()).isEmpty();
         Address saved = outsiderTeacherManager.addAddress(teacher.getId(), address);
@@ -206,8 +199,7 @@ public class OutsiderTeacherManagerTest extends WebApplicationTest {
 
     @Test(expected = TeacherResourceNotFoundException.class)
     public void shouldFailAddEmailWithNonExistingTeacher() {
-        EmailType type = scenarioHelper.createEmailType();
-        outsiderTeacherManager.addEmail(12L, EmailTest.createOne(type));
+        outsiderTeacherManager.addEmail(12L, EmailTest.createOne());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -222,16 +214,10 @@ public class OutsiderTeacherManagerTest extends WebApplicationTest {
         outsiderTeacherManager.addEmail(12L, model);
     }
 
-    @Test(expected = EmailTypeResourceNotFoundException.class)
-    public void shouldFailAddEmailWithEmailHavingNonExistingType() {
-        OutsiderTeacher model = scenarioHelper.createEmptyOutsiderTeacher();
-        outsiderTeacherManager.addEmail(model.getId(), EmailTest.createOne());
-    }
-
     @Test
     public void shouldAddEmail() {
         OutsiderTeacher teacher = scenarioHelper.createEmptyOutsiderTeacher();
-        Email email = EmailTest.createOne(scenarioHelper.createEmailType());
+        Email email = EmailTest.createOne();
 
         assertThat(outsiderTeacherManager.findOneById(teacher.getId()).getContact().getEmails()).isEmpty();
         Email saved = outsiderTeacherManager.addEmail(teacher.getId(), email);
@@ -278,8 +264,7 @@ public class OutsiderTeacherManagerTest extends WebApplicationTest {
 
     @Test(expected = TeacherResourceNotFoundException.class)
     public void shouldFailAddPhoneWithNonExistingTeacher() {
-        PhoneType type = scenarioHelper.createPhoneType();
-        outsiderTeacherManager.addPhone(12L, PhoneTest.createOne(type));
+        outsiderTeacherManager.addPhone(12L, PhoneTest.createOne());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -294,16 +279,10 @@ public class OutsiderTeacherManagerTest extends WebApplicationTest {
         outsiderTeacherManager.addPhone(12L, model);
     }
 
-    @Test(expected = PhoneTypeResourceNotFoundException.class)
-    public void shouldFailAddPhoneWithPhoneHavingNonExistingType() {
-        OutsiderTeacher model = scenarioHelper.createEmptyOutsiderTeacher();
-        outsiderTeacherManager.addPhone(model.getId(), PhoneTest.createOne());
-    }
-
     @Test
     public void shouldAddPhone() {
         OutsiderTeacher teacher = scenarioHelper.createEmptyOutsiderTeacher();
-        Phone phone = PhoneTest.createOne(scenarioHelper.createPhoneType());
+        Phone phone = PhoneTest.createOne();
 
         assertThat(outsiderTeacherManager.findOneById(teacher.getId()).getContact().getPhones()).isEmpty();
         Phone saved = outsiderTeacherManager.addPhone(teacher.getId(), phone);

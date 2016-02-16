@@ -1,17 +1,10 @@
 package org.ubp.ent.backend.core.domains.course;
 
-import com.google.common.base.Objects;
-import com.google.common.collect.Sets;
 import org.ubp.ent.backend.core.domains.ModelTransformable;
-import org.ubp.ent.backend.core.domains.classroom.equipement.RoomEquipmentDomain;
-import org.ubp.ent.backend.core.model.classroom.Classroom;
-import org.ubp.ent.backend.core.model.classroom.RoomCapacity;
 import org.ubp.ent.backend.core.model.course.Course;
 import org.ubp.ent.backend.core.model.type.ClassroomType;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by Maxime on 15/02/2016.
@@ -57,8 +50,7 @@ public class CourseDomain implements ModelTransformable<Course> {
         return name;
     }
 
-    public ClassroomType getType()
-    {
+    public ClassroomType getType() {
         return type;
     }
 

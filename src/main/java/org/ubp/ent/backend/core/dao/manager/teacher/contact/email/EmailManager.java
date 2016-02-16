@@ -44,5 +44,4 @@ public class EmailManager {
         repository.delete(domain);
     }
 
-
 }

@@ -3,14 +3,8 @@ package org.ubp.ent.backend.core.controllers.teacher;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.springframework.http.MediaType;
-import org.ubp.ent.backend.core.dao.manager.teacher.contact.address.AddressTypeManager;
-import org.ubp.ent.backend.core.dao.manager.teacher.contact.email.EmailTypeManager;
-import org.ubp.ent.backend.core.dao.manager.teacher.contact.phone.PhoneTypeManager;
 import org.ubp.ent.backend.core.model.teacher.UniversityTeacher;
 import org.ubp.ent.backend.core.model.teacher.UniversityTeacherTest;
-import org.ubp.ent.backend.core.model.teacher.contact.address.Address;
-import org.ubp.ent.backend.core.model.teacher.contact.email.Email;
-import org.ubp.ent.backend.core.model.teacher.contact.phone.Phone;
 import org.ubp.ent.backend.utils.WebIntegrationTest;
 
 import javax.inject.Inject;
@@ -30,15 +24,6 @@ public class UniversityTeacherControllerTest extends WebIntegrationTest {
     private final String TEACHER_BASE_URL = UniversityTeacherController.BASE_URL;
 
     @Inject
-    private PhoneTypeManager phoneTypeManager;
-
-    @Inject
-    private AddressTypeManager addressTypeManager;
-
-    @Inject
-    private EmailTypeManager emailTypeManager;
-
-    @Inject
     private ObjectMapper mapper;
 
     private UniversityTeacher createUniversityTeacher() throws Exception {
@@ -52,11 +37,13 @@ public class UniversityTeacherControllerTest extends WebIntegrationTest {
             String json = mapper.writeValueAsString(model);
             perform(post(TEACHER_BASE_URL).content(json).contentType(MediaType.APPLICATION_JSON_UTF8))
                     .andExpect(status().isCreated())
-                    .andDo(result -> {
-                        String response = result.getResponse().getContentAsString();
-                        UniversityTeacher createdClassroom = mapper.readValue(response, UniversityTeacher.class);
-                        created.add(createdClassroom);
-                    });
+                    .andDo(
+                            result -> {
+                                String response = result.getResponse().getContentAsString();
+                                UniversityTeacher createdClassroom = mapper.readValue(response, UniversityTeacher.class);
+                                created.add(createdClassroom);
+                            }
+                    );
         }
         return created;
     }
@@ -120,22 +107,16 @@ public class UniversityTeacherControllerTest extends WebIntegrationTest {
         assertThat(model.getContact().getEmails()).isNotEmpty();
         assertThat(model.getContact().getPhones()).isNotEmpty();
 
-        model.getContact().getAddresses().stream()
-                .map(Address::getType).forEach(addressTypeManager::create);
-        model.getContact().getEmails().stream()
-                .map(Email::getType).forEach(emailTypeManager::create);
-        model.getContact().getPhones().stream()
-                .map(Phone::getType).forEach(phoneTypeManager::create);
-
         perform(post(TEACHER_BASE_URL).contentType(MediaType.APPLICATION_JSON_UTF8).content(mapper.writeValueAsString(model)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", notNullValue()))
-                .andDo(result -> {
-                    String response = result.getResponse().getContentAsString();
-                    UniversityTeacher createdModel = mapper.readValue(response, UniversityTeacher.class);
-                    model.setId(createdModel.getId());
-                });
-
+                .andDo(
+                        result -> {
+                            String response = result.getResponse().getContentAsString();
+                            UniversityTeacher createdModel = mapper.readValue(response, UniversityTeacher.class);
+                            model.setId(createdModel.getId());
+                        }
+                );
 
         perform(get(TEACHER_BASE_URL + "/" + model.getId()))
                 .andExpect(jsonPath("$.contact.addresses", hasSize(model.getContact().getAddresses().size())))

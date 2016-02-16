@@ -36,11 +36,13 @@ public class EquipmentTypeControllerTest extends WebIntegrationTest {
             String json = mapper.writeValueAsString(equipmentType);
             perform(post(EQUIP_TYPE_BASE_URL).content(json).contentType(MediaType.APPLICATION_JSON_UTF8))
                     .andExpect(status().isCreated())
-                    .andDo(result -> {
-                        String response = result.getResponse().getContentAsString();
-                        EquipmentType createdEquipmentTypes = mapper.readValue(response, EquipmentType.class);
-                        created.add(createdEquipmentTypes);
-                    });
+                    .andDo(
+                            result -> {
+                                String response = result.getResponse().getContentAsString();
+                                EquipmentType createdEquipmentTypes = mapper.readValue(response, EquipmentType.class);
+                                created.add(createdEquipmentTypes);
+                            }
+                    );
         }
         return created;
     }

@@ -13,9 +13,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "room_equipment_association")
 @AssociationOverrides({
-        @AssociationOverride(name = "primaryKey.classroom", joinColumns = @JoinColumn(name = "CLASSROOM_ID")),
-        @AssociationOverride(name = "primaryKey.equipmentType", joinColumns = @JoinColumn(name = "EQUIPMENT_TYPE_ID"))
-})
+                              @AssociationOverride(name = "primaryKey.classroom", joinColumns = @JoinColumn(name = "CLASSROOM_ID")),
+                              @AssociationOverride(name = "primaryKey.equipmentType", joinColumns = @JoinColumn(name = "EQUIPMENT_TYPE_ID"))
+                      })
 public class RoomEquipmentDomain implements ModelTransformable<RoomEquipment> {
 
     @EmbeddedId

@@ -10,51 +10,38 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class AddressTest {
 
     public static Address createOne() {
-        return new Address(AddressTypeTest.createOne(), AddressDetailsTest.createOne());
+        return new Address(AddressDetailsTest.createOne());
     }
 
-    public static Address createOne(String addressTypeName) {
-        return new Address(AddressTypeTest.createOne(addressTypeName), AddressDetailsTest.createOne());
-    }
-
-    public static Address createOne(AddressType addressType) {
-        return new Address(addressType, AddressDetailsTest.createOne());
-    }
-
-
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldNotInstantiateWithNullType() {
-        new Address(null, AddressDetailsTest.createOne());
-    }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNullDetail() {
-        new Address(AddressTypeTest.createOne(), null);
+        new Address(null);
     }
 
     @Test
     public void shouldInstantiate() {
-        AddressType type = AddressTypeTest.createOne();
         AddressDetails data = AddressDetailsTest.createOne();
-        Address model = new Address(type, data);
+        Address model = new Address(data);
 
         assertThat(model.getId()).isNull();
-        assertThat(model.getType()).isEqualTo(type);
         assertThat(model.getDetails()).isEqualTo(data);
     }
 
     @Test
-    public void shouldBeEqualsBasedOnType() {
-        AddressType type = AddressTypeTest.createOne();
-        Address first = new Address(type, AddressDetailsTest.createOne());
-        Address second = new Address(type, AddressDetailsTest.createOne());
+    public void shouldBeEqualsBasedOnAddress() {
+        AddressDetails firstDetails = new AddressDetails("9", "rue park", "63000", "Clermont-Ferrand");
+        Address first = new Address(firstDetails);
+
+        AddressDetails secondDetails = new AddressDetails("9", "rue park", "63000", "Clermont-Ferrand");
+        Address second = new Address(secondDetails);
         assertThat(second).isEqualTo(first);
     }
 
     @Test
-    public void shouldNotBeEqualsWithDifferentTypes() {
-        Address first = new Address(AddressTypeTest.createOne(), AddressDetailsTest.createOne());
-        Address second = new Address(AddressTypeTest.createOne(), AddressDetailsTest.createOne());
+    public void shouldNotBeEqualsWithDifferentAddress() {
+        Address first = new Address(AddressDetailsTest.createOne());
+        Address second = new Address(AddressDetailsTest.createOne());
         assertThat(second).isNotEqualTo(first);
     }
 

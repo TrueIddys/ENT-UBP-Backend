@@ -17,10 +17,6 @@ public class PhoneDomain implements ModelTransformable<Phone> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "TYPE_ID")
-    private PhoneTypeDomain type;
-
     @Embedded
     private PhoneDetailsDomain details;
 
@@ -32,7 +28,6 @@ public class PhoneDomain implements ModelTransformable<Phone> {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " with a null " + Phone.class.getName());
         }
         id = model.getId();
-        type = new PhoneTypeDomain(model.getType());
         details = new PhoneDetailsDomain(model.getDetails());
     }
 
@@ -44,17 +39,13 @@ public class PhoneDomain implements ModelTransformable<Phone> {
         this.id = id;
     }
 
-    public PhoneTypeDomain getType() {
-        return type;
-    }
-
     public PhoneDetailsDomain getDetails() {
         return details;
     }
 
     @Override
     public Phone toModel() {
-        Phone model = new Phone(type.toModel(), details.toModel());
+        Phone model = new Phone(details.toModel());
         model.setId(id);
         return model;
     }
@@ -64,12 +55,12 @@ public class PhoneDomain implements ModelTransformable<Phone> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PhoneDomain that = (PhoneDomain) o;
-        return Objects.equal(type, that.type);
+        return Objects.equal(details, that.details);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(type);
+        return Objects.hashCode(details);
     }
 
 }

@@ -1,6 +1,9 @@
 package org.ubp.ent.backend.core.model.teacher.contact.address;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Test;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -14,7 +17,8 @@ public class AddressDetailsTest {
     private static final String VALID_CITY = "Clermont-Ferrand";
 
     public static AddressDetails createOne() {
-        return createOne(VALID_STREET_NUMBER, VALID_STREET, VALID_ZIP, VALID_CITY);
+        String street = RandomStringUtils.randomAlphabetic(ThreadLocalRandom.current().nextInt(6, 10));
+        return createOne(VALID_STREET_NUMBER, street, VALID_ZIP, VALID_CITY);
     }
 
     public static AddressDetails createOne(String streetNumber, String street, String zip, String city) {

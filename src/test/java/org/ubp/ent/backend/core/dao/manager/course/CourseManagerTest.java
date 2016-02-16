@@ -1,33 +1,20 @@
 package org.ubp.ent.backend.core.dao.manager.course;
 
 import org.junit.Test;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.ubp.ent.backend.core.dao.manager.classroom.ClassroomManager;
-import org.ubp.ent.backend.core.dao.manager.classroom.equipement.EquipmentTypeManager;
-import org.ubp.ent.backend.core.domains.course.CourseDomain;
 import org.ubp.ent.backend.core.exceptions.database.AlreadyDefinedInOnNonPersistedEntity;
-import org.ubp.ent.backend.core.exceptions.database.notfound.impl.ClassroomResourceNotFoundException;
 import org.ubp.ent.backend.core.exceptions.database.notfound.impl.CourseResourceNotFoundException;
-import org.ubp.ent.backend.core.exceptions.database.notfound.impl.EquipmentTypeResourceNotFoundException;
-import org.ubp.ent.backend.core.model.classroom.Classroom;
-import org.ubp.ent.backend.core.model.classroom.ClassroomTest;
-import org.ubp.ent.backend.core.model.classroom.equipement.EquipmentType;
-import org.ubp.ent.backend.core.model.classroom.equipement.EquipmentTypeTest;
-import org.ubp.ent.backend.core.model.classroom.equipement.Quantity;
-import org.ubp.ent.backend.core.model.classroom.equipement.RoomEquipment;
 import org.ubp.ent.backend.core.model.course.Course;
 import org.ubp.ent.backend.core.model.course.CourseTest;
 import org.ubp.ent.backend.utils.WebApplicationTest;
 
 import javax.inject.Inject;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Created by Maxime on 15/02/2016.
  */
-public class CourseManagerTest extends WebApplicationTest{
+public class CourseManagerTest extends WebApplicationTest {
 
     @Inject
     private CourseManager courseManager;

@@ -17,10 +17,6 @@ public class AddressDomain implements ModelTransformable<Address> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "TYPE_ID")
-    private AddressTypeDomain type;
-
     @Embedded
     private AddressDetailsDomain details;
 
@@ -32,7 +28,6 @@ public class AddressDomain implements ModelTransformable<Address> {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " with a null " + Address.class.getName());
         }
         id = model.getId();
-        type = new AddressTypeDomain(model.getType());
         details = new AddressDetailsDomain(model.getDetails());
     }
 
@@ -44,17 +39,13 @@ public class AddressDomain implements ModelTransformable<Address> {
         this.id = id;
     }
 
-    public AddressTypeDomain getType() {
-        return type;
-    }
-
     public AddressDetailsDomain getDetails() {
         return details;
     }
 
     @Override
     public Address toModel() {
-        Address model = new Address(type.toModel(), details.toModel());
+        Address model = new Address(details.toModel());
         model.setId(id);
         return model;
     }
@@ -64,12 +55,12 @@ public class AddressDomain implements ModelTransformable<Address> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AddressDomain that = (AddressDomain) o;
-        return Objects.equal(type, that.type);
+        return Objects.equal(details, that.details);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(type);
+        return Objects.hashCode(details);
     }
 
 }

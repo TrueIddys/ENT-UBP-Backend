@@ -18,15 +18,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class AddressManagerTest extends WebApplicationTest {
 
     @Inject
-    private AddressTypeManager addressTypeManager;
-    @Inject
     private AddressManager addressManager;
     @Inject
     private AddressRepository repository;
 
     public Address createPersistedAddress() {
         Address model = AddressTest.createOne();
-        addressTypeManager.create(model.getType());
         addressManager.create(model);
         return model;
     }

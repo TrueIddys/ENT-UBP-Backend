@@ -3,10 +3,8 @@ package org.ubp.ent.backend.core.controllers.teacher;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.springframework.http.MediaType;
-import org.ubp.ent.backend.core.dao.manager.teacher.contact.address.AddressTypeManager;
 import org.ubp.ent.backend.core.model.teacher.UniversityTeacher;
 import org.ubp.ent.backend.core.model.teacher.UniversityTeacherTest;
-import org.ubp.ent.backend.core.model.teacher.contact.address.Address;
 import org.ubp.ent.backend.utils.WebIntegrationTest;
 
 import javax.inject.Inject;
@@ -24,9 +22,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UniversityTeacherControllerTest extends WebIntegrationTest {
 
     private final String TEACHER_BASE_URL = UniversityTeacherController.BASE_URL;
-
-    @Inject
-    private AddressTypeManager addressTypeManager;
 
     @Inject
     private ObjectMapper mapper;
@@ -111,9 +106,6 @@ public class UniversityTeacherControllerTest extends WebIntegrationTest {
         assertThat(model.getContact().getAddresses()).isNotEmpty();
         assertThat(model.getContact().getEmails()).isNotEmpty();
         assertThat(model.getContact().getPhones()).isNotEmpty();
-
-        model.getContact().getAddresses().stream()
-                .map(Address::getType).forEach(addressTypeManager::create);
 
         perform(post(TEACHER_BASE_URL).contentType(MediaType.APPLICATION_JSON_UTF8).content(mapper.writeValueAsString(model)))
                 .andExpect(status().isCreated())

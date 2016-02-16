@@ -7,12 +7,14 @@ import org.ubp.ent.backend.core.dao.repository.teacher.contact.email.EmailReposi
 import org.ubp.ent.backend.core.dao.repository.teacher.contact.phone.PhoneRepository;
 import org.ubp.ent.backend.core.domains.teacher.OutsiderTeacherDomain;
 import org.ubp.ent.backend.core.exceptions.database.AlreadyDefinedInOnNonPersistedEntity;
-import org.ubp.ent.backend.core.exceptions.database.notfound.impl.*;
+import org.ubp.ent.backend.core.exceptions.database.notfound.impl.AddressResourceNotFoundException;
+import org.ubp.ent.backend.core.exceptions.database.notfound.impl.EmailResourceNotFoundException;
+import org.ubp.ent.backend.core.exceptions.database.notfound.impl.PhoneResourceNotFoundException;
+import org.ubp.ent.backend.core.exceptions.database.notfound.impl.TeacherResourceNotFoundException;
 import org.ubp.ent.backend.core.model.teacher.OutsiderTeacher;
 import org.ubp.ent.backend.core.model.teacher.OutsiderTeacherTest;
 import org.ubp.ent.backend.core.model.teacher.contact.address.Address;
 import org.ubp.ent.backend.core.model.teacher.contact.address.AddressTest;
-import org.ubp.ent.backend.core.model.teacher.contact.address.AddressType;
 import org.ubp.ent.backend.core.model.teacher.contact.email.Email;
 import org.ubp.ent.backend.core.model.teacher.contact.email.EmailTest;
 import org.ubp.ent.backend.core.model.teacher.contact.phone.Phone;
@@ -132,8 +134,7 @@ public class OutsiderTeacherManagerTest extends WebApplicationTest {
 
     @Test(expected = TeacherResourceNotFoundException.class)
     public void shouldFailAddAddressWithNonExistingTeacher() {
-        AddressType type = scenarioHelper.createAddressType();
-        outsiderTeacherManager.addAddress(12L, AddressTest.createOne(type));
+        outsiderTeacherManager.addAddress(12L, AddressTest.createOne());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -148,16 +149,10 @@ public class OutsiderTeacherManagerTest extends WebApplicationTest {
         outsiderTeacherManager.addAddress(12L, model);
     }
 
-    @Test(expected = AddressTypeResourceNotFoundException.class)
-    public void shouldFailAddAddressWithAddressHavingNonExistingType() {
-        OutsiderTeacher model = scenarioHelper.createEmptyOutsiderTeacher();
-        outsiderTeacherManager.addAddress(model.getId(), AddressTest.createOne());
-    }
-
     @Test
     public void shouldAddAddress() {
         OutsiderTeacher teacher = scenarioHelper.createEmptyOutsiderTeacher();
-        Address address = AddressTest.createOne(scenarioHelper.createAddressType());
+        Address address = AddressTest.createOne();
 
         assertThat(outsiderTeacherManager.findOneById(teacher.getId()).getContact().getAddresses()).isEmpty();
         Address saved = outsiderTeacherManager.addAddress(teacher.getId(), address);

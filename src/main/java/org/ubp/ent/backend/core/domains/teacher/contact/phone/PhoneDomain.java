@@ -3,7 +3,6 @@ package org.ubp.ent.backend.core.domains.teacher.contact.phone;
 import com.google.common.base.Objects;
 import org.ubp.ent.backend.core.domains.ModelTransformable;
 import org.ubp.ent.backend.core.model.teacher.contact.phone.Phone;
-import org.ubp.ent.backend.core.model.teacher.contact.phone.PhoneDetails;
 
 import javax.persistence.*;
 

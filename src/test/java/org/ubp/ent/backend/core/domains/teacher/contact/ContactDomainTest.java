@@ -9,6 +9,8 @@ import org.ubp.ent.backend.core.domains.teacher.contact.phone.PhoneDomain;
 import org.ubp.ent.backend.core.domains.teacher.contact.phone.PhoneDomainTest;
 import org.ubp.ent.backend.core.model.teacher.contact.Contact;
 import org.ubp.ent.backend.core.model.teacher.contact.ContactTest;
+import org.ubp.ent.backend.core.model.teacher.contact.address.Address;
+import org.ubp.ent.backend.core.model.teacher.contact.address.AddressDetails;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -66,10 +68,12 @@ public class ContactDomainTest {
     public void shouldNotAddTwoAddressWithSameAddress() {
         ContactDomain contact = createOneEmpty();
 
-        AddressDomain address1 = AddressDomainTest.createOne("9 rue park");
+        AddressDetails firstDetails = new AddressDetails("9", "rue park", "63000", "Clermont-Ferrand");
+        AddressDomain address1 = new AddressDomain(new Address(firstDetails));
         contact.addAddress(address1);
 
-        AddressDomain address2 = AddressDomainTest.createOne("9 rue park");
+        AddressDetails secondDetails = new AddressDetails("9", "rue park", "63000", "Clermont-Ferrand");
+        AddressDomain address2 = new AddressDomain(new Address(secondDetails));
         contact.addAddress(address2);
 
         assertThat(contact.getAddresses()).containsOnly(address2);

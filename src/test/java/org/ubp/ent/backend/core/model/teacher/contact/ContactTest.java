@@ -2,6 +2,7 @@ package org.ubp.ent.backend.core.model.teacher.contact;
 
 import org.junit.Test;
 import org.ubp.ent.backend.core.model.teacher.contact.address.Address;
+import org.ubp.ent.backend.core.model.teacher.contact.address.AddressDetails;
 import org.ubp.ent.backend.core.model.teacher.contact.address.AddressTest;
 import org.ubp.ent.backend.core.model.teacher.contact.email.Email;
 import org.ubp.ent.backend.core.model.teacher.contact.email.EmailTest;
@@ -52,10 +53,12 @@ public class ContactTest {
     public void shouldNotAddTwoAddressWithSameAddress() {
         Contact contact = createOneEmpty();
 
-        Address address1 = AddressTest.createOne("9 rue park");
+        AddressDetails firstDetails = new AddressDetails("9", "rue park", "63000", "Clermont-Ferrand");
+        Address address1 = new Address(firstDetails);
         contact.addAddress(address1);
 
-        Address address2 = AddressTest.createOne("9 rue park");
+        AddressDetails secondDetails = new AddressDetails("9", "rue park", "63000", "Clermont-Ferrand");
+        Address address2 = new Address(secondDetails);
         contact.addAddress(address2);
 
         assertThat(contact.getAddresses()).containsOnly(address2);

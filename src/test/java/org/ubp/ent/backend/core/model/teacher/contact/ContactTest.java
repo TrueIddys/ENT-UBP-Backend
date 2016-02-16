@@ -112,26 +112,26 @@ public class ContactTest {
     }
 
     @Test
-    public void shouldNotAddTwoEmailWithSameType() {
+    public void shouldNotAddTwoEmailWithSameEmail() {
         Contact contact = createOneEmpty();
 
-        Email email1 = EmailTest.createOne("University");
+        Email email1 = EmailTest.createOne("aa@a.fr");
         contact.addEmail(email1);
 
-        Email email2 = EmailTest.createOne("University");
+        Email email2 = EmailTest.createOne("aa@a.fr");
         contact.addEmail(email2);
 
         assertThat(contact.getEmails()).containsOnly(email2);
     }
 
     @Test
-    public void shouldAddTwoEmailWithDifferentTypes() {
+    public void shouldAddTwoEmailWithDifferentEmail() {
         Contact contact = createOneEmpty();
 
-        Email email1 = EmailTest.createOne("University");
+        Email email1 = EmailTest.createOne("aa@a.fr");
         contact.addEmail(email1);
 
-        Email email2 = EmailTest.createOne("Personal");
+        Email email2 = EmailTest.createOne("dd@a.fr");
         contact.addEmail(email2);
 
         assertThat(contact.getEmails()).containsOnly(email1, email2);

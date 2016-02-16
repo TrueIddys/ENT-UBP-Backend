@@ -129,23 +129,23 @@ public class ContactDomainTest {
     public void shouldNotAddTwoEmailWithSameType() {
         ContactDomain contact = createOneEmpty();
 
-        EmailDomain email1 = EmailDomainTest.createOne("University");
+        EmailDomain email1 = EmailDomainTest.createOne("aa@a.fr");
         contact.addEmail(email1);
 
-        EmailDomain email2 = EmailDomainTest.createOne("University");
+        EmailDomain email2 = EmailDomainTest.createOne("aa@a.fr");
         contact.addEmail(email2);
 
         assertThat(contact.getEmails()).containsOnly(email2);
     }
 
     @Test
-    public void shouldAddTwoEmailWithDifferentTypes() {
+    public void shouldAddTwoEmailWithDifferentEmail() {
         ContactDomain contact = createOneEmpty();
 
-        EmailDomain email1 = EmailDomainTest.createOne("University");
+        EmailDomain email1 = EmailDomainTest.createOne("dd@a.fr");
         contact.addEmail(email1);
 
-        EmailDomain email2 = EmailDomainTest.createOne("Personal");
+        EmailDomain email2 = EmailDomainTest.createOne("aa@a.fr");
         contact.addEmail(email2);
 
         assertThat(contact.getEmails()).containsOnly(email1, email2);

@@ -4,11 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.ubp.ent.backend.core.dao.manager.teacher.contact.address.AddressTypeManager;
-import org.ubp.ent.backend.core.dao.manager.teacher.contact.email.EmailTypeManager;
 import org.ubp.ent.backend.core.model.teacher.UniversityTeacher;
 import org.ubp.ent.backend.core.model.teacher.UniversityTeacherTest;
 import org.ubp.ent.backend.core.model.teacher.contact.address.Address;
-import org.ubp.ent.backend.core.model.teacher.contact.email.Email;
 import org.ubp.ent.backend.utils.WebIntegrationTest;
 
 import javax.inject.Inject;
@@ -29,9 +27,6 @@ public class UniversityTeacherControllerTest extends WebIntegrationTest {
 
     @Inject
     private AddressTypeManager addressTypeManager;
-
-    @Inject
-    private EmailTypeManager emailTypeManager;
 
     @Inject
     private ObjectMapper mapper;
@@ -119,8 +114,6 @@ public class UniversityTeacherControllerTest extends WebIntegrationTest {
 
         model.getContact().getAddresses().stream()
                 .map(Address::getType).forEach(addressTypeManager::create);
-        model.getContact().getEmails().stream()
-                .map(Email::getType).forEach(emailTypeManager::create);
 
         perform(post(TEACHER_BASE_URL).contentType(MediaType.APPLICATION_JSON_UTF8).content(mapper.writeValueAsString(model)))
                 .andExpect(status().isCreated())

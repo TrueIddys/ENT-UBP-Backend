@@ -6,17 +6,14 @@ import org.ubp.ent.backend.core.dao.manager.teacher.contact.email.EmailManager;
 import org.ubp.ent.backend.core.dao.manager.teacher.contact.phone.PhoneManager;
 import org.ubp.ent.backend.core.dao.repository.teacher.UniversityTeacherRepository;
 import org.ubp.ent.backend.core.dao.repository.teacher.contact.address.AddressTypeRepository;
-import org.ubp.ent.backend.core.dao.repository.teacher.contact.email.EmailTypeRepository;
 import org.ubp.ent.backend.core.domains.teacher.UniversityTeacherDomain;
 import org.ubp.ent.backend.core.exceptions.database.AlreadyDefinedInOnNonPersistedEntity;
 import org.ubp.ent.backend.core.exceptions.database.notfound.impl.AddressTypeResourceNotFoundException;
-import org.ubp.ent.backend.core.exceptions.database.notfound.impl.EmailTypeResourceNotFoundException;
 import org.ubp.ent.backend.core.exceptions.database.notfound.impl.TeacherResourceNotFoundException;
 import org.ubp.ent.backend.core.model.teacher.UniversityTeacher;
 import org.ubp.ent.backend.core.model.teacher.contact.address.Address;
 import org.ubp.ent.backend.core.model.teacher.contact.address.AddressType;
 import org.ubp.ent.backend.core.model.teacher.contact.email.Email;
-import org.ubp.ent.backend.core.model.teacher.contact.email.EmailType;
 import org.ubp.ent.backend.core.model.teacher.contact.phone.Phone;
 
 import javax.inject.Inject;
@@ -39,8 +36,6 @@ public class UniversityTeacherManager {
 
     @Inject
     private EmailManager emailManager;
-    @Inject
-    private EmailTypeRepository emailTypeRepository;
 
     @Inject
     private PhoneManager phoneManager;
@@ -114,10 +109,6 @@ public class UniversityTeacherManager {
         }
         if (model.getId() != null) {
             throw new AlreadyDefinedInOnNonPersistedEntity("Cannot persist a " + Email.class.getName() + " which already has an ID.");
-        }
-
-        if (model.getType().getId() == null || !emailTypeRepository.exists(model.getType().getId())) {
-            throw new EmailTypeResourceNotFoundException("No " + EmailType.class.getName() + " found for id :" + model.getType().getId());
         }
 
         model = emailManager.create(model);

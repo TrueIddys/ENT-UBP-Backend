@@ -10,18 +10,13 @@ import com.google.common.base.Objects;
 public class Email {
 
     private Long id;
-    private EmailType type;
     private EmailDetails details;
 
     @JsonCreator
-    public Email(@JsonProperty("type") EmailType type, @JsonProperty("details") EmailDetails details) {
-        if (type == null) {
-            throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without a type");
-        }
+    public Email(@JsonProperty("details") EmailDetails details) {
         if (details == null) {
             throw new IllegalArgumentException("Cannot build a " + getClass().getName() + " without an email");
         }
-        this.type = type;
         this.details = details;
     }
 
@@ -33,10 +28,6 @@ public class Email {
         this.id = id;
     }
 
-    public EmailType getType() {
-        return type;
-    }
-
     public EmailDetails getDetails() {
         return details;
     }
@@ -46,12 +37,12 @@ public class Email {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Email that = (Email) o;
-        return Objects.equal(type, that.type);
+        return Objects.equal(details, that.details);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(type);
+        return Objects.hashCode(details);
     }
 
 }

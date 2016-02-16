@@ -13,6 +13,10 @@ public class PhoneTest {
         return new Phone(PhoneDetailsTest.createOne());
     }
 
+    public static Phone createOne(String number) {
+        return new Phone(PhoneDetailsTest.createOne(number));
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNullDetail() {
         new Phone(null);
@@ -25,6 +29,20 @@ public class PhoneTest {
 
         assertThat(model.getId()).isNull();
         assertThat(model.getDetails()).isEqualTo(data);
+    }
+
+    @Test
+    public void shouldBeEqualsBasedOnNumber() {
+        Phone first = createOne("04 00 00 00 00");
+        Phone second = createOne("04 00 00 00 00");
+        assertThat(second).isEqualTo(first);
+    }
+
+    @Test
+    public void shouldNotBeEqualsWithDifferentNumber() {
+        Phone first = createOne();
+        Phone second = createOne();
+        assertThat(second).isNotEqualTo(first);
     }
 
 }

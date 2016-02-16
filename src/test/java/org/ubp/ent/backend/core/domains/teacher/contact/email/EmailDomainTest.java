@@ -45,14 +45,14 @@ public class EmailDomainTest {
     }
 
     @Test
-    public void shouldBeEqualsBasedOnEmail() {
+    public void shouldBeEqualsBasedOnAddress() {
         EmailDomain first = createOne("aa@a.fr");
         EmailDomain second = createOne("aa@a.fr");
         assertThat(second).isEqualTo(first);
     }
 
     @Test
-    public void shouldNotBeEqualsWithDifferentEmail() {
+    public void shouldNotBeEqualsWithDifferentAddress() {
         EmailDomain first = createOne();
         EmailDomain second = createOne();
         assertThat(second).isNotEqualTo(first);

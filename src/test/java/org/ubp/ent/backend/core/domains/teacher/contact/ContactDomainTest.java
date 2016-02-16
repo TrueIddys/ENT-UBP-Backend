@@ -63,26 +63,26 @@ public class ContactDomainTest {
     }
 
     @Test
-    public void shouldNotAddTwoAddressWithSameType() {
+    public void shouldNotAddTwoAddressWithSameAddress() {
         ContactDomain contact = createOneEmpty();
 
-        AddressDomain address1 = AddressDomainTest.createOne("Home");
+        AddressDomain address1 = AddressDomainTest.createOne("9 rue park");
         contact.addAddress(address1);
 
-        AddressDomain address2 = AddressDomainTest.createOne("Home");
+        AddressDomain address2 = AddressDomainTest.createOne("9 rue park");
         contact.addAddress(address2);
 
         assertThat(contact.getAddresses()).containsOnly(address2);
     }
 
     @Test
-    public void shouldAddTwoAddressWithDifferentTypes() {
+    public void shouldAddTwoAddressWithDifferentAddress() {
         ContactDomain contact = createOneEmpty();
 
-        AddressDomain address1 = AddressDomainTest.createOne("Home");
+        AddressDomain address1 = AddressDomainTest.createOne();
         contact.addAddress(address1);
 
-        AddressDomain address2 = AddressDomainTest.createOne("Secondary Home");
+        AddressDomain address2 = AddressDomainTest.createOne();
         contact.addAddress(address2);
 
         assertThat(contact.getAddresses()).containsOnly(address1, address2);
@@ -101,7 +101,20 @@ public class ContactDomainTest {
     }
 
     @Test
-    public void shouldAddTwoPhoneWithDifferentTypes() {
+    public void shouldNotAddTwoPhoneWithDifferentNumber() {
+        ContactDomain contact = createOneEmpty();
+
+        PhoneDomain phone1 = PhoneDomainTest.createOne("04 00 00 00 00");
+        contact.addPhone(phone1);
+
+        PhoneDomain phone2 = PhoneDomainTest.createOne("04 00 00 00 00");
+        contact.addPhone(phone2);
+
+        assertThat(contact.getPhones()).containsOnly(phone2);
+    }
+
+    @Test
+    public void shouldAddTwoPhoneWithDifferentNumber() {
         ContactDomain contact = createOneEmpty();
 
         PhoneDomain phone1 = PhoneDomainTest.createOne();
@@ -126,7 +139,7 @@ public class ContactDomainTest {
     }
 
     @Test
-    public void shouldNotAddTwoEmailWithSameType() {
+    public void shouldNotAddTwoEmailWithSameAddress() {
         ContactDomain contact = createOneEmpty();
 
         EmailDomain email1 = EmailDomainTest.createOne("aa@a.fr");
@@ -139,13 +152,13 @@ public class ContactDomainTest {
     }
 
     @Test
-    public void shouldAddTwoEmailWithDifferentEmail() {
+    public void shouldAddTwoEmailWithDifferentAddress() {
         ContactDomain contact = createOneEmpty();
 
-        EmailDomain email1 = EmailDomainTest.createOne("dd@a.fr");
+        EmailDomain email1 = EmailDomainTest.createOne();
         contact.addEmail(email1);
 
-        EmailDomain email2 = EmailDomainTest.createOne("aa@a.fr");
+        EmailDomain email2 = EmailDomainTest.createOne();
         contact.addEmail(email2);
 
         assertThat(contact.getEmails()).containsOnly(email1, email2);

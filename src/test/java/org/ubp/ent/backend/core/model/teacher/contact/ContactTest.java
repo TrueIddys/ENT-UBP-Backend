@@ -49,26 +49,26 @@ public class ContactTest {
     }
 
     @Test
-    public void shouldNotAddTwoAddressWithSameType() {
+    public void shouldNotAddTwoAddressWithSameAddress() {
         Contact contact = createOneEmpty();
 
-        Address address1 = AddressTest.createOne("Home");
+        Address address1 = AddressTest.createOne("9 rue park");
         contact.addAddress(address1);
 
-        Address address2 = AddressTest.createOne("Home");
+        Address address2 = AddressTest.createOne("9 rue park");
         contact.addAddress(address2);
 
         assertThat(contact.getAddresses()).containsOnly(address2);
     }
 
     @Test
-    public void shouldAddTwoAddressWithDifferentTypes() {
+    public void shouldAddTwoAddressWithDifferentAddress() {
         Contact contact = createOneEmpty();
 
-        Address address1 = AddressTest.createOne("Home");
+        Address address1 = AddressTest.createOne();
         contact.addAddress(address1);
 
-        Address address2 = AddressTest.createOne("Secondary Home");
+        Address address2 = AddressTest.createOne();
         contact.addAddress(address2);
 
         assertThat(contact.getAddresses()).containsOnly(address1, address2);
@@ -87,7 +87,20 @@ public class ContactTest {
     }
 
     @Test
-    public void shouldAddTwoPhoneWithDifferentTypes() {
+    public void shouldNotAddTwoPhoneWithSameNumber() {
+        Contact contact = createOneEmpty();
+
+        Phone phone1 = PhoneTest.createOne("04 00 00 00 00");
+        contact.addPhone(phone1);
+
+        Phone phone2 = PhoneTest.createOne("04 00 00 00 00");
+        contact.addPhone(phone2);
+
+        assertThat(contact.getPhones()).containsOnly(phone2);
+    }
+
+    @Test
+    public void shouldAddTwoPhoneWithDifferentNumber() {
         Contact contact = createOneEmpty();
 
         Phone phone1 = PhoneTest.createOne();
@@ -112,7 +125,7 @@ public class ContactTest {
     }
 
     @Test
-    public void shouldNotAddTwoEmailWithSameEmail() {
+    public void shouldNotAddTwoEmailWithSameAddress() {
         Contact contact = createOneEmpty();
 
         Email email1 = EmailTest.createOne("aa@a.fr");
@@ -125,13 +138,13 @@ public class ContactTest {
     }
 
     @Test
-    public void shouldAddTwoEmailWithDifferentEmail() {
+    public void shouldAddTwoEmailWithDifferentAddress() {
         Contact contact = createOneEmpty();
 
-        Email email1 = EmailTest.createOne("aa@a.fr");
+        Email email1 = EmailTest.createOne();
         contact.addEmail(email1);
 
-        Email email2 = EmailTest.createOne("dd@a.fr");
+        Email email2 = EmailTest.createOne();
         contact.addEmail(email2);
 
         assertThat(contact.getEmails()).containsOnly(email1, email2);

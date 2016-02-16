@@ -32,14 +32,14 @@ public class EmailTest {
     }
 
     @Test
-    public void shouldBeEqualsBasedOnAddress() {
+    public void shouldBeEqualsBasedOnNumber() {
         Email first = createOne("abc@dd.fr");
         Email second = createOne("abc@dd.fr");
         assertThat(second).isEqualTo(first);
     }
 
     @Test
-    public void shouldNotBeEqualsWithDifferentAddress() {
+    public void shouldNotBeEqualsWithDifferentNumber() {
         Email first = createOne();
         Email second = createOne();
         assertThat(second).isNotEqualTo(first);

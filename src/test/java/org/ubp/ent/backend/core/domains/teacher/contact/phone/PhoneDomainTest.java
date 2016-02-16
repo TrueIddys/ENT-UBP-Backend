@@ -15,6 +15,10 @@ public class PhoneDomainTest {
         return new PhoneDomain(PhoneTest.createOne());
     }
 
+    public static PhoneDomain createOne(String number) {
+        return new PhoneDomain(PhoneTest.createOne(number));
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNullModel() {
         new PhoneDomain(null);
@@ -38,6 +42,21 @@ public class PhoneDomainTest {
 
         assertThat(model.getId()).isEqualTo(domain.getId());
         assertThat(model.getDetails()).isEqualTo(domain.getDetails().toModel());
+    }
+
+
+    @Test
+    public void shouldBeEqualsBasedOnNumber() {
+        PhoneDomain first = createOne("04 00 00 00 00");
+        PhoneDomain second = createOne("04 00 00 00 00");
+        assertThat(second).isEqualTo(first);
+    }
+
+    @Test
+    public void shouldNotBeEqualsWithDifferentNumber() {
+        PhoneDomain first = createOne();
+        PhoneDomain second = createOne();
+        assertThat(second).isNotEqualTo(first);
     }
 
 }

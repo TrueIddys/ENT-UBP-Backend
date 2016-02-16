@@ -2,6 +2,7 @@ package org.ubp.ent.backend.core.model.teacher.contact.phone;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.base.Objects;
 
 /**
  * Created by Anthony on 13/01/2016.
@@ -29,6 +30,19 @@ public class Phone {
 
     public PhoneDetails getDetails() {
         return details;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Phone phone = (Phone) o;
+        return Objects.equal(details, phone.details);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(details);
     }
 
 }

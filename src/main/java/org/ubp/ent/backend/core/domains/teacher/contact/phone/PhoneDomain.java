@@ -1,7 +1,9 @@
 package org.ubp.ent.backend.core.domains.teacher.contact.phone;
 
+import com.google.common.base.Objects;
 import org.ubp.ent.backend.core.domains.ModelTransformable;
 import org.ubp.ent.backend.core.model.teacher.contact.phone.Phone;
+import org.ubp.ent.backend.core.model.teacher.contact.phone.PhoneDetails;
 
 import javax.persistence.*;
 
@@ -47,6 +49,19 @@ public class PhoneDomain implements ModelTransformable<Phone> {
         Phone model = new Phone(details.toModel());
         model.setId(id);
         return model;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PhoneDomain that = (PhoneDomain) o;
+        return Objects.equal(details, that.details);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(details);
     }
 
 }

@@ -42,11 +42,13 @@ public class ClassroomControllerTest extends WebIntegrationTest {
             String json = mapper.writeValueAsString(model);
             perform(post(CLASSROOM_BASE_URL).content(json).contentType(MediaType.APPLICATION_JSON_UTF8))
                     .andExpect(status().isCreated())
-                    .andDo(result -> {
-                        String response = result.getResponse().getContentAsString();
-                        Classroom createdClassroom = mapper.readValue(response, Classroom.class);
-                        created.add(createdClassroom);
-                    });
+                    .andDo(
+                            result -> {
+                                String response = result.getResponse().getContentAsString();
+                                Classroom createdClassroom = mapper.readValue(response, Classroom.class);
+                                created.add(createdClassroom);
+                            }
+                    );
         }
         return created;
     }

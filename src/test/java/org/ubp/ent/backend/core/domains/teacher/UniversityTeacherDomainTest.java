@@ -23,7 +23,9 @@ public class UniversityTeacherDomainTest {
 
         assertThat(domain.getId()).isEqualTo(model.getId());
         assertThat(domain.getName().toModel()).isEqualTo(model.getName());
-        assertThat(domain.getContact().toModel()).isEqualTo(model.getContact());
+        assertThat(domain.getContact().getAddresses()).hasSameSizeAs(model.getContact().getAddresses());
+        assertThat(domain.getContact().getEmails()).hasSameSizeAs(model.getContact().getEmails());
+        assertThat(domain.getContact().getPhones()).hasSameSizeAs(model.getContact().getPhones());
     }
 
     @Test
@@ -34,7 +36,9 @@ public class UniversityTeacherDomainTest {
 
         assertThat(model.getId()).isEqualTo(domain.getId());
         assertThat(model.getName()).isEqualTo(domain.getName().toModel());
-        assertThat(model.getContact()).isEqualTo(domain.getContact().toModel());
+        assertThat(model.getContact().getAddresses()).hasSameSizeAs(domain.getContact().getAddresses());
+        assertThat(model.getContact().getEmails()).hasSameSizeAs(domain.getContact().getEmails());
+        assertThat(model.getContact().getPhones()).hasSameSizeAs(domain.getContact().getPhones());
     }
 
 }

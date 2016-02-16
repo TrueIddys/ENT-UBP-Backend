@@ -7,7 +7,6 @@ import org.ubp.ent.backend.core.dao.manager.teacher.OutsiderTeacherManager;
 import org.ubp.ent.backend.core.dao.manager.teacher.UniversityTeacherManager;
 import org.ubp.ent.backend.core.dao.manager.teacher.contact.address.AddressTypeManager;
 import org.ubp.ent.backend.core.dao.manager.teacher.contact.email.EmailTypeManager;
-import org.ubp.ent.backend.core.dao.manager.teacher.contact.phone.PhoneTypeManager;
 import org.ubp.ent.backend.core.model.teacher.OutsiderTeacher;
 import org.ubp.ent.backend.core.model.teacher.OutsiderTeacherTest;
 import org.ubp.ent.backend.core.model.teacher.UniversityTeacher;
@@ -18,9 +17,6 @@ import org.ubp.ent.backend.core.model.teacher.contact.address.AddressTypeTest;
 import org.ubp.ent.backend.core.model.teacher.contact.email.Email;
 import org.ubp.ent.backend.core.model.teacher.contact.email.EmailType;
 import org.ubp.ent.backend.core.model.teacher.contact.email.EmailTypeTest;
-import org.ubp.ent.backend.core.model.teacher.contact.phone.Phone;
-import org.ubp.ent.backend.core.model.teacher.contact.phone.PhoneType;
-import org.ubp.ent.backend.core.model.teacher.contact.phone.PhoneTypeTest;
 
 import javax.inject.Inject;
 
@@ -40,8 +36,6 @@ public class TestScenarioHelper {
     private AddressTypeManager addressTypeM;
     @Inject
     private EmailTypeManager emailTypeM;
-    @Inject
-    private PhoneTypeManager phoneTypeM;
 
     /*
      * UniversityTeacher
@@ -57,9 +51,6 @@ public class TestScenarioHelper {
         model.getContact().getEmails().stream()
                 .map(Email::getType)
                 .forEach(emailTypeM::create);
-        model.getContact().getPhones().stream()
-                .map(Phone::getType)
-                .forEach(phoneTypeM::create);
 
         return universityTeacherM.create(model);
     }
@@ -82,9 +73,6 @@ public class TestScenarioHelper {
         model.getContact().getEmails().stream()
                 .map(Email::getType)
                 .forEach(emailTypeM::create);
-        model.getContact().getPhones().stream()
-                .map(Phone::getType)
-                .forEach(phoneTypeM::create);
 
         return outsiderTeacherM.create(model);
     }
@@ -113,17 +101,6 @@ public class TestScenarioHelper {
 
     public EmailType createEmailType(EmailType model) {
         return emailTypeM.create(model);
-    }
-
-    /*
-     * PhoneType
-     */
-    public PhoneType createPhoneType() {
-        return createPhoneType(PhoneTypeTest.createOne());
-    }
-
-    public PhoneType createPhoneType(PhoneType model) {
-        return phoneTypeM.create(model);
     }
 
 }

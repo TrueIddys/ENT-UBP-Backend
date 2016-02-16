@@ -69,7 +69,6 @@ public class ContactDomainTest {
         AddressDomain address1 = AddressDomainTest.createOne("Home");
         contact.addAddress(address1);
 
-
         AddressDomain address2 = AddressDomainTest.createOne("Home");
         contact.addAddress(address2);
 
@@ -82,7 +81,6 @@ public class ContactDomainTest {
 
         AddressDomain address1 = AddressDomainTest.createOne("Home");
         contact.addAddress(address1);
-
 
         AddressDomain address2 = AddressDomainTest.createOne("Secondary Home");
         contact.addAddress(address2);
@@ -103,28 +101,13 @@ public class ContactDomainTest {
     }
 
     @Test
-    public void shouldNotAddTwoPhoneWithSameType() {
-        ContactDomain contact = createOneEmpty();
-
-        PhoneDomain phone1 = PhoneDomainTest.createOne("Home");
-        contact.addPhone(phone1);
-
-
-        PhoneDomain phone2 = PhoneDomainTest.createOne("Home");
-        contact.addPhone(phone2);
-
-        assertThat(contact.getPhones()).containsOnly(phone2);
-    }
-
-    @Test
     public void shouldAddTwoPhoneWithDifferentTypes() {
         ContactDomain contact = createOneEmpty();
 
-        PhoneDomain phone1 = PhoneDomainTest.createOne("Home");
+        PhoneDomain phone1 = PhoneDomainTest.createOne();
         contact.addPhone(phone1);
 
-
-        PhoneDomain phone2 = PhoneDomainTest.createOne("Mobile");
+        PhoneDomain phone2 = PhoneDomainTest.createOne();
         contact.addPhone(phone2);
 
         assertThat(contact.getPhones()).containsOnly(phone1, phone2);
@@ -149,7 +132,6 @@ public class ContactDomainTest {
         EmailDomain email1 = EmailDomainTest.createOne("University");
         contact.addEmail(email1);
 
-
         EmailDomain email2 = EmailDomainTest.createOne("University");
         contact.addEmail(email2);
 
@@ -162,7 +144,6 @@ public class ContactDomainTest {
 
         EmailDomain email1 = EmailDomainTest.createOne("University");
         contact.addEmail(email1);
-
 
         EmailDomain email2 = EmailDomainTest.createOne("Personal");
         contact.addEmail(email2);

@@ -18,15 +18,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PhoneManagerTest extends WebApplicationTest {
 
     @Inject
-    private PhoneTypeManager phoneTypeManager;
-    @Inject
     private PhoneManager phoneManager;
     @Inject
     private PhoneRepository repository;
 
     public Phone createPersistedPhone() {
         Phone model = PhoneTest.createOne();
-        phoneTypeManager.create(model.getType());
         phoneManager.create(model);
         return model;
     }

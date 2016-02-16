@@ -18,7 +18,6 @@ import org.ubp.ent.backend.core.model.teacher.contact.email.EmailTest;
 import org.ubp.ent.backend.core.model.teacher.contact.email.EmailType;
 import org.ubp.ent.backend.core.model.teacher.contact.phone.Phone;
 import org.ubp.ent.backend.core.model.teacher.contact.phone.PhoneTest;
-import org.ubp.ent.backend.core.model.teacher.contact.phone.PhoneType;
 import org.ubp.ent.backend.utils.TestScenarioHelper;
 import org.ubp.ent.backend.utils.WebApplicationTest;
 
@@ -278,8 +277,7 @@ public class OutsiderTeacherManagerTest extends WebApplicationTest {
 
     @Test(expected = TeacherResourceNotFoundException.class)
     public void shouldFailAddPhoneWithNonExistingTeacher() {
-        PhoneType type = scenarioHelper.createPhoneType();
-        outsiderTeacherManager.addPhone(12L, PhoneTest.createOne(type));
+        outsiderTeacherManager.addPhone(12L, PhoneTest.createOne());
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -294,16 +292,10 @@ public class OutsiderTeacherManagerTest extends WebApplicationTest {
         outsiderTeacherManager.addPhone(12L, model);
     }
 
-    @Test(expected = PhoneTypeResourceNotFoundException.class)
-    public void shouldFailAddPhoneWithPhoneHavingNonExistingType() {
-        OutsiderTeacher model = scenarioHelper.createEmptyOutsiderTeacher();
-        outsiderTeacherManager.addPhone(model.getId(), PhoneTest.createOne());
-    }
-
     @Test
     public void shouldAddPhone() {
         OutsiderTeacher teacher = scenarioHelper.createEmptyOutsiderTeacher();
-        Phone phone = PhoneTest.createOne(scenarioHelper.createPhoneType());
+        Phone phone = PhoneTest.createOne();
 
         assertThat(outsiderTeacherManager.findOneById(teacher.getId()).getContact().getPhones()).isEmpty();
         Phone saved = outsiderTeacherManager.addPhone(teacher.getId(), phone);

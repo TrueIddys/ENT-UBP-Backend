@@ -55,7 +55,6 @@ public class ContactTest {
         Address address1 = AddressTest.createOne("Home");
         contact.addAddress(address1);
 
-
         Address address2 = AddressTest.createOne("Home");
         contact.addAddress(address2);
 
@@ -68,7 +67,6 @@ public class ContactTest {
 
         Address address1 = AddressTest.createOne("Home");
         contact.addAddress(address1);
-
 
         Address address2 = AddressTest.createOne("Secondary Home");
         contact.addAddress(address2);
@@ -89,28 +87,13 @@ public class ContactTest {
     }
 
     @Test
-    public void shouldNotAddTwoPhoneWithSameType() {
-        Contact contact = createOneEmpty();
-
-        Phone phone1 = PhoneTest.createOne("Home");
-        contact.addPhone(phone1);
-
-
-        Phone phone2 = PhoneTest.createOne("Home");
-        contact.addPhone(phone2);
-
-        assertThat(contact.getPhones()).containsOnly(phone2);
-    }
-
-    @Test
     public void shouldAddTwoPhoneWithDifferentTypes() {
         Contact contact = createOneEmpty();
 
-        Phone phone1 = PhoneTest.createOne("Home");
+        Phone phone1 = PhoneTest.createOne();
         contact.addPhone(phone1);
 
-
-        Phone phone2 = PhoneTest.createOne("Mobile");
+        Phone phone2 = PhoneTest.createOne();
         contact.addPhone(phone2);
 
         assertThat(contact.getPhones()).containsOnly(phone1, phone2);
@@ -135,7 +118,6 @@ public class ContactTest {
         Email email1 = EmailTest.createOne("University");
         contact.addEmail(email1);
 
-
         Email email2 = EmailTest.createOne("University");
         contact.addEmail(email2);
 
@@ -148,7 +130,6 @@ public class ContactTest {
 
         Email email1 = EmailTest.createOne("University");
         contact.addEmail(email1);
-
 
         Email email2 = EmailTest.createOne("Personal");
         contact.addEmail(email2);

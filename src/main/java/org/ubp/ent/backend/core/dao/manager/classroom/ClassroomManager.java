@@ -87,12 +87,14 @@ public class ClassroomManager {
     public List<Classroom> findAllJoiningEquipments() {
         List<ClassroomDomain> domains = classroomRepository.findJoiningEquipments();
 
-        return domains.parallelStream().map(domain -> {
-            Classroom model = domain.toModel();
-            domain.getEquipments().forEach(e -> model.addEquipment(e.toModel()));
+        return domains.parallelStream().map(
+                domain -> {
+                    Classroom model = domain.toModel();
+                    domain.getEquipments().forEach(e -> model.addEquipment(e.toModel()));
 
-            return model;
-        }).collect(Collectors.toList());
+                    return model;
+                }
+        ).collect(Collectors.toList());
     }
 
     public RoomEquipment addEquipment(Long classroomId, Long equipmentTypeId, Quantity quantity) {

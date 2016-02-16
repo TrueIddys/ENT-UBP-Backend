@@ -3,8 +3,11 @@ package org.ubp.ent.backend.utils;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
 import org.ubp.ent.backend.config.conditional.condition.TestProfileCondition;
+import org.ubp.ent.backend.core.dao.manager.course.CourseManager;
 import org.ubp.ent.backend.core.dao.manager.teacher.OutsiderTeacherManager;
 import org.ubp.ent.backend.core.dao.manager.teacher.UniversityTeacherManager;
+import org.ubp.ent.backend.core.model.course.Course;
+import org.ubp.ent.backend.core.model.course.CourseTest;
 import org.ubp.ent.backend.core.model.teacher.OutsiderTeacher;
 import org.ubp.ent.backend.core.model.teacher.OutsiderTeacherTest;
 import org.ubp.ent.backend.core.model.teacher.UniversityTeacher;
@@ -23,6 +26,9 @@ public class TestScenarioHelper {
     private UniversityTeacherManager universityTeacherM;
     @Inject
     private OutsiderTeacherManager outsiderTeacherM;
+
+    @Inject
+    private CourseManager courseM;
 
     /*
      * UniversityTeacher
@@ -52,6 +58,17 @@ public class TestScenarioHelper {
 
     public OutsiderTeacher createEmptyOutsiderTeacher() {
         return createOutsiderTeacher(OutsiderTeacherTest.createOneEmpty());
+    }
+
+    /*
+     * Course
+     */
+    public Course createCourse() {
+        return createCourse(CourseTest.createOne());
+    }
+
+    private Course createCourse(Course model) {
+        return courseM.create(model);
     }
 
 }

@@ -37,4 +37,32 @@ public class UniversityTeacherTest {
         assertThat(teacher.getContact()).isEqualTo(contact);
     }
 
+    @Test
+    public void shouldBeEqualById() {
+        Teacher first = UniversityTeacherTest.createOne();
+        first.setId(1L);
+        Teacher second = UniversityTeacherTest.createOne();
+        second.setId(1L);
+
+        assertThat(first).isEqualTo(second);
+    }
+
+    @Test
+    public void shouldNotBeEqualWithDifferentIds() {
+        Teacher first = UniversityTeacherTest.createOne();
+        first.setId(1L);
+        Teacher second = UniversityTeacherTest.createOne();
+        second.setId(2L);
+
+        assertThat(first).isNotEqualTo(second);
+    }
+
+    @Test
+    public void shouldNotBeEqualWithNullIds() {
+        Teacher first = UniversityTeacherTest.createOne();
+        Teacher second = UniversityTeacherTest.createOne();
+
+        assertThat(first).isNotEqualTo(second);
+    }
+
 }

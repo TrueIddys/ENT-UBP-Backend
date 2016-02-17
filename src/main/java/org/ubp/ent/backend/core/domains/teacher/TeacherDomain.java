@@ -52,4 +52,8 @@ public abstract class TeacherDomain<T extends Teacher> implements ModelTransform
         return contact;
     }
 
+    // Need to be defined when calling .toModel() on abstract type teacher.
+    // Otherwise, javac consider Teacher::toModel() to return Object
+    public abstract T toModel();
+
 }

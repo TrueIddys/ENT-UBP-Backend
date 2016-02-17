@@ -5,6 +5,7 @@ import org.ubp.ent.backend.core.model.course.Course;
 import org.ubp.ent.backend.core.model.course.CourseTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  * Created by Maxime on 15/02/2016.
@@ -45,7 +46,34 @@ public class CourseDomainTest {
         assertThat(newModel.getId()).isEqualTo(model.getId());
         assertThat(newModel.getName()).isEqualTo(model.getName());
         assertThat(newModel.getType()).isEqualTo(model.getType());
+    }
 
+    @Test
+    public void shouldBeEqualById() {
+        CourseDomain first = CourseDomainTest.createOne();
+        first.setId(1L);
+        CourseDomain second = CourseDomainTest.createOne();
+        second.setId(1L);
+
+        assertThat(first).isEqualTo(second);
+    }
+
+    @Test
+    public void shouldNotBeEqualWithDifferentIds() {
+        CourseDomain first = CourseDomainTest.createOne();
+        first.setId(1L);
+        CourseDomain second = CourseDomainTest.createOne();
+        second.setId(2L);
+
+        assertThat(first).isNotEqualTo(second);
+    }
+
+    @Test
+    public void shouldNotBeEqualWithNullIds() {
+        CourseDomain first = CourseDomainTest.createOne();
+        CourseDomain second = CourseDomainTest.createOne();
+
+        assertThat(first).isNotEqualTo(second);
     }
 
 }

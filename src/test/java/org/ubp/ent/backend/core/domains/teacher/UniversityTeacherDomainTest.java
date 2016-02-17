@@ -41,4 +41,32 @@ public class UniversityTeacherDomainTest {
         assertThat(model.getContact().getPhones()).hasSameSizeAs(domain.getContact().getPhones());
     }
 
+    @Test
+    public void shouldBeEqualById() {
+        UniversityTeacherDomain first = UniversityTeacherDomainTest.createOne();
+        first.setId(1L);
+        UniversityTeacherDomain second = UniversityTeacherDomainTest.createOne();
+        second.setId(1L);
+
+        assertThat(first).isEqualTo(second);
+    }
+
+    @Test
+    public void shouldNotBeEqualWithDifferentIds() {
+        UniversityTeacherDomain first = UniversityTeacherDomainTest.createOne();
+        first.setId(1L);
+        UniversityTeacherDomain second = UniversityTeacherDomainTest.createOne();
+        second.setId(2L);
+
+        assertThat(first).isNotEqualTo(second);
+    }
+
+    @Test
+    public void shouldNotBeEqualWithNullIds() {
+        UniversityTeacherDomain first = UniversityTeacherDomainTest.createOne();
+        UniversityTeacherDomain second = UniversityTeacherDomainTest.createOne();
+
+        assertThat(first).isNotEqualTo(second);
+    }
+
 }

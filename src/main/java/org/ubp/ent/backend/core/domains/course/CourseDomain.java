@@ -1,5 +1,6 @@
 package org.ubp.ent.backend.core.domains.course;
 
+import com.google.common.base.Objects;
 import org.ubp.ent.backend.core.domains.ModelTransformable;
 import org.ubp.ent.backend.core.model.course.Course;
 import org.ubp.ent.backend.core.model.type.ClassroomType;
@@ -61,4 +62,19 @@ public class CourseDomain implements ModelTransformable<Course> {
 
         return course;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CourseDomain other = (CourseDomain) o;
+        if (this.id == null || other.id == null) return false;
+        return Objects.equal(id, other.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
+
 }

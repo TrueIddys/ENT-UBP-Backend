@@ -51,7 +51,34 @@ public class CourseTest {
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNullClassroomType() {
         new Course(createValidName(), null);
+    }
 
+    @Test
+    public void shouldBeEqualById() {
+        Course first = CourseTest.createOne();
+        first.setId(1L);
+        Course second = CourseTest.createOne();
+        second.setId(1L);
+
+        assertThat(first).isEqualTo(second);
+    }
+
+    @Test
+    public void shouldNotBeEqualWithDifferentIds() {
+        Course first = CourseTest.createOne();
+        first.setId(1L);
+        Course second = CourseTest.createOne();
+        second.setId(2L);
+
+        assertThat(first).isNotEqualTo(second);
+    }
+
+    @Test
+    public void shouldNotBeEqualWithNullIds() {
+        Course first = CourseTest.createOne();
+        Course second = CourseTest.createOne();
+
+        assertThat(first).isNotEqualTo(second);
     }
 
 }

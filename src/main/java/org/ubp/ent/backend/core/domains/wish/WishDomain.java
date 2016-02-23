@@ -59,6 +59,14 @@ public class WishDomain implements ModelTransformable<Wish> {
         return state;
     }
 
+    public void accept() {
+        this.state = WishState.ACCEPTED;
+    }
+
+    public void deny() {
+        this.state = WishState.DENIED;
+    }
+
     @Override
     public Wish toModel() {
         return new Wish(getCourse().toModel(), getTeacher().toModel(), state);

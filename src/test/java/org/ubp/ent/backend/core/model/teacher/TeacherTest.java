@@ -13,37 +13,75 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class TeacherTest {
 
-    private static DefaultTeacher createOne(Name name, Contact contact) {
-        return new DefaultTeacher(name, contact);
+    public static Teacher createOne() {
+        return createOne(NameTest.createOne(), ContactTest.createOne());
+    }
+
+    private static Teacher createOne(Name name, Contact contact) {
+        return createOne(name, contact, TeacherType.UNIVERSITY_TEACHER);
+    }
+
+    private static Teacher createOne(Name name, Contact contact, TeacherType type) {
+        return new Teacher(name, contact, type);
+    }
+
+    public static Teacher createOneEmpty() {
+        return createOne(NameTest.createOne(), ContactTest.createOneEmpty());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNullName() {
-        new DefaultTeacher(null, ContactTest.createOne());
+        new Teacher(null, ContactTest.createOne(), TeacherType.UNIVERSITY_TEACHER);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNullContact() {
-        new DefaultTeacher(NameTest.createOne(), null);
+        new Teacher(NameTest.createOne(), null, TeacherType.UNIVERSITY_TEACHER);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldNotInstantiateWithNullType() {
+        new Teacher(NameTest.createOne(), ContactTest.createOne(), null);
     }
 
     @Test
     public void shouldInstantiate() {
         Name name = NameTest.createOne();
         Contact contact = ContactTest.createOne();
-        DefaultTeacher teacher = new DefaultTeacher(name, contact);
+        Teacher teacher = new Teacher(name, contact, TeacherType.UNIVERSITY_TEACHER);
 
         assertThat(teacher.getId()).isNull();
         assertThat(teacher.getName()).isEqualTo(name);
         assertThat(teacher.getContact()).isEqualTo(contact);
+        assertThat(teacher.getType()).isEqualTo(TeacherType.UNIVERSITY_TEACHER);
     }
 
-    private static class DefaultTeacher extends Teacher {
+    @Test
+    public void shouldBeEqualById() {
+        Teacher first = TeacherTest.createOne();
+        first.setId(1L);
+        Teacher second = TeacherTest.createOne();
+        second.setId(1L);
 
-        public DefaultTeacher(Name name, Contact contact) {
-            super(name, contact);
-        }
+        assertThat(first).isEqualTo(second);
+    }
 
+    @Test
+    public void shouldNotBeEqualWithDifferentIds() {
+        Teacher first = TeacherTest.createOne();
+        first.setId(1L);
+        Teacher second = TeacherTest.createOne();
+        second.setId(2L);
+
+        assertThat(first).isNotEqualTo(second);
+    }
+
+    @Test
+    public void shouldNotBeEqualWithNullIds() {
+        Teacher first = TeacherTest.createOne();
+        Teacher second = TeacherTest.createOne();
+
+        assertThat(first).isNotEqualTo(second);
     }
 
 }

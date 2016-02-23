@@ -4,14 +4,11 @@ import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
 import org.ubp.ent.backend.config.conditional.condition.TestProfileCondition;
 import org.ubp.ent.backend.core.dao.manager.course.CourseManager;
-import org.ubp.ent.backend.core.dao.manager.teacher.OutsiderTeacherManager;
-import org.ubp.ent.backend.core.dao.manager.teacher.UniversityTeacherManager;
+import org.ubp.ent.backend.core.dao.manager.teacher.TeacherManager;
 import org.ubp.ent.backend.core.model.course.Course;
 import org.ubp.ent.backend.core.model.course.CourseTest;
-import org.ubp.ent.backend.core.model.teacher.OutsiderTeacher;
-import org.ubp.ent.backend.core.model.teacher.OutsiderTeacherTest;
-import org.ubp.ent.backend.core.model.teacher.UniversityTeacher;
-import org.ubp.ent.backend.core.model.teacher.UniversityTeacherTest;
+import org.ubp.ent.backend.core.model.teacher.Teacher;
+import org.ubp.ent.backend.core.model.teacher.TeacherTest;
 
 import javax.inject.Inject;
 
@@ -23,42 +20,26 @@ import javax.inject.Inject;
 public class TestScenarioHelper {
 
     @Inject
-    private UniversityTeacherManager universityTeacherM;
-    @Inject
-    private OutsiderTeacherManager outsiderTeacherM;
+    private TeacherManager teacherM;
 
     @Inject
     private CourseManager courseM;
 
     /*
-     * UniversityTeacher
+     * Teacher
      */
-    public UniversityTeacher createUniversityTeacher() {
-        return createUniversityTeacher(UniversityTeacherTest.createOne());
+    public Teacher createTeacher() {
+        return createTeacher(TeacherTest.createOne());
     }
 
-    public UniversityTeacher createUniversityTeacher(UniversityTeacher model) {
-        return universityTeacherM.create(model);
+    public Teacher createTeacher(Teacher model) {
+        return teacherM.create(model);
     }
 
-    public UniversityTeacher createEmptyUniversityTeacher() {
-        return createUniversityTeacher(UniversityTeacherTest.createOneEmpty());
+    public Teacher createEmptyTeacher() {
+        return createTeacher(TeacherTest.createOneEmpty());
     }
 
-    /*
-     * OutsiderTeacher
-     */
-    public OutsiderTeacher createOutsiderTeacher() {
-        return createOutsiderTeacher(OutsiderTeacherTest.createOne());
-    }
-
-    public OutsiderTeacher createOutsiderTeacher(OutsiderTeacher model) {
-        return outsiderTeacherM.create(model);
-    }
-
-    public OutsiderTeacher createEmptyOutsiderTeacher() {
-        return createOutsiderTeacher(OutsiderTeacherTest.createOneEmpty());
-    }
 
     /*
      * Course

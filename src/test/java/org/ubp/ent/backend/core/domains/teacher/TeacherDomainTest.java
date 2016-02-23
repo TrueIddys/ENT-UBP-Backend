@@ -2,10 +2,7 @@ package org.ubp.ent.backend.core.domains.teacher;
 
 import org.junit.Test;
 import org.ubp.ent.backend.core.model.teacher.Teacher;
-import org.ubp.ent.backend.core.model.teacher.contact.Contact;
-import org.ubp.ent.backend.core.model.teacher.contact.ContactTest;
-import org.ubp.ent.backend.core.model.teacher.name.Name;
-import org.ubp.ent.backend.core.model.teacher.name.NameTest;
+import org.ubp.ent.backend.core.model.teacher.TeacherTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -14,45 +11,73 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class TeacherDomainTest {
 
+    public static TeacherDomain createOne() {
+        return createOne(TeacherTest.createOne());
+    }
+
+    public static TeacherDomain createOne(Teacher model) {
+        return new TeacherDomain(model);
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNullModel() {
-        new DefaultTeacherDomain(null);
+        new TeacherDomain(null);
     }
 
     @Test
     public void shouldCreateFromModel() {
-        DefaultTeacher model = new DefaultTeacher(NameTest.createOne(), ContactTest.createOne());
+        Teacher model = TeacherTest.createOne();
         model.setId(12L);
-        DefaultTeacherDomain domain = new DefaultTeacherDomain(model);
+        TeacherDomain domain = new TeacherDomain(model);
 
         assertThat(domain.getId()).isEqualTo(model.getId());
         assertThat(domain.getName().toModel()).isEqualTo(model.getName());
         assertThat(domain.getContact().getAddresses()).hasSameSizeAs(model.getContact().getAddresses());
         assertThat(domain.getContact().getEmails()).hasSameSizeAs(model.getContact().getEmails());
         assertThat(domain.getContact().getPhones()).hasSameSizeAs(model.getContact().getPhones());
+        assertThat(domain.getType()).isEqualTo(model.getType());
     }
 
+    @Test
+    public void shouldTransformToModel() {
+        TeacherDomain domain = TeacherDomainTest.createOne();
+        domain.setId(12L);
+        Teacher model = domain.toModel();
 
-    private static class DefaultTeacherDomain extends TeacherDomain<DefaultTeacher> {
-
-        public DefaultTeacherDomain() {
-        }
-
-        public DefaultTeacherDomain(DefaultTeacher model) {
-            super(model);
-        }
-
-        @Override
-        public DefaultTeacher toModel() {
-            return null;
-        }
+        assertThat(model.getId()).isEqualTo(domain.getId());
+        assertThat(model.getName()).isEqualTo(domain.getName().toModel());
+        assertThat(model.getContact().getAddresses()).hasSameSizeAs(domain.getContact().getAddresses());
+        assertThat(model.getContact().getEmails()).hasSameSizeAs(domain.getContact().getEmails());
+        assertThat(model.getContact().getPhones()).hasSameSizeAs(domain.getContact().getPhones());
+        assertThat(model.getType()).isEqualTo(domain.getType());
     }
 
-    private static class DefaultTeacher extends Teacher {
+    @Test
+    public void shouldBeEqualById() {
+        TeacherDomain first = TeacherDomainTest.createOne();
+        first.setId(1L);
+        TeacherDomain second = TeacherDomainTest.createOne();
+        second.setId(1L);
 
-        public DefaultTeacher(Name name, Contact contact) {
-            super(name, contact);
-        }
+        assertThat(first).isEqualTo(second);
+    }
+
+    @Test
+    public void shouldNotBeEqualWithDifferentIds() {
+        TeacherDomain first = TeacherDomainTest.createOne();
+        first.setId(1L);
+        TeacherDomain second = TeacherDomainTest.createOne();
+        second.setId(2L);
+
+        assertThat(first).isNotEqualTo(second);
+    }
+
+    @Test
+    public void shouldNotBeEqualWithNullIds() {
+        TeacherDomain first = TeacherDomainTest.createOne();
+        TeacherDomain second = TeacherDomainTest.createOne();
+
+        assertThat(first).isNotEqualTo(second);
     }
 
 }

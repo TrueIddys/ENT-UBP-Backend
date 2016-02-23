@@ -2,11 +2,7 @@ package org.ubp.ent.backend.core.domains.wish;
 
 import org.ubp.ent.backend.core.domains.ModelTransformable;
 import org.ubp.ent.backend.core.domains.course.CourseDomain;
-import org.ubp.ent.backend.core.domains.teacher.OutsiderTeacherDomain;
 import org.ubp.ent.backend.core.domains.teacher.TeacherDomain;
-import org.ubp.ent.backend.core.domains.teacher.UniversityTeacherDomain;
-import org.ubp.ent.backend.core.model.teacher.OutsiderTeacher;
-import org.ubp.ent.backend.core.model.teacher.UniversityTeacher;
 import org.ubp.ent.backend.core.model.wish.Wish;
 
 import javax.persistence.*;
@@ -35,15 +31,8 @@ public class WishDomain implements ModelTransformable<Wish> {
         }
 
         CourseDomain course = new CourseDomain(model.getCourse());
-        TeacherDomain teacher;
-        // TODO : find a better solution
-        if (model.getTeacher().getClass().equals(UniversityTeacher.class)) {
-            teacher = new UniversityTeacherDomain((UniversityTeacher) model.getTeacher());
-        } else if (model.getTeacher().getClass().equals(OutsiderTeacher.class)) {
-            teacher = new OutsiderTeacherDomain((OutsiderTeacher) model.getTeacher());
-        } else {
-            throw new UnsupportedOperationException("Unknown teacher type");
-        }
+        TeacherDomain teacher = new TeacherDomain(model.getTeacher());
+
         this.primaryKey = new WishDomainId(course, teacher);
     }
 

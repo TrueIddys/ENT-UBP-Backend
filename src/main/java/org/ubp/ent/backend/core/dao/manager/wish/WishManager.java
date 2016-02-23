@@ -7,6 +7,7 @@ import org.ubp.ent.backend.core.dao.manager.teacher.TeacherManager;
 import org.ubp.ent.backend.core.dao.repository.wish.WishRepository;
 import org.ubp.ent.backend.core.domains.wish.WishDomain;
 import org.ubp.ent.backend.core.exceptions.database.CourseAlreadyAssignedToAnotherWish;
+import org.ubp.ent.backend.core.exceptions.database.ModelConstraintViolationException;
 import org.ubp.ent.backend.core.exceptions.database.notfound.impl.WishResourceNotFoundException;
 import org.ubp.ent.backend.core.model.course.Course;
 import org.ubp.ent.backend.core.model.teacher.Teacher;
@@ -88,9 +89,12 @@ public class WishManager {
         Course course = courseManager.findOneById(courseId);
         Teacher teacher = teacherManager.findOneById(teacherId);
 
+        if(wishRepository.findAcceptedWishForCourse(course.getId()) != null) {
+            throw new CourseAlreadyAssignedToAnotherWish("An other " + Wish.class.getName() + " is already accepted for the course with id '" + courseId + "'");
+        }
         Wish model = new Wish(course, teacher, WishState.PENDING);
         if (wishRepository.exists(new WishDomain(model).getId())) {
-            throw new DataIntegrityViolationException("A " + Wish.class.getName() + " already exists for this " + Teacher.class.getName() + " and " + Course.class.getName());
+            throw new ModelConstraintViolationException("A " + Wish.class.getName() + " already exists for this " + Teacher.class.getName() + " and " + Course.class.getName());
         }
 
         WishDomain domain = new WishDomain(model);

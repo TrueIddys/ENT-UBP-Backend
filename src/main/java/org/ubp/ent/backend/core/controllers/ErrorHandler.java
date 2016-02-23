@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.ubp.ent.backend.core.exceptions.database.AlreadyDefinedInOnNonPersistedEntity;
+import org.ubp.ent.backend.core.exceptions.database.CourseAlreadyAssignedToAnotherWish;
 import org.ubp.ent.backend.core.exceptions.database.ModelConstraintViolationException;
 import org.ubp.ent.backend.core.exceptions.database.notfound.ResourceNotFoundException;
 
@@ -59,6 +60,14 @@ public class ErrorHandler {
     public void alreadyDefinedInOnNonPersistedClass(HttpServletRequest req, AlreadyDefinedInOnNonPersistedEntity e) {
         if (log.isInfoEnabled()) {
             log.info("Cannot create an object for the first time is id is already defined.", e);
+        }
+    }
+
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(CourseAlreadyAssignedToAnotherWish.class)
+    public void courseAlreadyAssignedToAnotherWish(HttpServletRequest req, CourseAlreadyAssignedToAnotherWish e) {
+        if (log.isInfoEnabled()) {
+            log.info("An illegal action has been made on wishes.", e);
         }
     }
 

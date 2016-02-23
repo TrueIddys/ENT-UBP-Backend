@@ -3,6 +3,7 @@ package org.ubp.ent.backend.core.dao.manager.wish;
 import org.junit.Test;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.ubp.ent.backend.core.exceptions.database.CourseAlreadyAssignedToAnotherWish;
+import org.ubp.ent.backend.core.exceptions.database.ModelConstraintViolationException;
 import org.ubp.ent.backend.core.exceptions.database.notfound.impl.CourseResourceNotFoundException;
 import org.ubp.ent.backend.core.exceptions.database.notfound.impl.TeacherResourceNotFoundException;
 import org.ubp.ent.backend.core.exceptions.database.notfound.impl.WishResourceNotFoundException;
@@ -19,7 +20,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
 import static org.ubp.ent.backend.core.model.wish.WishState.PENDING;
 
 /**
@@ -99,22 +99,22 @@ public class WishManagerTest extends WebApplicationTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldFailFindOneWithNullCourseId() {
-        wishManager.create(null, helper.createEmptyTeacher().getId());
+        wishManager.findOneForCourseAndTeacher(null, helper.createEmptyTeacher().getId());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldFailFindOneWithNullTeacherId() {
-        wishManager.create(helper.createCourse().getId(), null);
+        wishManager.findOneForCourseAndTeacher(helper.createCourse().getId(), null);
     }
 
     @Test(expected = CourseResourceNotFoundException.class)
     public void shouldFailFindOneWithNonExistingCourse() {
-        wishManager.create(22L, helper.createEmptyTeacher().getId());
+        wishManager.findOneForCourseAndTeacher(22L, helper.createEmptyTeacher().getId());
     }
 
     @Test(expected = TeacherResourceNotFoundException.class)
     public void shouldFailFindOneWithNonExistingTeacher() {
-        wishManager.create(helper.createCourse().getId(), 22L);
+        wishManager.findOneForCourseAndTeacher(helper.createCourse().getId(), 22L);
     }
 
     @Test(expected = WishResourceNotFoundException.class)
@@ -131,18 +131,6 @@ public class WishManagerTest extends WebApplicationTest {
         Wish fetched = wishManager.findOneForCourseAndTeacher(course.getId(), teacher.getId());
         assertThat(fetched.getCourse()).isEqualTo(course);
         assertThat(fetched.getTeacher()).isEqualTo(teacher);
-    }
-
-    @Test
-    public void shouldCreate() {
-        Course course = helper.createCourse();
-        Teacher teacher = helper.createEmptyTeacher();
-
-        wishManager.create(course.getId(), teacher.getId());
-
-        List<Wish> wishes = wishManager.findAll();
-        assertThat(wishes).hasSize(1);
-        assertThat(wishes.get(0).getState()).isEqualTo(PENDING);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -165,13 +153,37 @@ public class WishManagerTest extends WebApplicationTest {
         wishManager.create(helper.createCourse().getId(), 22L);
     }
 
-    @Test(expected = DataIntegrityViolationException.class)
+    @Test(expected = ModelConstraintViolationException.class)
     public void shouldFailCreateWishTwiceForSameCourseAndTeacher() {
         Course course = helper.createCourse();
         Teacher teacher = helper.createTeacher();
 
         wishManager.create(course.getId(), teacher.getId());
         wishManager.create(course.getId(), teacher.getId());
+    }
+
+    @Test(expected = CourseAlreadyAssignedToAnotherWish.class)
+    public void shouldFailCreateIfAWishIsAlreadyAcceptedForThisCourse() {
+        Course course = helper.createCourse();
+        Teacher t1 = helper.createEmptyTeacher();
+        Teacher t2 = helper.createEmptyTeacher();
+
+        wishManager.create(course.getId(), t1.getId());
+        wishManager.acceptWish(course.getId(), t1.getId());
+
+        wishManager.create(course.getId(), t2.getId());
+    }
+
+    @Test
+    public void shouldCreate() {
+        Course course = helper.createCourse();
+        Teacher teacher = helper.createEmptyTeacher();
+
+        wishManager.create(course.getId(), teacher.getId());
+
+        List<Wish> wishes = wishManager.findAll();
+        assertThat(wishes).hasSize(1);
+        assertThat(wishes.get(0).getState()).isEqualTo(PENDING);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -249,7 +261,7 @@ public class WishManagerTest extends WebApplicationTest {
     }
 
     @Test
-    public void shouldNotDenyAllOtherWishesOnDifferentCoursesWhenAcceptingWish () {
+    public void shouldNotDenyAllOtherWishesOnDifferentCoursesWhenAcceptingWish() {
         Course courseA = helper.createCourse();
         Course courseB = helper.createCourse();
         List<Teacher> teachers = Arrays.asList(helper.createEmptyTeacher(), helper.createEmptyTeacher(), helper.createEmptyTeacher());

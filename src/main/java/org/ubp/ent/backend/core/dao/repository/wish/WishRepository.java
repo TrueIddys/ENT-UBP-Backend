@@ -7,6 +7,7 @@ import org.ubp.ent.backend.core.domains.course.CourseDomain;
 import org.ubp.ent.backend.core.domains.teacher.TeacherDomain;
 import org.ubp.ent.backend.core.domains.wish.WishDomain;
 import org.ubp.ent.backend.core.domains.wish.WishDomainId;
+import org.ubp.ent.backend.core.model.wish.WishState;
 
 import java.util.List;
 
@@ -21,7 +22,9 @@ public interface WishRepository extends JpaRepository<WishDomain, WishDomainId> 
     @Query(value = "SELECT w FROM WishDomain w WHERE w.primaryKey.course.id = :courseId")
     List<WishDomain> findByCourseId(@Param("courseId") Long courseId);
 
-    @Query(value = "SELECT w FROM WishDomain w WHERE  w.primaryKey.teacher.id = :teacherId")
+    @Query(value = "SELECT w FROM WishDomain w WHERE w.primaryKey.teacher.id = :teacherId")
     List<WishDomain> findByTeacherId(@Param("teacherId") Long teacherId);
 
+    @Query(value = "SELECT w FROM WishDomain w WHERE w.primaryKey.course.id = :courseId AND w.state = '" + WishState.Constants.ACCEPTED_VALUE + "'")
+    WishDomain findAcceptedWishForCourse(@Param("courseId") Long courseId);
 }

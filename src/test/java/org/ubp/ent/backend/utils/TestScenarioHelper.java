@@ -5,10 +5,13 @@ import org.springframework.stereotype.Component;
 import org.ubp.ent.backend.config.conditional.condition.TestProfileCondition;
 import org.ubp.ent.backend.core.dao.manager.course.CourseManager;
 import org.ubp.ent.backend.core.dao.manager.teacher.TeacherManager;
+import org.ubp.ent.backend.core.dao.manager.wish.WishManager;
 import org.ubp.ent.backend.core.model.course.Course;
 import org.ubp.ent.backend.core.model.course.CourseTest;
 import org.ubp.ent.backend.core.model.teacher.Teacher;
 import org.ubp.ent.backend.core.model.teacher.TeacherTest;
+import org.ubp.ent.backend.core.model.wish.Wish;
+import org.ubp.ent.backend.core.model.wish.WishState;
 
 import javax.inject.Inject;
 
@@ -24,6 +27,9 @@ public class TestScenarioHelper {
 
     @Inject
     private CourseManager courseM;
+
+    @Inject
+    private WishManager wishM;
 
     /*
      * Teacher
@@ -48,8 +54,29 @@ public class TestScenarioHelper {
         return createCourse(CourseTest.createOne());
     }
 
-    private Course createCourse(Course model) {
+    public Course createCourse(Course model) {
         return courseM.create(model);
+    }
+
+    /*
+     * Wish
+     */
+    public Wish createWish() {
+        Course course = createCourse();
+        Teacher teacher = createEmptyTeacher();
+        return createWish(new Wish(course, teacher, WishState.PENDING));
+    }
+
+    public Wish createWishForCourse(Course course) {
+        return createWish(new Wish(course, createEmptyTeacher(), WishState.PENDING));
+    }
+
+    public Wish createWishForTeacher(Teacher teacher) {
+        return createWish(new Wish(createCourse(), teacher, WishState.PENDING));
+    }
+
+    public Wish createWish(Wish model) {
+        return wishM.create(model.getCourse().getId(), model.getTeacher().getId());
     }
 
 }

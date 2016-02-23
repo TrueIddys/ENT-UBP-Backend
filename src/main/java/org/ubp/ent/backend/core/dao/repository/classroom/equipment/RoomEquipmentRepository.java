@@ -8,7 +8,6 @@ import org.ubp.ent.backend.core.domains.classroom.equipement.RoomEquipmentDomain
 /**
  * Created by Anthony on 29/11/2015.
  */
-@Repository
 public interface RoomEquipmentRepository extends JpaRepository<RoomEquipmentDomain, RoomEquipmentDomainId> {
 
 }

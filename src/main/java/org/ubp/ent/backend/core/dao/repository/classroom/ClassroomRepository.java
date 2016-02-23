@@ -3,6 +3,7 @@ package org.ubp.ent.backend.core.dao.repository.classroom;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import org.ubp.ent.backend.core.domains.classroom.ClassroomDomain;
 
 import java.util.List;

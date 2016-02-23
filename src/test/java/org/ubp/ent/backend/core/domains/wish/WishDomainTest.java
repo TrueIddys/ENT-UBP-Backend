@@ -6,6 +6,7 @@ import org.ubp.ent.backend.core.domains.course.CourseDomainTest;
 import org.ubp.ent.backend.core.domains.teacher.TeacherDomain;
 import org.ubp.ent.backend.core.domains.teacher.TeacherDomainTest;
 import org.ubp.ent.backend.core.model.wish.Wish;
+import org.ubp.ent.backend.core.model.wish.WishState;
 import org.ubp.ent.backend.core.model.wish.WishTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -15,14 +16,19 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class WishDomainTest {
 
+    public static WishDomain createOne() {
+        return createOne(CourseDomainTest.createOne(), TeacherDomainTest.createOne());
+    }
+
     public static WishDomain createOne(CourseDomain course, TeacherDomain teacher) {
         Wish model = WishTest.createOne(course.toModel(), teacher.toModel());
         return new WishDomain(model);
     }
-
-    public static WishDomain createOne() {
-        return createOne(CourseDomainTest.createOne(), TeacherDomainTest.createOne());
+    public static WishDomain createOne(CourseDomain course, TeacherDomain teacher, WishState state) {
+        Wish model = WishTest.createOne(course.toModel(), teacher.toModel(), state);
+        return new WishDomain(model);
     }
+
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNullWish() {
@@ -38,6 +44,7 @@ public class WishDomainTest {
 
         assertThat(domain.getCourse().toModel()).isEqualTo(model.getCourse());
         assertThat(domain.getTeacher().toModel()).isEqualTo(model.getTeacher());
+        assertThat(domain.getState()).isEqualTo(model.getState());
     }
 
     @Test
@@ -50,6 +57,7 @@ public class WishDomainTest {
         Wish domainToModel = domain.toModel();
         assertThat(domainToModel.getCourse()).isEqualTo(model.getCourse());
         assertThat(domainToModel.getTeacher()).isEqualTo(model.getTeacher());
+        assertThat(domainToModel.getState()).isEqualTo(model.getState());
     }
 
 }

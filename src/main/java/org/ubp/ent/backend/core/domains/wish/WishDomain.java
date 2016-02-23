@@ -4,6 +4,7 @@ import org.ubp.ent.backend.core.domains.ModelTransformable;
 import org.ubp.ent.backend.core.domains.course.CourseDomain;
 import org.ubp.ent.backend.core.domains.teacher.TeacherDomain;
 import org.ubp.ent.backend.core.model.wish.Wish;
+import org.ubp.ent.backend.core.model.wish.WishState;
 
 import javax.persistence.*;
 
@@ -20,6 +21,8 @@ public class WishDomain implements ModelTransformable<Wish> {
 
     @EmbeddedId
     private WishDomainId primaryKey = new WishDomainId();
+    @Enumerated(EnumType.STRING)
+    private WishState state;
 
     @SuppressWarnings("unused")
     protected WishDomain() {
@@ -34,6 +37,7 @@ public class WishDomain implements ModelTransformable<Wish> {
         TeacherDomain teacher = new TeacherDomain(model.getTeacher());
 
         this.primaryKey = new WishDomainId(course, teacher);
+        this.state = model.getState();
     }
 
 
@@ -51,8 +55,12 @@ public class WishDomain implements ModelTransformable<Wish> {
         return primaryKey.getTeacher();
     }
 
+    public WishState getState() {
+        return state;
+    }
+
     @Override
     public Wish toModel() {
-        return new Wish(getCourse().toModel(), getTeacher().toModel());
+        return new Wish(getCourse().toModel(), getTeacher().toModel(), state);
     }
 }

@@ -2,7 +2,6 @@ package org.ubp.ent.backend.core.model.teacher;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.common.base.Objects;
 import org.ubp.ent.backend.core.model.teacher.contact.Contact;
 import org.ubp.ent.backend.core.model.teacher.name.Name;
 

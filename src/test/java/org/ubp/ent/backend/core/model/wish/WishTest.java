@@ -18,17 +18,25 @@ public class WishTest {
     }
 
     public static Wish createOne(Course course, Teacher teacher) {
-        return new Wish(course, teacher);
+        return createOne(course, teacher, WishState.PENDING);
+    }
+    public static Wish createOne(Course course, Teacher teacher, WishState state) {
+        return new Wish(course, teacher, state);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNullCourse() {
-        new Wish(null, TeacherTest.createOne());
+        new Wish(null, TeacherTest.createOne(), WishState.PENDING);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotInstantiateWithNullTeacher() {
-        new Wish(CourseTest.createOne(), null);
+        new Wish(CourseTest.createOne(), null, WishState.PENDING);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldNotInstantiateWithNullState() {
+        new Wish(CourseTest.createOne(), TeacherTest.createOne(), null);
     }
 
     @Test
@@ -36,20 +44,21 @@ public class WishTest {
         Course course = CourseTest.createOne();
         Teacher teacher = TeacherTest.createOne();
 
-        Wish wish = createOne(course, teacher);
+        Wish wish = createOne(course, teacher, WishState.PENDING);
 
         assertThat(wish.getCourse()).isSameAs(course);
         assertThat(wish.getTeacher()).isSameAs(teacher);
+        assertThat(wish.getState()).isEqualTo(WishState.PENDING);
     }
 
     @Test
-    public void shouldBeEqualByCourseAndTeacher() {
+    public void shouldBeEqualByCourseAndTeacherAndState() {
         Course course = CourseTest.createOne();
         course.setId(1L);
         Teacher teacher = TeacherTest.createOne();
         teacher.setId(1L);
 
-        Wish first = createOne(course, teacher);
+        Wish first = createOne(course, teacher, WishState.PENDING);
 
         course = CourseTest.createOne();
         course.setId(1L);
@@ -61,51 +70,119 @@ public class WishTest {
     }
 
     @Test
-    public void shouldNotBeEqualsWithDifferentTeacherAndSameCourse() {
+    public void shouldNotBeEqualsWithDifferentTeacherButSameCourseAndState() {
         Course course = CourseTest.createOne();
         course.setId(1L);
         Teacher teacher = TeacherTest.createOne();
         teacher.setId(1L);
 
-        Wish first = createOne(course, teacher);
+        Wish first = createOne(course, teacher, WishState.PENDING);
 
         teacher = TeacherTest.createOne();
         teacher.setId(2L);
-        Wish second = createOne(course, teacher);
+        Wish second = createOne(course, teacher, WishState.PENDING);
 
         assertThat(first).isNotEqualTo(second);
     }
 
     @Test
-    public void shouldNotBeEqualWithDifferentCourseAndSameTeacher() {
+    public void shouldNotBeEqualWithDifferentCourseButSameTeacherAndState() {
         Course course = CourseTest.createOne();
         course.setId(1L);
         Teacher teacher = TeacherTest.createOne();
         teacher.setId(1L);
 
-        Wish first = createOne(course, teacher);
+        Wish first = createOne(course, teacher, WishState.PENDING);
 
         course = CourseTest.createOne();
         course.setId(2L);
-        Wish second = createOne(course, teacher);
+        Wish second = createOne(course, teacher, WishState.PENDING);
 
         assertThat(first).isNotEqualTo(second);
     }
 
     @Test
-    public void shouldNotBeEqualWithDifferentCourseAndTeacher() {
+    public void shouldNotBeEqualWithDifferentStateButSameCourseAndTeacher() {
         Course course = CourseTest.createOne();
         course.setId(1L);
         Teacher teacher = TeacherTest.createOne();
         teacher.setId(1L);
 
-        Wish first = createOne(course, teacher);
+        Wish first = createOne(course, teacher, WishState.DENIED);
 
         course = CourseTest.createOne();
         course.setId(2L);
         teacher = TeacherTest.createOne();
         teacher.setId(2L);
-        Wish second = createOne(course, teacher);
+        Wish second = createOne(course, teacher, WishState.PENDING);
+
+        assertThat(first).isNotEqualTo(second);
+    }
+
+    @Test
+    public void shouldNotBeEqualWithDifferentCourseAndTeacherButSameState() {
+        Course course = CourseTest.createOne();
+        course.setId(1L);
+        Teacher teacher = TeacherTest.createOne();
+        teacher.setId(1L);
+
+        Wish first = createOne(course, teacher, WishState.PENDING);
+
+        course = CourseTest.createOne();
+        course.setId(2L);
+        teacher = TeacherTest.createOne();
+        teacher.setId(2L);
+        Wish second = createOne(course, teacher, WishState.PENDING);
+
+        assertThat(first).isNotEqualTo(second);
+    }
+
+    @Test
+    public void shouldNotBeEqualWithDifferentStateAndTeacherButSameCourse() {
+        Course course = CourseTest.createOne();
+        course.setId(1L);
+        Teacher teacher = TeacherTest.createOne();
+        teacher.setId(1L);
+
+        Wish first = createOne(course, teacher, WishState.DENIED);
+
+        teacher = TeacherTest.createOne();
+        teacher.setId(2L);
+        Wish second = createOne(course, teacher, WishState.PENDING);
+
+        assertThat(first).isNotEqualTo(second);
+    }
+
+    @Test
+    public void shouldNotBeEqualWithDifferentCourseAndStateButSameTeacher() {
+        Course course = CourseTest.createOne();
+        course.setId(1L);
+        Teacher teacher = TeacherTest.createOne();
+        teacher.setId(1L);
+
+        Wish first = createOne(course, teacher, WishState.DENIED);
+
+        course = CourseTest.createOne();
+        course.setId(2L);
+        Wish second = createOne(course, teacher, WishState.PENDING);
+
+        assertThat(first).isNotEqualTo(second);
+    }
+
+    @Test
+    public void shouldNotBeEqualWithDifferentCourseAndTeacherAndState() {
+        Course course = CourseTest.createOne();
+        course.setId(1L);
+        Teacher teacher = TeacherTest.createOne();
+        teacher.setId(1L);
+
+        Wish first = createOne(course, teacher, WishState.DENIED);
+
+        course = CourseTest.createOne();
+        course.setId(2L);
+        teacher = TeacherTest.createOne();
+        teacher.setId(2L);
+        Wish second = createOne(course, teacher, WishState.PENDING);
 
         assertThat(first).isNotEqualTo(second);
     }

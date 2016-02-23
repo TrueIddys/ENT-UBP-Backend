@@ -7,7 +7,6 @@ import org.ubp.ent.backend.core.domains.classroom.equipement.EquipmentTypeDomain
 /**
  * Created by Anthony on 23/11/2015.
  */
-@Repository
 public interface EquipmentTypeRepository extends JpaRepository<EquipmentTypeDomain, Long> {
 
 }

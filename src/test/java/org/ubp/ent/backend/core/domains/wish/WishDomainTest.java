@@ -1,13 +1,10 @@
 package org.ubp.ent.backend.core.domains.wish;
 
 import org.junit.Test;
-import org.ubp.ent.backend.core.domains.classroom.ClassroomDomainTest;
 import org.ubp.ent.backend.core.domains.course.CourseDomain;
 import org.ubp.ent.backend.core.domains.course.CourseDomainTest;
 import org.ubp.ent.backend.core.domains.teacher.TeacherDomain;
-import org.ubp.ent.backend.core.domains.teacher.UniversityTeacherDomain;
-import org.ubp.ent.backend.core.domains.teacher.UniversityTeacherDomainTest;
-import org.ubp.ent.backend.core.model.course.CourseTest;
+import org.ubp.ent.backend.core.domains.teacher.TeacherDomainTest;
 import org.ubp.ent.backend.core.model.wish.Wish;
 import org.ubp.ent.backend.core.model.wish.WishTest;
 
@@ -24,7 +21,7 @@ public class WishDomainTest {
     }
 
     public static WishDomain createOne() {
-        return createOne(CourseDomainTest.createOne(), UniversityTeacherDomainTest.createOne());
+        return createOne(CourseDomainTest.createOne(), TeacherDomainTest.createOne());
     }
 
     @Test(expected = IllegalArgumentException.class)

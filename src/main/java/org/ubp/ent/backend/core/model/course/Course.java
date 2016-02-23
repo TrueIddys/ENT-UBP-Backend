@@ -11,9 +11,9 @@ import org.ubp.ent.backend.core.model.type.ClassroomType;
  */
 public class Course {
 
-    private Long id;
     private final String name;
     private final ClassroomType type;
+    private Long id;
 
     @JsonCreator
     public Course(@JsonProperty("name") final String name, @JsonProperty("type") final ClassroomType type) {

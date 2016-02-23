@@ -3,8 +3,8 @@ package org.ubp.ent.backend.core.controllers.teacher;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.springframework.http.MediaType;
-import org.ubp.ent.backend.core.model.teacher.OutsiderTeacher;
-import org.ubp.ent.backend.core.model.teacher.OutsiderTeacherTest;
+import org.ubp.ent.backend.core.model.teacher.Teacher;
+import org.ubp.ent.backend.core.model.teacher.TeacherTest;
 import org.ubp.ent.backend.utils.WebIntegrationTest;
 
 import javax.inject.Inject;
@@ -19,28 +19,28 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Created by Anthony on 10/02/2016.
  */
-public class OutsiderTeacherControllerTest extends WebIntegrationTest {
+public class TeacherControllerTest extends WebIntegrationTest {
 
-    private final String TEACHER_BASE_URL = OutsiderTeacherController.BASE_URL;
+    private final String TEACHER_BASE_URL = TeacherController.BASE_URL;
 
     @Inject
     private ObjectMapper mapper;
 
-    private OutsiderTeacher createOutsiderTeacher() throws Exception {
-        return createOutsiderTeachers(1).get(0);
+    private Teacher createTeacher() throws Exception {
+        return createTeachers(1).get(0);
     }
 
-    private List<OutsiderTeacher> createOutsiderTeachers(int count) throws Exception {
-        List<OutsiderTeacher> created = new ArrayList<>(count);
+    private List<Teacher> createTeachers(int count) throws Exception {
+        List<Teacher> created = new ArrayList<>(count);
         for (int i = 0; i < count; ++i) {
-            OutsiderTeacher model = OutsiderTeacherTest.createOneEmpty();
+            Teacher model = TeacherTest.createOneEmpty();
             String json = mapper.writeValueAsString(model);
             perform(post(TEACHER_BASE_URL).content(json).contentType(MediaType.APPLICATION_JSON_UTF8))
                     .andExpect(status().isCreated())
                     .andDo(
                             result -> {
                                 String response = result.getResponse().getContentAsString();
-                                OutsiderTeacher createdClassroom = mapper.readValue(response, OutsiderTeacher.class);
+                                Teacher createdClassroom = mapper.readValue(response, Teacher.class);
                                 created.add(createdClassroom);
                             }
                     );
@@ -51,7 +51,7 @@ public class OutsiderTeacherControllerTest extends WebIntegrationTest {
     @Test
     public void shouldFindAll() throws Exception {
         int count = 5;
-        createOutsiderTeachers(count);
+        createTeachers(count);
 
         perform(get(TEACHER_BASE_URL))
                 .andExpect(status().isOk())
@@ -60,9 +60,9 @@ public class OutsiderTeacherControllerTest extends WebIntegrationTest {
 
     @Test
     public void shouldFindOneById() throws Exception {
-        List<OutsiderTeacher> models = createOutsiderTeachers(5);
+        List<Teacher> models = createTeachers(5);
 
-        for (OutsiderTeacher model : models) {
+        for (Teacher model : models) {
             perform(get(TEACHER_BASE_URL + "/" + model.getId()))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.id", is(model.getId().intValue())));
@@ -83,7 +83,7 @@ public class OutsiderTeacherControllerTest extends WebIntegrationTest {
 
     @Test
     public void shouldNotCreateIfIdIsAlreadyDefined() throws Exception {
-        OutsiderTeacher model = OutsiderTeacherTest.createOne();
+        Teacher model = TeacherTest.createOne();
         model.setId(125L);
 
         perform(post(TEACHER_BASE_URL).contentType(MediaType.APPLICATION_JSON_UTF8).content(mapper.writeValueAsString(model)))
@@ -92,16 +92,18 @@ public class OutsiderTeacherControllerTest extends WebIntegrationTest {
 
     @Test
     public void shouldCreate() throws Exception {
-        OutsiderTeacher model = OutsiderTeacherTest.createOneEmpty();
+        Teacher model = TeacherTest.createOneEmpty();
 
         perform(post(TEACHER_BASE_URL).contentType(MediaType.APPLICATION_JSON_UTF8).content(mapper.writeValueAsString(model)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id", notNullValue()));
+                .andExpect(jsonPath("$.id", notNullValue()))
+                .andExpect(jsonPath("$.type", is(model.getType().toString())));
+        ;
     }
 
     @Test
     public void shouldCreateAddressEmailAndPhoneOnCascade() throws Exception {
-        OutsiderTeacher model = OutsiderTeacherTest.createOne();
+        Teacher model = TeacherTest.createOne();
         //if one of below fails, the test makes no sense.
         assertThat(model.getContact().getAddresses()).isNotEmpty();
         assertThat(model.getContact().getEmails()).isNotEmpty();
@@ -113,7 +115,7 @@ public class OutsiderTeacherControllerTest extends WebIntegrationTest {
                 .andDo(
                         result -> {
                             String response = result.getResponse().getContentAsString();
-                            OutsiderTeacher createdModel = mapper.readValue(response, OutsiderTeacher.class);
+                            Teacher createdModel = mapper.readValue(response, Teacher.class);
                             model.setId(createdModel.getId());
                         }
                 );

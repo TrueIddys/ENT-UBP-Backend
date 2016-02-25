@@ -1,10 +1,6 @@
 package org.ubp.ent.backend.core.controllers.wish;
 
 import org.junit.Test;
-import org.ubp.ent.backend.core.exceptions.database.CourseAlreadyAssignedToAnotherWish;
-import org.ubp.ent.backend.core.exceptions.database.notfound.impl.CourseResourceNotFoundException;
-import org.ubp.ent.backend.core.exceptions.database.notfound.impl.TeacherResourceNotFoundException;
-import org.ubp.ent.backend.core.exceptions.database.notfound.impl.WishResourceNotFoundException;
 import org.ubp.ent.backend.core.model.course.Course;
 import org.ubp.ent.backend.core.model.teacher.Teacher;
 import org.ubp.ent.backend.core.model.wish.Wish;
@@ -14,10 +10,6 @@ import org.ubp.ent.backend.utils.WebIntegrationTest;
 
 import javax.inject.Inject;
 
-import java.util.Arrays;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -105,13 +97,13 @@ public class WishControllerTest extends WebIntegrationTest {
 
     @Test
     public void shouldFailFindOneWithNonExistingTeacher() throws Exception {
-        perform(get(WISH_BASE_URL + "/course/" + helper.createCourse().getId() +"/teacher/22"))
+        perform(get(WISH_BASE_URL + "/course/" + helper.createCourse().getId() + "/teacher/22"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     public void shouldFailFindOneWithNonPersistedWish() throws Exception {
-        perform(get(WISH_BASE_URL + "/course/" + helper.createCourse().getId() +"/teacher/" + helper.createEmptyTeacher().getId()))
+        perform(get(WISH_BASE_URL + "/course/" + helper.createCourse().getId() + "/teacher/" + helper.createEmptyTeacher().getId()))
                 .andExpect(status().isNotFound());
     }
 
@@ -119,7 +111,7 @@ public class WishControllerTest extends WebIntegrationTest {
     public void shouldFindOne() throws Exception {
         Wish model = helper.createWish();
 
-        perform(get(WISH_BASE_URL + "/course/" + model.getCourse().getId() +"/teacher/" + model.getTeacher().getId()))
+        perform(get(WISH_BASE_URL + "/course/" + model.getCourse().getId() + "/teacher/" + model.getTeacher().getId()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.course.id", is(model.getCourse().getId().intValue())))
                 .andExpect(jsonPath("$.teacher.id", is(model.getTeacher().getId().intValue())))

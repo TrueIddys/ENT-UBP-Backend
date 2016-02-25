@@ -1,15 +1,9 @@
 package org.ubp.ent.backend.core.model.formation;
 
-import com.google.common.collect.Sets;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
-import org.ubp.ent.backend.core.model.course.Course;
-import org.ubp.ent.backend.core.model.course.CourseTest;
-import org.ubp.ent.backend.core.model.student.Student;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -49,43 +43,39 @@ public class FormationLeafTest {
 
         assertThat(model.getId()).isNull();
         assertThat(model.getName()).isEqualTo("Master 1 informatique");
-        assertThat(model.getCourses()).isEmpty();
-        assertThat(model.getStudents()).isEmpty();
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldFailAddStudentWithNull() {
-        FormationLeaf model = createOneEmpty();
-        model.addStudent(null);
-    }
-
-    @Test
-    public void shouldAddStudent() {
-        FormationLeaf model = createOneEmpty();
-        model.addStudent(new Student());
-        model.addStudent(new Student());
-
-        assertThat(model.getStudents()).hasSize(2);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldFailAddCourseWithNull() {
-        FormationLeaf model = createOneEmpty();
-        model.addCourse(null);
-    }
-
-    @Test
-    public void shouldAddCourse() {
-        FormationLeaf model = createOneEmpty();
-        model.addCourse(CourseTest.createOne());
-        model.addCourse(CourseTest.createOne());
-
-        assertThat(model.getCourses()).hasSize(2);
     }
 
     @Test
     public void shouldReturnTrueIsLeaf() {
         assertThat(createOneEmpty().isLeaf()).isTrue();
+    }
+
+    @Test
+    public void shouldBeEqualById() {
+        FormationLeaf model1 = createOneEmpty();
+        FormationLeaf model2 = createOneEmpty();
+        model1.setId(12L);
+        model2.setId(12L);
+
+        assertThat(model1).isEqualTo(model2);
+    }
+
+    @Test
+    public void shouldNotBeEqualWithDifferentIds() {
+        FormationLeaf model1 = createOneEmpty();
+        FormationLeaf model2 = createOneEmpty();
+        model1.setId(12L);
+        model2.setId(13L);
+
+        assertThat(model1).isNotEqualTo(model2);
+    }
+
+    @Test
+    public void shouldNotBeEqualWithNullIds() {
+        FormationLeaf model1 = createOneEmpty();
+        FormationLeaf model2 = createOneEmpty();
+
+        assertThat(model1).isNotEqualTo(model2);
     }
 
 }

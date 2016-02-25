@@ -20,6 +20,7 @@ public class WishTest {
     public static Wish createOne(Course course, Teacher teacher) {
         return createOne(course, teacher, WishState.PENDING);
     }
+
     public static Wish createOne(Course course, Teacher teacher, WishState state) {
         return new Wish(course, teacher, state);
     }

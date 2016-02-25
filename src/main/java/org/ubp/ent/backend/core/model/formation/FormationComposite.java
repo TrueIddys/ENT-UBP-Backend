@@ -1,23 +1,21 @@
 package org.ubp.ent.backend.core.model.formation;
 
+import com.google.common.base.Objects;
 import org.apache.commons.lang3.StringUtils;
 import org.ubp.ent.backend.core.exceptions.database.ModelConstraintViolationException;
-import org.ubp.ent.backend.core.model.course.Course;
-import org.ubp.ent.backend.core.model.student.Student;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Created by Anthony on 25/02/2016.
  */
 public class FormationComposite implements FormationComponent {
 
-    private Long id;
     private final String name;
     private final List<FormationComponent> formations;
+    private Long id;
     private Boolean isLeafContainer;
 
     public FormationComposite(String name) {
@@ -41,19 +39,13 @@ public class FormationComposite implements FormationComponent {
         return name;
     }
 
+    public List<FormationComponent> getFormations() {
+        return Collections.unmodifiableList(formations);
+    }
+
     @Override
     public final Boolean isLeaf() {
         return Boolean.FALSE;
-    }
-
-    @Override
-    public Set<Student> getStudents() {
-        return formations.stream().flatMap(fc -> fc.getStudents().stream()).collect(Collectors.toSet());
-    }
-
-    @Override
-    public Set<Course> getCourses() {
-        return formations.stream().flatMap(fc -> fc.getCourses().stream()).collect(Collectors.toSet());
     }
 
     public void addFormation(FormationComponent formation) {
@@ -66,24 +58,42 @@ public class FormationComposite implements FormationComponent {
         } else {
             this.addElement((FormationComposite) formation);
         }
+    }
+
+    private void addElement(FormationComposite formation) {
+        if (this.formations.isEmpty()) {
+            this.isLeafContainer = Boolean.FALSE;
+        }
+        if (this.isLeafContainer) {
+            throw new ModelConstraintViolationException("A " + getClass().getName() + " can contains only one of types : " + FormationComposite.class.getName() + " and " + FormationLeaf.class.getName());
+        }
 
         this.formations.add(formation);
     }
 
-    private void addElement(FormationComposite formation) {
-        if (this.formations.isEmpty() || !this.isLeafContainer) {
-            this.isLeafContainer = Boolean.FALSE;
-        } else {
+    private void addElement(FormationLeaf formation) {
+        if (this.formations.isEmpty()) {
+            this.isLeafContainer = Boolean.TRUE;
+        }
+        if (!this.isLeafContainer) {
             throw new ModelConstraintViolationException("A " + getClass().getName() + " can contains only one of types : " + FormationComposite.class.getName() + " and " + FormationLeaf.class.getName());
         }
+
+        this.formations.add(formation);
     }
 
-    private void addElement(FormationLeaf formation) {
-        if (this.formations.isEmpty() || this.isLeafContainer) {
-            this.isLeafContainer = Boolean.TRUE;
-        } else {
-            throw new ModelConstraintViolationException("A " + getClass().getName() + " can contains only one of types : " + FormationComposite.class.getName() + " and " + FormationLeaf.class.getName());
-        }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FormationComposite other = (FormationComposite) o;
+        if (this.getId() == null || other.getId() == null) return false;
+        return Objects.equal(this.getId(), other.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(this.getId());
     }
 
 }

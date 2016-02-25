@@ -4,8 +4,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.ubp.ent.backend.core.exceptions.database.ModelConstraintViolationException;
-import org.ubp.ent.backend.core.model.course.CourseTest;
-import org.ubp.ent.backend.core.model.student.Student;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -46,8 +44,6 @@ public class FormationCompositeTest {
 
         assertThat(model.getId()).isNull();
         assertThat(model.getName()).isEqualTo("Master");
-        assertThat(model.getCourses()).isEmpty();
-        assertThat(model.getStudents()).isEmpty();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -74,18 +70,12 @@ public class FormationCompositeTest {
     public void shouldAddFormation() {
         FormationComposite model = createOneEmpty();
         FormationLeaf leaf1 = FormationLeafTest.createOneEmpty();
-        leaf1.addCourse(CourseTest.createOne());
-        leaf1.addCourse(CourseTest.createOne());
-        leaf1.addStudent(new Student());
         FormationLeaf leaf2 = FormationLeafTest.createOneEmpty();
-        leaf2.addCourse(CourseTest.createOne());
-        leaf1.addStudent(new Student());
 
         model.addFormation(leaf1);
         model.addFormation(leaf2);
 
-        assertThat(model.getCourses()).hasSize(leaf1.getCourses().size() + leaf2.getCourses().size());
-        assertThat(model.getStudents()).hasSize(leaf1.getStudents().size() + leaf2.getStudents().size());
+        assertThat(model.getFormations()).hasSize(2);
     }
 
     @Test
@@ -93,4 +83,31 @@ public class FormationCompositeTest {
         assertThat(createOneEmpty().isLeaf()).isFalse();
     }
 
+    @Test
+    public void shouldBeEqualById() {
+        FormationComposite model1 = createOneEmpty();
+        FormationComposite model2 = createOneEmpty();
+        model1.setId(12L);
+        model2.setId(12L);
+
+        assertThat(model1).isEqualTo(model2);
+    }
+
+    @Test
+    public void shouldNotBeEqualWithDifferentIds() {
+        FormationComposite model1 = createOneEmpty();
+        FormationComposite model2 = createOneEmpty();
+        model1.setId(12L);
+        model2.setId(13L);
+
+        assertThat(model1).isNotEqualTo(model2);
+    }
+
+    @Test
+    public void shouldNotBeEqualWithNullIds() {
+        FormationComposite model1 = createOneEmpty();
+        FormationComposite model2 = createOneEmpty();
+
+        assertThat(model1).isNotEqualTo(model2);
+    }
 }

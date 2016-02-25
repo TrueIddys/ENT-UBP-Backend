@@ -42,7 +42,7 @@ public class FormationComposite implements FormationComponent {
     }
 
     @Override
-    public Boolean isLeaf() {
+    public final Boolean isLeaf() {
         return Boolean.FALSE;
     }
 

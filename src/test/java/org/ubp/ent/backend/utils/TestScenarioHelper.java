@@ -4,10 +4,14 @@ import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
 import org.ubp.ent.backend.config.conditional.condition.TestProfileCondition;
 import org.ubp.ent.backend.core.dao.manager.course.CourseManager;
+import org.ubp.ent.backend.core.dao.manager.formation.FormationManager;
 import org.ubp.ent.backend.core.dao.manager.teacher.TeacherManager;
 import org.ubp.ent.backend.core.dao.manager.wish.WishManager;
 import org.ubp.ent.backend.core.model.course.Course;
 import org.ubp.ent.backend.core.model.course.CourseTest;
+import org.ubp.ent.backend.core.model.formation.FormationComposite;
+import org.ubp.ent.backend.core.model.formation.FormationCompositeTest;
+import org.ubp.ent.backend.core.model.formation.FormationLeafTest;
 import org.ubp.ent.backend.core.model.teacher.Teacher;
 import org.ubp.ent.backend.core.model.teacher.TeacherTest;
 import org.ubp.ent.backend.core.model.wish.Wish;
@@ -30,6 +34,9 @@ public class TestScenarioHelper {
 
     @Inject
     private WishManager wishM;
+
+    @Inject
+    private FormationManager formationM;
 
     /*
      * Teacher
@@ -77,6 +84,22 @@ public class TestScenarioHelper {
 
     public Wish createWish(Wish model) {
         return wishM.create(model.getCourse().getId(), model.getTeacher().getId());
+    }
+
+    /*
+     * Formations
+     */
+    public FormationComposite createTree() {
+        FormationComposite root = FormationCompositeTest.createOneEmpty();
+        root.addFormation(FormationCompositeTest.createOneEmpty());
+        root.addFormation(FormationCompositeTest.createOneEmpty());
+        ((FormationComposite) root.getFormations().get(0)).addFormation(FormationLeafTest.createOneEmpty());
+
+        return createTree(root);
+    }
+
+    public FormationComposite createTree(FormationComposite model) {
+        return formationM.createRoot(model);
     }
 
 }

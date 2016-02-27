@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created by Anthony on 26/02/2016.
  */
 @Component
-class FormationCache {
+public class FormationCache {
 
     private final Map<Long, FormationComponent> components;
     @Inject

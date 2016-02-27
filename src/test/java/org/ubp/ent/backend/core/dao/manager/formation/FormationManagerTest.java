@@ -27,10 +27,6 @@ public class FormationManagerTest extends WebApplicationTest {
     @Inject
     private FormationCache cache;
 
-    @After
-    public void evictCacheAfterEachTests() throws NoSuchFieldException, IllegalAccessException {
-        this.cache.evict();
-    }
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldFailCreateRootWithNull() {

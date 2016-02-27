@@ -89,16 +89,16 @@ public class TestScenarioHelper {
     /*
      * Formations
      */
-    public FormationComposite createTree() {
+    public FormationComposite createFormationTree() {
         FormationComposite root = FormationCompositeTest.createOneEmpty();
         root.addFormation(FormationCompositeTest.createOneEmpty());
         root.addFormation(FormationCompositeTest.createOneEmpty());
         ((FormationComposite) root.getFormations().get(0)).addFormation(FormationLeafTest.createOneEmpty());
 
-        return createTree(root);
+        return createFormationTree(root);
     }
 
-    public FormationComposite createTree(FormationComposite model) {
+    public FormationComposite createFormationTree(FormationComposite model) {
         return formationM.createRoot(model);
     }
 

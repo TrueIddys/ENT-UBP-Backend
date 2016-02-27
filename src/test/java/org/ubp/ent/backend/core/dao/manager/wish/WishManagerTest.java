@@ -1,7 +1,6 @@
 package org.ubp.ent.backend.core.dao.manager.wish;
 
 import org.junit.Test;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.ubp.ent.backend.core.exceptions.database.CourseAlreadyAssignedToAnotherWish;
 import org.ubp.ent.backend.core.exceptions.database.ModelConstraintViolationException;
 import org.ubp.ent.backend.core.exceptions.database.notfound.impl.CourseResourceNotFoundException;

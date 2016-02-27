@@ -24,6 +24,7 @@ public class WishDomainTest {
         Wish model = WishTest.createOne(course.toModel(), teacher.toModel());
         return new WishDomain(model);
     }
+
     public static WishDomain createOne(CourseDomain course, TeacherDomain teacher, WishState state) {
         Wish model = WishTest.createOne(course.toModel(), teacher.toModel(), state);
         return new WishDomain(model);

@@ -1,6 +1,5 @@
 package org.ubp.ent.backend.core.dao.manager.wish;
 
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.ubp.ent.backend.core.dao.manager.course.CourseManager;
 import org.ubp.ent.backend.core.dao.manager.teacher.TeacherManager;
@@ -89,7 +88,7 @@ public class WishManager {
         Course course = courseManager.findOneById(courseId);
         Teacher teacher = teacherManager.findOneById(teacherId);
 
-        if(wishRepository.findAcceptedWishForCourse(course.getId()) != null) {
+        if (wishRepository.findAcceptedWishForCourse(course.getId()) != null) {
             throw new CourseAlreadyAssignedToAnotherWish("An other " + Wish.class.getName() + " is already accepted for the course with id '" + courseId + "'");
         }
         Wish model = new Wish(course, teacher, WishState.PENDING);

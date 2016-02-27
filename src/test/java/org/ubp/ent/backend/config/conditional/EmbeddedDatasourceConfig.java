@@ -1,7 +1,5 @@
 package org.ubp.ent.backend.config.conditional;
 
-import org.h2.server.web.WebServlet;
-import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
@@ -22,16 +20,8 @@ public class EmbeddedDatasourceConfig {
     public EmbeddedDatabase dataSource() {
         return new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)
-                .setName("Embedded-test-database")
+                .setName("embedded-test-database")
                 .build();
-    }
-
-    @Bean
-    @Conditional(TestProfileCondition.class)
-    public ServletRegistrationBean h2servletRegistration() {
-        ServletRegistrationBean registration = new ServletRegistrationBean(new WebServlet());
-        registration.addUrlMappings("/console/*");
-        return registration;
     }
 
 }

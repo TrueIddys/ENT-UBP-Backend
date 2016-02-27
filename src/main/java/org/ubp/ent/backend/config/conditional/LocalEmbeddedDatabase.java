@@ -26,7 +26,7 @@ public class LocalEmbeddedDatabase {
     public EmbeddedDatabase dataSource() {
         return new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)
-                .setName("Embedded-test-database")
+                .setName("embedded-test-database")
                 .build();
     }
 

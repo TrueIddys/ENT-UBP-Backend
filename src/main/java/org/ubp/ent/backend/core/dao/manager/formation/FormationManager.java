@@ -73,7 +73,6 @@ public class FormationManager {
         FormationCompositeDomain parentDomain = new FormationCompositeDomain(parent);
         parentDomain.addFormation(leafDomain);
 
-
         leafDomain = this.formationRepository.saveAndFlush(leafDomain);
         this.formationRepository.saveAndFlush(parentDomain);
 

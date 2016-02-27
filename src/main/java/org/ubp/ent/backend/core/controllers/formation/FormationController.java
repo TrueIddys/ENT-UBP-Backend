@@ -55,5 +55,4 @@ public class FormationController {
         return formationManager.createLeaf(parentId, child);
     }
 
-
 }

@@ -8,7 +8,6 @@ import org.ubp.ent.backend.core.model.formation.FormationComposite;
 import org.ubp.ent.backend.core.model.formation.FormationLeaf;
 
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -101,7 +100,7 @@ public class FormationCache {
         this.refreshIfNeeded();
 
         FormationComponent component = this.components.get(id);
-        if (component == null || ! component.isLeaf()) {
+        if (component == null || !component.isLeaf()) {
             return null;
         }
         return (FormationLeaf) component;

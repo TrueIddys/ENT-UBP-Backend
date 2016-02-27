@@ -1,6 +1,5 @@
 package org.ubp.ent.backend.core.dao.manager.formation;
 
-import org.junit.After;
 import org.junit.Test;
 import org.ubp.ent.backend.core.exceptions.database.AlreadyDefinedInOnNonPersistedEntity;
 import org.ubp.ent.backend.core.exceptions.database.ModelConstraintViolationException;

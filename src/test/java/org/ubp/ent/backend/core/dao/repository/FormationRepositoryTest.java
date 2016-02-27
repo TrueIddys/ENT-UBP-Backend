@@ -10,7 +10,6 @@ import org.ubp.ent.backend.utils.WebIntegrationTest;
 import javax.inject.Inject;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
 
 /**
  * Created by Anthony on 26/02/2016.
@@ -74,7 +73,7 @@ public class FormationRepositoryTest extends WebIntegrationTest {
         assertThat(fetchedRoot).isNotNull();
         assertThat(fetchedRoot.getName()).isEqualTo(root.getName());
     }
-    
+
     @Test
     public void shouldSaveOnCascade() {
         FormationCompositeDomain root = FormationCompositeDomainTest.createOneEmpty("root");

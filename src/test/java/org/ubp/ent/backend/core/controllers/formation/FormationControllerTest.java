@@ -1,6 +1,5 @@
 package org.ubp.ent.backend.core.controllers.formation;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.springframework.http.MediaType;
@@ -13,10 +12,7 @@ import org.ubp.ent.backend.utils.WebIntegrationTest;
 
 import javax.inject.Inject;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -102,7 +98,6 @@ public class FormationControllerTest extends WebIntegrationTest {
     @Test
     public void shouldCreateRoot() throws Exception {
         FormationComposite root = FormationCompositeTest.createOneEmpty();
-
 
         perform(post(FORMATION_BASE_URL + "/root").content(mapper.writeValueAsString(root)).contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isCreated())

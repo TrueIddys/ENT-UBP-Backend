@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.ubp.ent.backend.core.exceptions.database.ModelConstraintViolationException;
 import org.ubp.ent.backend.core.model.formation.FormationComposite;
 import org.ubp.ent.backend.core.model.formation.FormationCompositeTest;
-import org.ubp.ent.backend.core.model.formation.FormationLeaf;
 import org.ubp.ent.backend.core.model.formation.FormationLeafTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -48,7 +47,7 @@ public class FormationCompositeDomainTest {
 
         FormationCompositeDomain domain = new FormationCompositeDomain(model);
         assertThat(domain.getFormations()).hasSize(1);
-        assertThat(((FormationCompositeDomain)domain.getFormations().get(0)).getFormations()).hasSize(1);
+        assertThat(((FormationCompositeDomain) domain.getFormations().get(0)).getFormations()).hasSize(1);
     }
 
     @Test
@@ -71,7 +70,7 @@ public class FormationCompositeDomainTest {
 
         FormationComposite model = domain.toModel();
         assertThat(model.getFormations()).hasSize(1);
-        assertThat(((FormationComposite)model.getFormations().get(0)).getFormations()).hasSize(1);
+        assertThat(((FormationComposite) model.getFormations().get(0)).getFormations()).hasSize(1);
     }
 
     @Test(expected = IllegalArgumentException.class)

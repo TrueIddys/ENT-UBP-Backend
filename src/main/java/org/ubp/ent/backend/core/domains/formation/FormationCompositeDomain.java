@@ -1,7 +1,6 @@
 package org.ubp.ent.backend.core.domains.formation;
 
 import com.google.common.base.Objects;
-import org.hibernate.annotations.*;
 import org.ubp.ent.backend.core.domains.ModelTransformable;
 import org.ubp.ent.backend.core.exceptions.database.ModelConstraintViolationException;
 import org.ubp.ent.backend.core.model.formation.FormationComponent;
@@ -9,8 +8,6 @@ import org.ubp.ent.backend.core.model.formation.FormationComposite;
 import org.ubp.ent.backend.core.model.formation.FormationLeaf;
 
 import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

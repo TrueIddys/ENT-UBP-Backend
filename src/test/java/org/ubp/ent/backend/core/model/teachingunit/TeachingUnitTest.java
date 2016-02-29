@@ -3,6 +3,8 @@ package org.ubp.ent.backend.core.model.teachingunit;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
+import org.ubp.ent.backend.core.model.module.Module;
+import org.ubp.ent.backend.core.model.module.ModuleTest;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -72,4 +74,21 @@ public class TeachingUnitTest {
 
         assertThat(first).isNotEqualTo(second);
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldFailWhenAddingANullModule() {
+        TeachingUnit teachingUnit = createOne();
+        teachingUnit.addModule(null);
+    }
+
+    @Test
+    public void shouldAddModuleToSet() {
+        Module module = ModuleTest.createOne();
+
+        TeachingUnit teachingUnit = createOne();
+        teachingUnit.addModule(module);
+
+        assertThat(teachingUnit.getModules()).containsOnly(module);
+    }
+
 }

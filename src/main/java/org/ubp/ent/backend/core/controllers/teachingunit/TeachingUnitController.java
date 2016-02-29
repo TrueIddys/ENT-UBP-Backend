@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.ubp.ent.backend.core.dao.manager.teachingunit.TeachingUnitManager;
+import org.ubp.ent.backend.core.model.module.Module;
 import org.ubp.ent.backend.core.model.teachingunit.TeachingUnit;
 
 import javax.inject.Inject;
@@ -38,5 +39,11 @@ public class TeachingUnitController {
     @ResponseStatus(HttpStatus.CREATED)
     public TeachingUnit create(@RequestBody TeachingUnit teachingUnit) {
         return teachingUnitManager.create(teachingUnit);
+    }
+
+    @RequestMapping(value = "/{teachingUnitId}/module", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public Module addModule(@PathVariable("teachingUnitId") Long teachingUnitId, @RequestBody Module module) {
+        return teachingUnitManager.addModule(teachingUnitId, module);
     }
 }

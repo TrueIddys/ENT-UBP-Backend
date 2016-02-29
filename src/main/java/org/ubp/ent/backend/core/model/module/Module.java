@@ -6,7 +6,9 @@ import com.google.common.base.Objects;
 import org.apache.commons.lang3.StringUtils;
 import org.ubp.ent.backend.core.model.course.Course;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by Maxime on 28/02/2016.
@@ -54,12 +56,14 @@ public class Module {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Module module = (Module) o;
-        return Objects.equal(name, module.name);
+        if (this.getId() == null || ((Module) o).getId() == null) return false;
+
+        return Objects.equal(id, module.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(name);
+        return Objects.hashCode(id);
     }
 
 

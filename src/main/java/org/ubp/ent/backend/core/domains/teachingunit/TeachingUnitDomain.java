@@ -2,9 +2,12 @@ package org.ubp.ent.backend.core.domains.teachingunit;
 
 import com.google.common.base.Objects;
 import org.ubp.ent.backend.core.domains.ModelTransformable;
+import org.ubp.ent.backend.core.domains.module.ModuleDomain;
 import org.ubp.ent.backend.core.model.teachingunit.TeachingUnit;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Maxime on 28/02/2016.
@@ -12,7 +15,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "teachingunit")
-public class TeachingUnitDomain implements ModelTransformable<TeachingUnit>{
+public class TeachingUnitDomain implements ModelTransformable<TeachingUnit> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +24,10 @@ public class TeachingUnitDomain implements ModelTransformable<TeachingUnit>{
 
     @Column(unique = true)
     private String name;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "TEACHINGUNIT_MODULE", joinColumns = @JoinColumn(name = "TEACHINGUNIT_ID"), inverseJoinColumns = @JoinColumn(name = "MODULE_ID"))
+    private List<ModuleDomain> modules = new ArrayList<>();
 
     @SuppressWarnings("unused")
     protected TeachingUnitDomain() {
@@ -44,6 +51,17 @@ public class TeachingUnitDomain implements ModelTransformable<TeachingUnit>{
 
     public String getName() {
         return name;
+    }
+
+    public List<ModuleDomain> getModules() {
+        return modules;
+    }
+
+    public void addModule(ModuleDomain module) {
+        if (module == null) {
+            throw new IllegalArgumentException("Cannot add a null " + ModuleDomain.class.getName() + " to a " + getClass().getName());
+        }
+        this.modules.add(module);
     }
 
     @Override

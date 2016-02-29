@@ -1,5 +1,6 @@
 package org.ubp.ent.backend.core.model.module;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
@@ -79,19 +80,32 @@ public class ModuleTest {
     }
 
     @Test
-    public void shouldBeEqualByName() {
-        Module module = ModuleTest.createOne("Genie Log");
-        Module module2 = ModuleTest.createOne("Genie Log");
+    public void shouldBeEqualById() {
+        Module first = ModuleTest.createOne();
+        first.setId(1L);
+        Module second = ModuleTest.createOne();
+        second.setId(1L);
 
-        assertThat(module2).isEqualTo(module);
+        assertThat(second).isEqualTo(first);
     }
 
     @Test
-    public void shouldNotBeEqualWithDifferentNames() {
-        Module module = ModuleTest.createOne("Genie Log");
-        Module module2 = ModuleTest.createOne("Compilation");
+    public void shouldNotBeEqualWithDifferentIds() {
+        Module first = ModuleTest.createOne();
+        first.setId(1L);
+        Module second = ModuleTest.createOne();
+        second.setId(2L);
 
-        assertThat(module2).isNotEqualTo(module);
+        assertThat(first).isNotEqualTo(second);
     }
+
+    @Test
+    public void shouldNotBeEqualWithNullIds() {
+        Module first = ModuleTest.createOne();
+        Module second = ModuleTest.createOne();
+
+        assertThat(first).isNotEqualTo(second);
+    }
+
 
 }

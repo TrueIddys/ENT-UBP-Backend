@@ -1,6 +1,9 @@
 package org.ubp.ent.backend.core.domains.teachingunit;
 
 import org.junit.Test;
+import org.ubp.ent.backend.core.domains.module.ModuleDomain;
+import org.ubp.ent.backend.core.domains.module.ModuleDomainTest;
+import org.ubp.ent.backend.core.model.module.ModuleTest;
 import org.ubp.ent.backend.core.model.teachingunit.TeachingUnit;
 import org.ubp.ent.backend.core.model.teachingunit.TeachingUnitTest;
 
@@ -11,8 +14,15 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class TeachingUnitDomainTest {
 
-    public static TeachingUnitDomain createOne(String name) {
-        return new TeachingUnitDomain(TeachingUnitTest.createOne(name));
+    public static TeachingUnitDomain createOne(String name, int moduleCount) {
+        TeachingUnit teachingUnit = TeachingUnitTest.createOne();
+        TeachingUnitDomain teachingUnitDomain = new TeachingUnitDomain(teachingUnit);
+
+        for (int i = 0; i < moduleCount; i++) {
+            teachingUnitDomain.addModule(ModuleDomainTest.createOne("module " + i));
+        }
+
+        return  teachingUnitDomain;
     }
 
     public static TeachingUnitDomain createOne() {
@@ -32,6 +42,7 @@ public class TeachingUnitDomainTest {
 
         assertThat(domain.getId()).isEqualTo(model.getId());
         assertThat(domain.getName()).isEqualTo(model.getName());
+        assertThat(domain.getModules()).isEmpty();
     }
 
     @Test
@@ -72,4 +83,23 @@ public class TeachingUnitDomainTest {
 
         assertThat(first).isNotEqualTo(second);
     }
+    @Test
+    public void shouldNotPopulateListOfModuleWhenCreatingDomainFromModel() {
+        TeachingUnit model = TeachingUnitTest.createOne();
+        model.addModule(ModuleTest.createOne());
+        TeachingUnitDomain domain = new TeachingUnitDomain(model);
+
+        assertThat(domain.getModules()).isEmpty();
+    }
+
+    @Test
+    public void shouldNotPopulateListOfModuleWhenTransformingDomainFromModel() {
+        TeachingUnit model = TeachingUnitTest.createOne();
+        TeachingUnitDomain domain = new TeachingUnitDomain(model);
+        domain.getModules().add(new ModuleDomain(ModuleTest.createOne()));
+
+        TeachingUnit domainToModel = domain.toModel();
+        assertThat(domainToModel.getModules()).isEmpty();
+    }
+
 }

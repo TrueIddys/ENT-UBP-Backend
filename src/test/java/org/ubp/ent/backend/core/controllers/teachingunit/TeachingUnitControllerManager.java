@@ -4,8 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.ubp.ent.backend.core.controllers.course.CourseController;
+import org.ubp.ent.backend.core.dao.manager.module.ModuleManager;
 import org.ubp.ent.backend.core.model.course.Course;
 import org.ubp.ent.backend.core.model.course.CourseTest;
+import org.ubp.ent.backend.core.model.module.Module;
+import org.ubp.ent.backend.core.model.module.ModuleTest;
 import org.ubp.ent.backend.core.model.teachingunit.TeachingUnit;
 import org.ubp.ent.backend.core.model.teachingunit.TeachingUnitTest;
 import org.ubp.ent.backend.utils.WebApplicationTest;
@@ -27,6 +30,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class TeachingUnitControllerManager extends WebIntegrationTest {
 
     private final String TEACHINGUNIT_BASE_URL = TeachingUnitController.BASE_URL;
+
+    @Inject
+    private ModuleManager moduleManager;
 
     @Inject
     private ObjectMapper mapper;
@@ -104,5 +110,17 @@ public class TeachingUnitControllerManager extends WebIntegrationTest {
         perform(post(TEACHINGUNIT_BASE_URL).content(modelAsJson).contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", notNullValue()));
+    }
+
+    @Test
+    public void shouldAddCourseToModule() throws Exception {
+        TeachingUnit model = createTeachingUnit();
+
+        Module module = ModuleTest.createOne("Genie Log");
+        module = moduleManager.create(module);
+
+        perform(post(TEACHINGUNIT_BASE_URL + "/" + model.getId() + "/module").content(mapper.writeValueAsString(module)).contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id", is(module.getId().intValue())));
     }
 }
